@@ -5,7 +5,7 @@ go. By the end, you should be able to read the script and
 understand how it works. (There is also a bug hidden in the code for the students to find.)
 
 The text from this script is taken from the \"[Feminist Data
-Manifest-NO](https://www.manifestno.com/home)\" by Marika Cifor, Patricia Garcia et al. This "Manifest-NO" is a statement of data ethics in a world where data practices are used to surveille, control, and extract value. The creators crucially demand that "data be acknowledged as at once an interpretation and in need of interpretation." 
+Manifest-NO](https://www.manifestno.com/home)\" by Marika Cifor, Patricia Garcia et al. This "Manifest-NO" is a statement of data ethics. It asserts that data capture and analysis practices aim to reduce real-life objects into computable elements, and often with the goal of surveilling or extracting value from those who are already vulnerable or exploited. While reduction of complexity into simple metrics is a necessary part of working with data, there are ways of working ethical considerations back into the process. It is therefore important to adopt a data ethics that approaches data "as at once an interpretation and in need of interpretation," in the words of the creators.  
 
 ``` python
 
