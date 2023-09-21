@@ -1,0 +1,21 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+parts:
+- caption: Intro to Python
+  chapters:
+  - file: intro/welcome
+  - file: intro/script
+  - file: intro/data-types
+  - file: intro/variables
+  - file: intro/lists
+  - file: intro/loops
+  - file: intro/logic
+- caption: Python for Web Scraping
+  chapters: 
+  - file: scrape/coming-soon
+- caption: Python for Text Analysis
+  chapters: 
+  - file: text/coming-soon
