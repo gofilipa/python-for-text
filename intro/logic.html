@@ -168,7 +168,7 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Intro to Python</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="welcome.html">welcome!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">workshop overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="script.html">opening script</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data-types.html">data types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="variables.html">variables</a></li>
@@ -447,7 +447,7 @@ or false.</p>
 </div>
 </div>
 <p>To evaluate whether expressions are true or false, we can use certain
-operators, like <code class="docutils literal notranslate"><span class="pre">==</span></code> to check equivalence.</p>
+operators, like <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, or <code class="docutils literal notranslate"><span class="pre">==</span></code> to check equivalence. See <a class="reference external" href="https://www.w3schools.com/python/python_operators.asp">w3schools for a list of operators</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">10</span> <span class="o">==</span> <span class="mi">5</span>
@@ -514,40 +514,27 @@ conditions in our code.</p>
 </section>
 <section id="looping-with-conditions">
 <h2>looping with conditions<a class="headerlink" href="#looping-with-conditions" title="Permalink to this heading">#</a></h2>
-<p>In this next and final section, we will add logic to our loop fro the
-previous section. Remember that a loop goes through a collection of
+<p>In this next and final section, we will add logic to our loop from the
+previous section, using the text from our openeing script. Remember that a loop goes through a collection of
 items, like strings in a list, and does something to each item.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">words_lower</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
-  <span class="n">words_lower</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
-
-<span class="n">words_lower</span><span class="p">[:</span><span class="mi">20</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">letter</span> <span class="ow">in</span> <span class="s1">&#39;hello&#39;</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">letter</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">words_lower</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span>   <span class="n">words_lower</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">words_lower</span><span class="p">[:</span><span class="mi">20</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;words&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>h
+e
+l
+l
+o
 </pre></div>
 </div>
 </div>
 </div>
-<p>Notice that we are using list slicing to print only the first twenty
-words from the output, so we can avoid printing out a large list, which
-takes a lot of space on the screen.</p>
-<p>Next, we will write a new loop that includes a condition. This condition
-will check whether a sentence from the text contains the word
-“refuse.” If it does contain the word, it will add it to the new list,
-which we will call “results.”</p>
+<p>Now let’s save our text as “text” variable. Then, we can split the text from a long string into a list of sentences.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39; </span>
@@ -580,15 +567,8 @@ which we will call “results.”</p>
 <span class="s1">  accountability or responsibility. We commit to a feminist data </span>
 <span class="s1">  ethics that explicitly seeks equity and demands justice by helping </span>
 <span class="s1">  us understand and shift how power works.&#39;&#39;&#39;</span>
-
+  
 <span class="n">sentences</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
-
-<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
-  <span class="k">if</span> <span class="s1">&#39;Refuse&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
-      <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-
- <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -599,6 +579,33 @@ which we will call “results.”</p>
 a delimiter, then it defaults to whitespace. For this case, we will
 split the string by period, which we will put between quotes <code class="docutils literal notranslate"><span class="pre">&quot;</span> <span class="pre">&quot;</span></code>. The
 output will then be a list of sentences.</p>
+<p>Next, we will write a new loop that includes a condition. This condition
+will check whether a sentence from the text contains the word
+“Refuse.” If it does contain the word, it will add it to the new list,
+which we will call “results.”</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+  <span class="k">if</span> <span class="s1">&#39;Refuse&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+      <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+ <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>  <span class="n">File</span> <span class="o">&lt;</span><span class="n">tokenize</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">6</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+    <span class="o">^</span>
+<span class="ne">IndentationError</span>: unindent does not match any outer indentation level
+</pre></div>
+</div>
+</div>
+</div>
+<p>Notice that we are using list slicing to print only the first twenty
+words from the output, so we can avoid printing out a large list, which
+takes a lot of space on the screen.</p>
 <p>If you typed in the code exactly as I have written it, the output should
 show an empty list (with empty brackets).</p>
 <p>Why do think it did that? <em>Hint: remember that computers are <strong>very</strong>

@@ -168,7 +168,7 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Intro to Python</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="welcome.html">welcome!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">workshop overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="script.html">opening script</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data-types.html">data types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="variables.html">variables</a></li>
@@ -376,9 +376,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-methods"><code class="docutils literal notranslate"><span class="pre">list</span></code> methods</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-indexing"><code class="docutils literal notranslate"><span class="pre">list</span></code> indexing</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-slicing"><code class="docutils literal notranslate"><span class="pre">list</span></code> slicing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-methods"><code class="docutils literal notranslate"><span class="pre">list</span></code> methods</a></li>
 </ul>
             </nav>
         </div>
@@ -399,159 +399,16 @@ characters that represents a single word. It is important to remember
 that while humans might read each <code class="docutils literal notranslate"><span class="pre">string</span></code> as a word, the computer does
 not ascribe any semantic value, but only reads it as a sequence of
 characters.</p>
-<section id="list-methods">
-<h2><code class="docutils literal notranslate"><span class="pre">list</span></code> methods<a class="headerlink" href="#list-methods" title="Permalink to this heading">#</a></h2>
-<p>Like strings, lists also have specific <em>methods</em> that only work with
-list type data. List methods, as they are called, enables one to do
-various things to data contained in lists.</p>
-<p>Some of the more popular methods have to do with creating and modifying
-items in a list. One list method, <code class="docutils literal notranslate"><span class="pre">append()</span></code>, adds items to a list. For
-example, to a list of breakfast items, one can add additional items
-using <code class="docutils literal notranslate"><span class="pre">append()</span></code>:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">breakfast</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bagel&#39;</span><span class="p">,</span> <span class="s1">&#39;cream cheese&#39;</span><span class="p">,</span> <span class="s1">&#39;coffee&#39;</span><span class="p">]</span>
-<span class="n">breakfast</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;orange juice&#39;</span><span class="p">)</span> 
-<span class="n">breakfast</span> 
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;bagel&#39;, &#39;cream cheese&#39;, &#39;coffee&#39;, &#39;orange juice&#39;]
-</pre></div>
-</div>
-</div>
-</div>
-<p>Other methods, <code class="docutils literal notranslate"><span class="pre">remove()</span></code> and <code class="docutils literal notranslate"><span class="pre">pop()</span></code> take items out from a list. While
-<code class="docutils literal notranslate"><span class="pre">remove()</span></code> takes out a specific item (declared within the parentheses),
-<code class="docutils literal notranslate"><span class="pre">pop()</span></code> will only take out the last item in a list, “popping” it off,
-so to speak.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">breakfast</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;bagel&#39;</span><span class="p">)</span> 
-<span class="n">breakfast</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;cream cheese&#39;, &#39;coffee&#39;, &#39;orange juice&#39;]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">breakfast</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-<span class="n">breakfast</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;cream cheese&#39;, &#39;coffee&#39;]
-</pre></div>
-</div>
-</div>
-</div>
-<p>Besides adding and deleting items, we can also sort items in a list. For
-these, we use the <code class="docutils literal notranslate"><span class="pre">sort()</span></code> and <code class="docutils literal notranslate"><span class="pre">reverse()</span></code> methods.</p>
-<p>To show the power of these methods, we’ll work with a larger list, like
-a list of words from this workshop’s description. First, we will copy
-and paste the workshop description as a single string. Then, we will
-split the string, saving the output to a new variable. Once the data is
-in list format, we will run the <code class="docutils literal notranslate"><span class="pre">sort()</span></code> and <code class="docutils literal notranslate"><span class="pre">reverse()</span></code> methods.</p>
-<p>Notice a new syntax here, the triple quotation marks (instead of
-single), for saving the string. The triple quotes enables our strings to
-break lines and include other punctuation without messing with the
-string format.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39; </span>
-<span class="s1">  1. We refuse to operate under the assumption that risk </span>
-<span class="s1">  and harm associated with data practices can be bounded to  mean </span>
-<span class="s1">  the same thing for everyone, everywhere, at every time. We commit </span>
-<span class="s1">  to acknowledging how historical and systemic patterns of violence </span>
-<span class="s1">  and exploitation produce differential vulnerabilities for </span>
-<span class="s1">  communities.</span>
-<span class="s1">  2. We refuse to be disciplined by data, devices, and practices </span>
-<span class="s1">  that seek to shape and normalize racialized, gendered, and </span>
-<span class="s1">  differently-abled bodies in ways that make us available to be </span>
-<span class="s1">  tracked, monitored, and surveilled. We commit to taking back </span>
-<span class="s1">  control over the ways we behave, live, and engage with data and </span>
-<span class="s1">  its technologies.</span>
-<span class="s1">  3. We refuse the use of data about people in perpetuity. We </span>
-<span class="s1">  commit to embracing agency and working with intentionality, </span>
-<span class="s1">  preparing bodies or corpuses of data to be laid to rest when they </span>
-<span class="s1">  are not being used in service to the people about whom they were </span>
-<span class="s1">  created.</span>
-<span class="s1">  4. We refuse to understand data as disembodied and thereby </span>
-<span class="s1">  dehumanized and departicularized. We commit to understanding </span>
-<span class="s1">  data as always and variously attached to bodies; we vow to </span>
-<span class="s1">  interrogate the biopolitical implications of data with a keen </span>
-<span class="s1">  eye to gender, race, sexuality, class, disability, nationality, </span>
-<span class="s1">  and other forms of embodied difference.</span>
-<span class="s1">  5. We refuse any code of phony “ethics” and false proclamations of </span>
-<span class="s1">  transparency that are wielded as cover, as tools of power, as forms </span>
-<span class="s1">  for escape that let the people who create systems off the hook from </span>
-<span class="s1">  accountability or responsibility. We commit to a feminist data </span>
-<span class="s1">  ethics that explicitly seeks equity and demands justice by helping </span>
-<span class="s1">  us understand and shift how power works.&#39;&#39;&#39;</span>
-  
-<span class="c1"># when splitting a list, remember that we have to save the</span>
-<span class="c1"># results to a new variable</span>
-<span class="n">text_split</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> 
-
-<span class="c1"># with the sort method, we don&#39;t have to save the results to</span>
-<span class="c1"># a new variable. It will automatically just print them.</span>
-<span class="n">text_split</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Notice a couple of things:</p>
-<ol class="arabic simple">
-<li><p>I cheated. I used a <code class="docutils literal notranslate"><span class="pre">string</span></code> method when I said I was only going to
-show you <code class="docutils literal notranslate"><span class="pre">list</span></code> methods. Can you spot the rouge <code class="docutils literal notranslate"><span class="pre">string</span></code> method?
-Hint: you’ve seen it before, and it is attached to a string type of
-object.</p></li>
-<li><p>Some methods return new objects, while other methods simply change
-existing ones. The <code class="docutils literal notranslate"><span class="pre">sort()</span></code> method is one that changes the existing
-object. Unlike the <code class="docutils literal notranslate"><span class="pre">split()</span></code> method, we don’t have to save the
-results of <code class="docutils literal notranslate"><span class="pre">sort()</span></code> to a new variable. <code class="docutils literal notranslate"><span class="pre">sort()</span></code>, and other methods
-like <code class="docutils literal notranslate"><span class="pre">reverse()</span></code>, change the item in place, meaning that the
-existing list is modified. <code class="docutils literal notranslate"><span class="pre">split()</span></code>, by contrast, creates a new
-object, which needs to be saved. This is a bit of an advanced
-concept in Python, so there is no rush to fully grasp it now.</p></li>
-<li><p>The resulting list is organized alphabetically, which means that any
-punctuation and/or numbers will appear before any letters. This will
-explain why the results may not seem alphabetically sorted at first.</p></li>
-<li><p>See the little hashtag <code class="docutils literal notranslate"><span class="pre">#</span></code> symbol? That’s how you write a comment in
-Python. By putting the <code class="docutils literal notranslate"><span class="pre">#</span></code> at the start of the line, that tells Pyhon
-not to process that line’s contents, that it’s meant for human
-readers.</p></li>
-</ol>
-<p>Remember that these <code class="docutils literal notranslate"><span class="pre">list</span></code> methods will not work on <code class="docutils literal notranslate"><span class="pre">string</span></code> type data.
-Try running a few of them on a string, just to see what happens.</p>
-</section>
 <section id="list-indexing">
 <h2><code class="docutils literal notranslate"><span class="pre">list</span></code> indexing<a class="headerlink" href="#list-indexing" title="Permalink to this heading">#</a></h2>
-<p>While list methods enable one to do things like create and modify lists,
-list indexing enables one to access specific items in a list.</p>
-<p>List indexing is super useful for working with large lists, such as a
+<p>List indexing enables programmers access specific items in a list. It is super useful for working with large lists, such as a
 full text, or even a collection of texts. It works by accessing items
-according to their position (their location) within a list. The moment a
+according to their position (their location) within a list.</p>
+<p>The moment a
 list is created in Python, it comes with an implicit index, where each
 item is assigned a numerical position. The first item is assigned to the
 position 0, the second item is assigned 1, the third item is assigned 2,
 the fourth item assigned 3, and so on.</p>
-<p>Why does list indexing begin with 0? The answer is a bit complicated,
-and gets into technical details of how computer memory works in
-programming. Put simply, it has to do with the memory location being
-defined or based by offsets. Because the first item of a list is also
-the origin location of the list, its offset is 0. In other words, to go
-to the first item in the list, there is no movement (or offset) from the
-current, or origin, location. The second item of the list requires 1
-movement from current location, and is therefore assigned to the
-location 1.</p>
 <p>The syntax for list indexing is to declare the list name followed by
 brackets that contain the index. The first item in a list would be
 accessed with the index 0.</p>
@@ -570,6 +427,15 @@ accessed with the index 0.</p>
 </div>
 </div>
 </div>
+<p><em>Note: Why does list indexing begin with 0? The answer is a bit complicated,
+and gets into technical details of how computer memory works in
+programming. Put simply, it has to do with the memory location being
+defined or based by offsets. Because the first item of a list is also
+the origin location of the list, its offset is 0. In other words, to go
+to the first item in the list, there is no movement (or offset) from the
+current, or origin, location. The second item of the list requires 1
+movement from current location, and is therefore assigned to the
+location 1.</em></p>
 <p>The third item in a list would be accessed with the index 2.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -646,7 +512,7 @@ or first 100 items from a list, allowing you to take peeks into the list
 items without printing the entire list.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">breakfast</span> <span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">breakfast</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
 </pre></div>
 </div>
 </div>
@@ -656,6 +522,139 @@ items without printing the entire list.</p>
 </div>
 </div>
 </div>
+</section>
+<section id="list-methods">
+<h2><code class="docutils literal notranslate"><span class="pre">list</span></code> methods<a class="headerlink" href="#list-methods" title="Permalink to this heading">#</a></h2>
+<p>Like strings, lists also have specific <em>methods</em> that only work with
+list type data. List methods, as they are called, enables one to do
+various things to data contained in lists.</p>
+<p>Some of the more popular methods have to do with creating and modifying
+items in a list. One list method, <code class="docutils literal notranslate"><span class="pre">append()</span></code>, adds items to a list. For
+example, to a list of breakfast items, one can add additional items
+using <code class="docutils literal notranslate"><span class="pre">append()</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">breakfast</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bagel&#39;</span><span class="p">,</span> <span class="s1">&#39;cream cheese&#39;</span><span class="p">,</span> <span class="s1">&#39;coffee&#39;</span><span class="p">]</span>
+<span class="n">breakfast</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;orange juice&#39;</span><span class="p">)</span> 
+<span class="n">breakfast</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;bagel&#39;, &#39;cream cheese&#39;, &#39;coffee&#39;, &#39;orange juice&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Other methods, <code class="docutils literal notranslate"><span class="pre">remove()</span></code> and <code class="docutils literal notranslate"><span class="pre">pop()</span></code> take items out from a list. While
+<code class="docutils literal notranslate"><span class="pre">remove()</span></code> takes out a specific item (declared within the parentheses),
+<code class="docutils literal notranslate"><span class="pre">pop()</span></code> will only take out the last item in a list, “popping” it off,
+so to speak.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">breakfast</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;bagel&#39;</span><span class="p">)</span> 
+<span class="n">breakfast</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;cream cheese&#39;, &#39;coffee&#39;, &#39;orange juice&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">breakfast</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="n">breakfast</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;cream cheese&#39;, &#39;coffee&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Besides adding and deleting items, we can also sort items in a list. For
+these, we use the <code class="docutils literal notranslate"><span class="pre">sort()</span></code> and <code class="docutils literal notranslate"><span class="pre">reverse()</span></code> methods.</p>
+<p>To show the power of these methods, we’ll work with a larger list, like
+a list of words from this workshop’s description. First, we will copy
+and paste the workshop description as a single string. Then, we will
+split the string, saving the output to a new variable. Once the data is
+in list format, we will run the <code class="docutils literal notranslate"><span class="pre">sort()</span></code> and <code class="docutils literal notranslate"><span class="pre">reverse()</span></code> methods.</p>
+<p>Notice the syntax wrapping the string here, the triple quotation marks (instead of
+single), for saving the string. The triple quotes enables our strings to
+break lines and include other punctuation without messing with the
+string format.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39; </span>
+<span class="s1">  1. We refuse to operate under the assumption that risk </span>
+<span class="s1">  and harm associated with data practices can be bounded to  mean </span>
+<span class="s1">  the same thing for everyone, everywhere, at every time. We commit </span>
+<span class="s1">  to acknowledging how historical and systemic patterns of violence </span>
+<span class="s1">  and exploitation produce differential vulnerabilities for </span>
+<span class="s1">  communities.</span>
+<span class="s1">  2. We refuse to be disciplined by data, devices, and practices </span>
+<span class="s1">  that seek to shape and normalize racialized, gendered, and </span>
+<span class="s1">  differently-abled bodies in ways that make us available to be </span>
+<span class="s1">  tracked, monitored, and surveilled. We commit to taking back </span>
+<span class="s1">  control over the ways we behave, live, and engage with data and </span>
+<span class="s1">  its technologies.</span>
+<span class="s1">  3. We refuse the use of data about people in perpetuity. We </span>
+<span class="s1">  commit to embracing agency and working with intentionality, </span>
+<span class="s1">  preparing bodies or corpuses of data to be laid to rest when they </span>
+<span class="s1">  are not being used in service to the people about whom they were </span>
+<span class="s1">  created.</span>
+<span class="s1">  4. We refuse to understand data as disembodied and thereby </span>
+<span class="s1">  dehumanized and departicularized. We commit to understanding </span>
+<span class="s1">  data as always and variously attached to bodies; we vow to </span>
+<span class="s1">  interrogate the biopolitical implications of data with a keen </span>
+<span class="s1">  eye to gender, race, sexuality, class, disability, nationality, </span>
+<span class="s1">  and other forms of embodied difference.</span>
+<span class="s1">  5. We refuse any code of phony “ethics” and false proclamations of </span>
+<span class="s1">  transparency that are wielded as cover, as tools of power, as forms </span>
+<span class="s1">  for escape that let the people who create systems off the hook from </span>
+<span class="s1">  accountability or responsibility. We commit to a feminist data </span>
+<span class="s1">  ethics that explicitly seeks equity and demands justice by helping </span>
+<span class="s1">  us understand and shift how power works.&#39;&#39;&#39;</span>
+  
+<span class="c1"># when splitting a list, remember that we have to save the</span>
+<span class="c1"># results to a new variable</span>
+<span class="n">text_split</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> 
+
+<span class="c1"># with the sort method, we don&#39;t have to save the results to</span>
+<span class="c1"># a new variable. It will automatically just print them.</span>
+<span class="n">text_split</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Notice a couple of things:</p>
+<ol class="arabic simple">
+<li><p>I cheated. I used a <code class="docutils literal notranslate"><span class="pre">string</span></code> method when I said I was only going to
+show you <code class="docutils literal notranslate"><span class="pre">list</span></code> methods. Can you spot the rouge <code class="docutils literal notranslate"><span class="pre">string</span></code> method?
+Hint: you’ve seen it before, and it is attached to a string type of
+object.</p></li>
+<li><p>Some methods return new objects, while other methods simply change
+existing ones. The <code class="docutils literal notranslate"><span class="pre">sort()</span></code> method is one that changes the existing
+object. Unlike the <code class="docutils literal notranslate"><span class="pre">split()</span></code> method, we don’t have to save the
+results of <code class="docutils literal notranslate"><span class="pre">sort()</span></code> to a new variable. <code class="docutils literal notranslate"><span class="pre">sort()</span></code>, and other methods
+like <code class="docutils literal notranslate"><span class="pre">reverse()</span></code>, change the item in place, meaning that the
+existing list is modified. <code class="docutils literal notranslate"><span class="pre">split()</span></code>, by contrast, creates a new
+object, which needs to be saved. This is a bit of an advanced
+concept in Python, so there is no rush to fully grasp it now.</p></li>
+<li><p>The resulting list is organized alphabetically, which means that any
+punctuation and/or numbers will appear before any letters. This will
+explain why the results may not seem alphabetically sorted at first.</p></li>
+<li><p>See the little hashtag <code class="docutils literal notranslate"><span class="pre">#</span></code> symbol? That’s how you write a comment in
+Python. By putting the <code class="docutils literal notranslate"><span class="pre">#</span></code> at the start of the line, that tells Pyhon
+not to process that line’s contents, that it’s meant for human
+readers.</p></li>
+</ol>
+<p>Remember that these <code class="docutils literal notranslate"><span class="pre">list</span></code> methods will not work on <code class="docutils literal notranslate"><span class="pre">string</span></code> type data.
+Try running a few of them on a string, just to see what happens.</p>
 <p>List methods, indexing, and slicing are crucial tools for working with
 lists. The next sections will introduce skills for working more
 programmatically with lists.</p>
@@ -725,9 +724,9 @@ programmatically with lists.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-methods"><code class="docutils literal notranslate"><span class="pre">list</span></code> methods</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-indexing"><code class="docutils literal notranslate"><span class="pre">list</span></code> indexing</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-slicing"><code class="docutils literal notranslate"><span class="pre">list</span></code> slicing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-methods"><code class="docutils literal notranslate"><span class="pre">list</span></code> methods</a></li>
 </ul>
   </nav></div>
 

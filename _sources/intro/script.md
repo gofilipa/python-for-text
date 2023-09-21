@@ -1,17 +1,11 @@
 # opening script
 
 We begin with a script as a kind of landmark for where the workshop will
-go. By the end, participants should be able to read the script and
-understand how it works.
-
-(There is also a bug hidden in the code for the students to find.)
+go. By the end, you should be able to read the script and
+understand how it works. (There is also a bug hidden in the code for the students to find.)
 
 The text from this script is taken from the \"[Feminist Data
-Manifest-NO](https://www.manifestno.com/home)\" by Marika Cifor,
-Patricia Garcia et al. In the words of the creators, \"The Manifest-No
-is a declaration of refusal and commitment. It refuses harmful data
-regimes and commits to new data futures.\" The following are the first
-five declarations from the \"Manifest-NO.\"
+Manifest-NO](https://www.manifestno.com/home)\" by Marika Cifor, Patricia Garcia et al. This "Manifest-NO" is a statement of data ethics in a world where data practices are used to surveille, control, and extract value. The creators crucially demand that "data be acknowledged as at once an interpretation and in need of interpretation." 
 
 ``` python
 
