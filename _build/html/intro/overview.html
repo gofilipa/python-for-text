@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>data types &#8212; Python for Working with Text</title>
+    <title>workshop overview &#8212; Python for Working with Text</title>
   
   
   
@@ -62,11 +62,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'intro/data-types';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'intro/overview';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="variables" href="variables.html" />
-    <link rel="prev" title="opening script" href="script.html" />
+    <link rel="next" title="opening script" href="script.html" />
+    <link rel="prev" title="“Intro to Python for Working with Text” workshop series" href="../intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -168,9 +168,9 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Intro to Python</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="overview.html">workshop overview</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">workshop overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="script.html">opening script</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-types.html">data types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="variables.html">variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lists.html">lists</a></li>
 <li class="toctree-l1"><a class="reference internal" href="loops.html">loops</a></li>
@@ -254,7 +254,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fintro/data-types.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fintro/overview.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -284,7 +284,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/intro/data-types.ipynb" target="_blank"
+      <li><a href="../_sources/intro/overview.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -294,7 +294,7 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.ipynb</span>
+<span class="btn__text-container">.md</span>
 </a>
 </li>
       
@@ -353,7 +353,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -364,11 +366,20 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>data types</h1>
+    <h1>workshop overview</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">learning objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#google-colab-environment">Google Colab environment</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -378,83 +389,36 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="data-types">
-<h1>data types<a class="headerlink" href="#data-types" title="Permalink to this heading">#</a></h1>
-<p>All real world objects and ideas are transformed into computational
-format, into <em>types of data</em>. There are many data types in Python, but a
-few of them will be important for us in this workshop.</p>
-<p>We use the <code class="docutils literal notranslate"><span class="pre">type()</span></code> function to check data types. A function is a way of doing something to data in Python. We will talk more about functions in upcoming lessons.</p>
-<p>The most common data types include:</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="workshop-overview">
+<h1>workshop overview<a class="headerlink" href="#workshop-overview" title="Permalink to this heading">#</a></h1>
+<section id="learning-objectives">
+<h2>learning objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this heading">#</a></h2>
+<p>This workshop teaches the Python programming language as a tool that takes data, organizes it into collections/groupings, with the goal of doing something to that data.</p>
+<p>Workshop goals:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">integer</span></code> - whole number</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">string</span></code> - characters within quotes (sequences)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code> - true or false values (for logic)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">list</span></code> - collection of all of the above.</p></li>
+<li><p>Introduce ways of saving and categorizing data in Python.</p></li>
+<li><p>Introduce ways of working with data through functions and methods.</p></li>
+<li><p>Introduce the order of operations in code, such as in logical
+structures and iterative processes.</p></li>
+<li><p>Familiarity with basic Python syntax.</p></li>
 </ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>int
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>str
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="s1">&#39;True&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>str
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">([</span><span class="s1">&#39;donut&#39;</span><span class="p">,</span> <span class="s1">&#39;smoothie&#39;</span><span class="p">,</span> <span class="s1">&#39;coffee&#39;</span><span class="p">,</span> <span class="s1">&#39;banana&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>list
-</pre></div>
-</div>
-</div>
-</div>
-<p>Two things to keep in mind about data types, both of which have to do with data types being a particular kind of <em>constraint</em> that is placed on all data.</p>
-<p>First, all information that you want to work with must fit into one
-of these data types. The transformation of real world objects and/or
-ideas into computer-readable data inevitably reduces or simplifies
-the original. For example, words with semantic meaning to a human
-become a <code class="docutils literal notranslate"><span class="pre">string</span></code>, a sequence of characters wrapped by quotation
-marks, or someone’s age expressed as an <code class="docutils literal notranslate"><span class="pre">integer</span></code>, a whole number
-in years. The significance of this reduction will be more apparent
-when you start to work with data in the text analysis workshop.</p>
-<p>Second, that each data type has associated “methods” that go with
-it. You can do things with integers that you cannot do with strings,
-for example. You can add numbers together, but not strings. This
-will be the source of many, many errors as you get started.</p>
-<p>Other types you might hear about: floats, tuples, dicts, etc. You can
-read more about these <a class="reference external" href="https://www.w3schools.com/python/python_datatypes.asp">on
-W3Schools</a>.</p>
+</section>
+<section id="google-colab-environment">
+<h2>Google Colab environment<a class="headerlink" href="#google-colab-environment" title="Permalink to this heading">#</a></h2>
+<p>There are many ways to use Python. For this workshop, we will be using
+<a class="reference external" href="https://colab.research.google.com">Google Colab</a>, a browser-based tool
+for running Python code. Like Google Docs, Google Colab creates a
+collaborate environment hosted on the cloud for authoring content.</p>
+<p>Signficantly for programmers, Google Colab offers Python software
+pre-installed on the cloud environment. Whereas most Python environments
+require installations (some of which can be really complicated), Google
+Colab enables users to jump right into coding.</p>
+<p>Google Colab creates an interactive coding environment where you can
+enter a Python expression into the black text box, called a “cell”,
+and execute, or “run,” the expression by pressing enter. Please see
+<a class="reference external" href="https://colab.research.google.com/?utm_source=scs-index">this tutorial</a>
+for specifics on how to run Python within the Google Colab environment.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -488,20 +452,20 @@ W3Schools</a>.</p>
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="script.html"
+       href="../intro.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">opening script</p>
+        <p class="prev-next-title">“Intro to Python for Working with Text” workshop series</p>
       </div>
     </a>
     <a class="right-next"
-       href="variables.html"
+       href="script.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">variables</p>
+        <p class="prev-next-title">opening script</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -511,6 +475,21 @@ W3Schools</a>.</p>
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">learning objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#google-colab-environment">Google Colab environment</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

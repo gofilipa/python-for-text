@@ -25,14 +25,16 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-for item (in) breakfast:
-  print(item)
+for x in y:
+    print(x)
 ------------------
 
-[0;36m  Cell [0;32mIn[3], line 1[0;36m[0m
-[0;31m    for item (in) breakfast:[0m
-[0m              ^[0m
-[0;31mSyntaxError[0m[0;31m:[0m invalid syntax
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mNameError[0m                                 Traceback (most recent call last)
+Cell [0;32mIn[4], line 1[0m
+[0;32m----> 1[0m [38;5;28;01mfor[39;00m x [38;5;129;01min[39;00m y:
+[1;32m      2[0m     [38;5;28mprint[39m(x)
 
-SyntaxError: invalid syntax (4247183978.py, line 1)
+[0;31mNameError[0m: name 'y' is not defined
+NameError: name 'y' is not defined
 

@@ -6,7 +6,7 @@ root: intro
 parts:
 - caption: Intro to Python
   chapters:
-  - file: intro/welcome
+  - file: intro/overview
   - file: intro/script
   - file: intro/data-types
   - file: intro/variables

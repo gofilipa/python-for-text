@@ -8,9 +8,7 @@ filipa@princeton.edu
 ## Welcome to the series!
 As one of the most popular, versatile, and beginner-friendly programming langauges, Python can be used for a variety of tasks from analyzing data to building websites.
 
-This 3-part workshops introduces participants to the Python programming language for working with text. It begins with core concepts and builds to basic tasks in web scraping and text analysis. 
-
-The first workshop will set up the core concepts for the Python programming language: data types, variables, functions, loops, and logic. The following workshops will build on these concepts in web scraping and text analysis tasks.
+This 3-part workshops introduces participants to the Python programming language for working with text. The first workshop begins with core concepts, like data types, variables, functions, loops, and logic, and builds to basic tasks in web scraping and text analysis in the second and third workshops. 
 
 ## Upcoming Digital Scholarship Workshops
 See more workshop offerings (including on Python) at the [Princeton University library](https://libcal.princeton.edu/calendar/)

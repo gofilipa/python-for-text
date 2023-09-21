@@ -168,7 +168,7 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Intro to Python</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="welcome.html">welcome!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">workshop overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="script.html">opening script</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data-types.html">data types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="variables.html">variables</a></li>
@@ -449,19 +449,24 @@ this) breakfast (list).” Then, the second line specifies the action
 done to that item, in this case, the instruction to print that item.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="p">(</span><span class="ow">in</span><span class="p">)</span> <span class="n">breakfast</span><span class="p">:</span>
-  <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">breakfast</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>  <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-    <span class="k">for</span> <span class="n">item</span> <span class="p">(</span><span class="ow">in</span><span class="p">)</span> <span class="n">breakfast</span><span class="p">:</span>
-              <span class="o">^</span>
-<span class="ne">SyntaxError</span>: invalid syntax
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>egg sandwich
+coffee
+biscuits and gravy
+strawberries
+omelette
 </pre></div>
 </div>
 </div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">each</span> <span class="n">item</span> <span class="n">inside</span> <span class="n">breakfast</span><span class="p">:</span>
+  <span class="n">display</span> <span class="n">each</span> <span class="n">item</span>
+</pre></div>
 </div>
 <section id="a-note-on-variable-names">
 <h2>a note on variable names<a class="headerlink" href="#a-note-on-variable-names" title="Permalink to this heading">#</a></h2>
@@ -475,6 +480,17 @@ defined.</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">y</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">y</span><span class="p">:</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;y&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -502,8 +518,7 @@ shorthand for indicating an item from a list.</p>
 <p>Loops are great ways to do things en masse to data, such as to
 individual words within a text, in other words, to <code class="docutils literal notranslate"><span class="pre">string</span></code> type data
 that is contained within a <code class="docutils literal notranslate"><span class="pre">list</span></code>.</p>
-<p>Looping over strings in a list is a great way of programmatically
-applying a rule or task to all the strings in a list. For example, you
+<p>For example, you
 might want to lowercase all of the letters from our dataset for
 regularization purposes. To do that, use the <code class="docutils literal notranslate"><span class="pre">lower()</span></code> method.</p>
 <p>Can you guess what it does?</p>
