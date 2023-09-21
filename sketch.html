@@ -1,0 +1,1214 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Introduction to Python for Working with Text &#8212; Python for Working with Text</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sketch';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    “Intro to Python for Working with Text” workshop series
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Intro to Python</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="intro/welcome.html">welcome!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro/script.html">opening script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro/data-types.html">data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro/variables.html">variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro/lists.html">lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro/loops.html">loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro/logic.html">logic</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python for Web Scraping</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="scrape/coming-soon.html">coming soon!</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python for Text Analysis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="text/coming-soon.html">coming soon!</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fsketch.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/sketch.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introduction to Python for Working with Text</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Introduction to Python for Working with Text</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#upcoming-digital-scholarship-workshops">Upcoming Digital Scholarship Workshops</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pedagocial-models-using-jupyter-book">Pedagocial models using Jupyter-Book</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning Objectives</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#google-colab-environment">Google Colab environment</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#opening-script">Opening Script</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data-types">Data types</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#variables">Variables</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-note-on-methods-and-functions">a note on Methods and Functions</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#lists">Lists</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-methods"><code class="docutils literal notranslate"><span class="pre">list</span></code> methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-indexing"><code class="docutils literal notranslate"><span class="pre">list</span></code> indexing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-slicing"><code class="docutils literal notranslate"><span class="pre">list</span></code> slicing</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#loops">Loops</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-note-on-variable-names">a note on variable names</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#string-methods"><code class="docutils literal notranslate"><span class="pre">string</span></code> methods</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#logic">Logic</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boolean"><code class="docutils literal notranslate"><span class="pre">boolean</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#if-statement"><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">statement</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-with-conditions">loop with conditions</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#sources">sources</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#future-workshops">future workshops</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-for-web-scraping">overview for Web Scraping</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-libraries">Importing libraries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objects">Objects</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-for-text-analysis">overview for Text Analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#file-types-importing-files">file types, importing files.</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-python-for-working-with-text">
+<h1>Introduction to Python for Working with Text<a class="headerlink" href="#introduction-to-python-for-working-with-text" title="Permalink to this heading">#</a></h1>
+<p>Introducing the Python programming language as a tool that takes data,
+organizes it into collections/groupings, with the goal of doing
+something to that data.</p>
+<p>The first workshop will set up the core concepts: data types, variables,
+functions, loops, and logic. The following workshops will build on these
+concepts in web scraping and text analysis tasks.</p>
+<section id="upcoming-digital-scholarship-workshops">
+<h2>Upcoming Digital Scholarship Workshops<a class="headerlink" href="#upcoming-digital-scholarship-workshops" title="Permalink to this heading">#</a></h2>
+<p>Register at library website: /calendar CS consults link</p>
+</section>
+<section id="pedagocial-models-using-jupyter-book">
+<h2>Pedagocial models using Jupyter-Book<a class="headerlink" href="#pedagocial-models-using-jupyter-book" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://python-textbook.pythonhumanities.com/intro.html">Introduction to Python for
+Humanists</a>, by
+Dr. WJB Mattingly, Smithsonian Data Science Lab</p>
+<p><a class="reference external" href="https://melaniewalsh.github.io/Intro-Cultural-Analytics/welcome.html">Introduction to Cultural Analytics &amp;
+Python</a>
+by Prof Melanie Walsh, U of Washington</p>
+<p><a class="reference external" href="https://inferentialthinking.com/chapters/intro.html">Data 8 Course</a> at
+Stanford</p>
+</section>
+<section id="learning-objectives">
+<h2>Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this heading">#</a></h2>
+<p>Goals:</p>
+<ul class="simple">
+<li><p>Introduce ways of saving and categorizing data in Python.</p></li>
+<li><p>Introduce ways of working with data through functions and methods.</p></li>
+<li><p>Introduce the order of operations in code, such as in logical
+structures and iterative processes.</p></li>
+<li><p>Familiarity with basic Python syntax.</p></li>
+</ul>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="google-colab-environment">
+<h1>Google Colab environment<a class="headerlink" href="#google-colab-environment" title="Permalink to this heading">#</a></h1>
+<p>There are many ways to use Python. For this workshopwe will be using
+<a class="reference external" href="https://colab.research.google.com">Google Colab</a>, a browser-based tool
+for running Python code. Like Google Docs, Google Colab creates a
+collaborate environment hosted on the cloud for authoring content.</p>
+<p>Signficantly for programmers, Google Colab offers Python software
+pre-installed on the cloud environment. Whereas most Python environments
+require installations (some of which can be really complicated), Google
+Colab enables users to jump right into coding.</p>
+<p>Google Colab creates an interactive coding environment where you can
+enter a Python expression into the black text box, called a “cell”,
+and execute, or “run,” the expression by pressing enter. Please see
+<a class="reference external" href="https://colab.research.google.com/?utm_source=scs-index">this tutorial</a>
+for specifics on how to run Python within the Google Colab environment.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="opening-script">
+<h1>Opening Script<a class="headerlink" href="#opening-script" title="Permalink to this heading">#</a></h1>
+<p>We begin with a script as a kind of landmark for where the workshop will
+go. By the end, participants should be able to read the script and
+understand how it works.</p>
+<p>(There is also a bug hidden in the code for the students to find.)</p>
+<p>The text from this script is taken from the “<a class="reference external" href="https://www.manifestno.com/home">Feminist Data
+Manifest-NO</a>” by Marika Cifor,
+Patricia Garcia et al. In the words of the creators, “The Manifest-No
+is a declaration of refusal and commitment. It refuses harmful data
+regimes and commits to new data futures.” The following are the first
+five declarations from the “Manifest-NO.”</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="c1"># a loop that goes through a list of sentences and checks if they</span>
+<span class="c1"># contain the word &quot;Refuse&quot;. If it does contain the word, appends the</span>
+<span class="c1"># sentence to a new list.</span>
+
+<span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39; 1. We refuse to operate under the assumption that risk and harm associated with data practices can be bounded to  mean the same thing for everyone, everywhere, at every time. We commit to acknowledging how historical and systemic patterns of violence and exploitation produce differential vulnerabilities for communities.</span>
+<span class="s1">  2. We refuse to be disciplined by data, devices, and practices that seek to shape and normalize racialized, gendered, and differently-abled bodies in ways that make us available to be tracked, monitored, and surveilled. We commit to taking back control over the ways we behave, live, and engage with data and its technologies.</span>
+<span class="s1">  3. We refuse the use of data about people in perpetuity. We commit to embracing agency and working with intentionality, preparing bodies or corpuses of data to be laid to rest when they are not being used in service to the people about whom they were created.</span>
+<span class="s1">  4. We refuse to understand data as disembodied and thereby dehumanized and departicularized. We commit to understanding data as always and variously attached to bodies; we vow to interrogate the biopolitical implications of data with a keen eye to gender, race, sexuality, class, disability, nationality, and other forms of embodied difference.</span>
+<span class="s1">  5. We refuse any code of phony “ethics” and false proclamations of transparency that are wielded as cover, as tools of power, as forms for escape that let the people who create systems off the hook from accountability or responsibility. We commit to a feminist data ethics that explicitly seeks equity and demands justice by helping us understand and shift how power works.&#39;&#39;&#39;</span>
+
+<span class="n">sentence</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">text</span><span class="p">:</span>
+    <span class="k">if</span> <span class="s1">&#39;Refuse&#39;</span> <span class="ow">in</span> <span class="n">sentence</span><span class="p">:</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+
+
+</pre></div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="data-types">
+<h1>Data types<a class="headerlink" href="#data-types" title="Permalink to this heading">#</a></h1>
+<p>All real world objects and ideas are transformed into computational
+format, into <em>types of data</em>. There are many data types in Python, but a
+few of them will be important for us in this workshop.</p>
+<p>We use the <code class="docutils literal notranslate"><span class="pre">type()</span></code> function to check data types. These include:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">integer</span></code> - whole number</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">string</span></code> - characters within quotes (sequences)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code> - true or false values (for logic)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">list</span></code> - collection of all of the above.</p></li>
+</ul>
+<p>Two things to keep in mind about data types:</p>
+<ul class="simple">
+<li><p>First, all information that you want to work with must fit into one
+of these data types. The transformation of real world objects and/or
+ideas into computer-readable data inevitably reduces or simplifies
+the original. For example, words with semantic meaning to a human
+become a <code class="docutils literal notranslate"><span class="pre">string</span></code>, a sequence of characters wrapped by quotation
+marks, or someone’s age expressed as an <code class="docutils literal notranslate"><span class="pre">integer</span></code>, a whole number
+in years. The significance of this reduction will be more apparent
+when you start to work with data in the text analysis workshop.</p></li>
+<li><p>Second, that each data type has associated “methods” that go with
+it. You can do things with integers that you cannot do with strings,
+for example. You can add numbers together, but not strings. This
+will be the source of many, many errors as you get started.</p></li>
+</ul>
+<p>Other types you might hear about: floats, tuples, dicts, etc. You can
+read more about these <a class="reference external" href="https://www.w3schools.com/python/python_datatypes.asp">on
+W3Schools</a>.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="variables">
+<h1>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">#</a></h1>
+<p>So we have data in a digital format, as a specific type of data, but how
+do we work with that data?</p>
+<p>Before we can use that data in any kind of programming, we need to save
+it. To give it a name, or a label. This is where <em>variables</em> become
+important.</p>
+<p>A variable assigns data, a value, to a label, say <code class="docutils literal notranslate"><span class="pre">x</span></code>. We could save the
+integer 34 to <code class="docutils literal notranslate"><span class="pre">x</span></code> like so,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">34</span>
+</pre></div>
+</div>
+<p>With some exceptions, we can assign variables to almost any label we
+want, like <code class="docutils literal notranslate"><span class="pre">x</span></code> or <code class="docutils literal notranslate"><span class="pre">y</span></code>. But, we want to make sure that anybody reading
+our code will have as best a sense as possible about what the variable
+refers to. It is therefore encouraged to use precise but meaningful
+variables, like <code class="docutils literal notranslate"><span class="pre">age</span></code>, something that reflects the value most accurately
+and succinctly.</p>
+<p>Variables can be used to store any data type, like strings, lists, and
+even booleans.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">age</span> <span class="o">=</span> <span class="mi">34</span>
+<span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;filipa&#39;</span>
+<span class="n">breakfast</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;granola&#39;</span><span class="p">,</span> <span class="s1">&#39;cashew yogurt&#39;</span><span class="p">,</span> <span class="s1">&#39;muffin&#39;</span><span class="p">,</span> <span class="s1">&#39;coffee&#39;</span><span class="p">]</span>
+<span class="n">truth</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p>As a label for data, variables represent what is officially called an an
+<em>object</em> in Python. Objects are ways of thinking about data in its
+digitized form and what can be done to data in that form. Depending on
+the type of object (like a string, for example) we can run different
+kinds of computations. When applied to objects, the computations we can
+do are called <em>methods</em>.</p>
+<p>For example, with a string type of object, we can use the <code class="docutils literal notranslate"><span class="pre">upper()</span></code>
+method to make all of the characters in the string uppercase.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">greeting</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span>
+<span class="n">greeting</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> 
+</pre></div>
+</div>
+<p>Here, we are using <em>dot syntax</em>, that is, a period <code class="docutils literal notranslate"><span class="pre">.</span></code> in between the
+variable (the object) and the method (the action). What comes before the
+dot is the data, saved to a variable. What follows the dot in dot syntax
+is the action being applied to the variable.</p>
+<section id="a-note-on-methods-and-functions">
+<h2>a note on Methods and Functions<a class="headerlink" href="#a-note-on-methods-and-functions" title="Permalink to this heading">#</a></h2>
+<p>You may have already noticed that a <em>method</em> is very similar to a
+<em>function</em>, which we have seen previously with the <code class="docutils literal notranslate"><span class="pre">type()</span></code> function
+that evaluates data types. Both methods and functions do something to
+data. The difference between them has to do with syntax. A function
+takes data in between the parentheses, like when we pass a string into
+the <code class="docutils literal notranslate"><span class="pre">type()</span></code> function with <code class="docutils literal notranslate"><span class="pre">type('hello')</span></code>. A method, by contrast,
+appends an action to the end of an object using dot syntax, like with
+<code class="docutils literal notranslate"><span class="pre">greeting.upper()</span></code> example above.</p>
+<p>The differences in syntax indicate a deeper difference between functions
+and methods, which has to do with <em>object-oriented programming</em>, which
+is an advanced concept that we will discuss futher in the Web Scraping
+workshop. For now, though, it’s enough to know that functions and
+methods are recognizable by their syntax, where one takes data within
+parentheses and the other appends to data using dot syntax.</p>
+<p>Another way of thinking about the differences between methods and
+functions is that methods only work with specific types of data. There
+are string methods, like with <code class="docutils literal notranslate"><span class="pre">upper()</span></code> above, and with <code class="docutils literal notranslate"><span class="pre">split()</span></code>, which
+<em>splits</em> a long string, say a paragraph of text, into individual
+strings. Like the example below, the <code class="docutils literal notranslate"><span class="pre">split()</span></code> method will separate the
+data into individual items based on whitespace.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">1. We refuse to operate under the assumption that risk and harm associated with data practices can be bounded to  mean the same thing for everyone, everywhere, at every time. We commit to acknowledging how historical and systemic patterns of violence and exploitation produce differential vulnerabilities for communities.</span>
+<span class="s1">  2. We refuse to be disciplined by data, devices, and practices that seek to shape and normalize racialized, gendered, and differently-abled bodies in ways that make us available to be tracked, monitored, and surveilled. We commit to taking back control over the ways we behave, live, and engage with data and its technologies.</span>
+<span class="s1">  3. We refuse the use of data about people in perpetuity. We commit to embracing agency and working with intentionality, preparing bodies or corpuses of data to be laid to rest when they are not being used in service to the people about whom they were created.</span>
+<span class="s1">  4. We refuse to understand data as disembodied and thereby dehumanized and departicularized. We commit to understanding data as always and variously attached to bodies; we vow to interrogate the biopolitical implications of data with a keen eye to gender, race, sexuality, class, disability, nationality, and other forms of embodied difference.</span>
+<span class="s1">  5. We refuse any code of phony “ethics” and false proclamations of transparency that are wielded as cover, as tools of power, as forms for escape that let the people who create systems off the hook from accountability or responsibility. We commit to a feminist data ethics that explicitly seeks equity and demands justice by helping us understand and shift how power works.</span>
+<span class="s1">&#39;&#39;&#39;</span>
+
+<span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The output shows the long string split into several smaller strings.
+Note that what was previously a <code class="docutils literal notranslate"><span class="pre">string</span></code> data type is now a <code class="docutils literal notranslate"><span class="pre">list</span></code> data
+type. We can easily check the data type using the <code class="docutils literal notranslate"><span class="pre">type()</span></code> function.</p>
+<p>First, thought, we need to save the output of <code class="docutils literal notranslate"><span class="pre">split()</span></code> to a new
+variable, which will be called “words.” Saving the output of the
+method to a new variable then allows us to do more things with that
+data.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">words</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+
+<span class="nb">type</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This code also introduces a bit of abstraction, where new variables are
+created by saving the output of computations, like <code class="docutils literal notranslate"><span class="pre">split()</span></code>. This kind
+of abstraction is common in programming, as data is transformed into new
+formats, which enable further types of computations. Later in workshop,
+creating new variables will be very useful for the kind of work we want
+to do with text.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="lists">
+<h1>Lists<a class="headerlink" href="#lists" title="Permalink to this heading">#</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">list</span></code> data type is perhaps the most common data type for working
+with text. Textual data tends to be saved as a <code class="docutils literal notranslate"><span class="pre">list</span></code>, or a collection
+of separate <code class="docutils literal notranslate"><span class="pre">strings</span></code>, each string consisting of a sequence of
+characters that represents a single word. It is important to remember
+that while humans might read each <code class="docutils literal notranslate"><span class="pre">string</span></code> as a word, the computer does
+not ascribe any semantic value, but only reads it as a sequence of
+characters.</p>
+<section id="list-methods">
+<h2><code class="docutils literal notranslate"><span class="pre">list</span></code> methods<a class="headerlink" href="#list-methods" title="Permalink to this heading">#</a></h2>
+<p>Like strings, lists also have specific <em>methods</em> that only work with
+list type data. List methods, as they are called, enables one to do
+various things to data contained in lists.</p>
+<p>Some of the more popular methods have to do with creating and modifying
+items in a list. One list method, <code class="docutils literal notranslate"><span class="pre">append()</span></code>, adds items to a list. For
+example, to a list of breakfast items, one can add additional items
+using <code class="docutils literal notranslate"><span class="pre">append()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">breakfast</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bagel&#39;</span><span class="p">,</span> <span class="s1">&#39;cream cheese&#39;</span><span class="p">,</span> <span class="s1">&#39;coffee&#39;</span><span class="p">]</span>
+<span class="n">breakfast</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;orange juice&#39;</span><span class="p">)</span> 
+<span class="n">breakfast</span> 
+</pre></div>
+</div>
+<p>Other methods, <code class="docutils literal notranslate"><span class="pre">remove()</span></code> and <code class="docutils literal notranslate"><span class="pre">pop()</span></code> take items out from a list. While
+<code class="docutils literal notranslate"><span class="pre">remove()</span></code> takes out a specific item (declared within the parentheses),
+<code class="docutils literal notranslate"><span class="pre">pop()</span></code> will only take out the last item in a list, “popping” it off,
+so to speak.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">breakfast</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;bagel&#39;</span><span class="p">)</span> 
+<span class="n">breakfast</span>
+
+<span class="n">breakfast</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="n">breakfast</span>
+</pre></div>
+</div>
+<p>Besides adding and deleting items, we can also sort items in a list. For
+these, we use the <code class="docutils literal notranslate"><span class="pre">sort()</span></code> and <code class="docutils literal notranslate"><span class="pre">reverse()</span></code> methods.</p>
+<p>To show the power of these methods, we’ll work with a larger list, like
+a list of words from this workshop’s description. First, we will copy
+and paste the workshop description as a single string. Then, we will
+split the string, saving the output to a new variable. Once the data is
+in list format, we will run the <code class="docutils literal notranslate"><span class="pre">sort()</span></code> and <code class="docutils literal notranslate"><span class="pre">reverse()</span></code> methods.</p>
+<p>Notice a new syntax here, the triple quotation marks (instead of
+single), for saving the string. The triple quotes enables our strings to
+break lines and include other punctuation without messing with the
+string format.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39; 1. We refuse to operate under the assumption that risk and harm associated with data practices can be bounded to  mean the same thing for everyone, everywhere, at every time. We commit to acknowledging how historical and systemic patterns of violence and exploitation produce differential vulnerabilities for communities.</span>
+<span class="s1">  2. We refuse to be disciplined by data, devices, and practices that seek to shape and normalize racialized, gendered, and differently-abled bodies in ways that make us available to be tracked, monitored, and surveilled. We commit to taking back control over the ways we behave, live, and engage with data and its technologies.</span>
+<span class="s1">  3. We refuse the use of data about people in perpetuity. We commit to embracing agency and working with intentionality, preparing bodies or corpuses of data to be laid to rest when they are not being used in service to the people about whom they were created.</span>
+<span class="s1">  4. We refuse to understand data as disembodied and thereby dehumanized and departicularized. We commit to understanding data as always and variously attached to bodies; we vow to interrogate the biopolitical implications of data with a keen eye to gender, race, sexuality, class, disability, nationality, and other forms of embodied difference.</span>
+<span class="s1">  5. We refuse any code of phony “ethics” and false proclamations of transparency that are wielded as cover, as tools of power, as forms for escape that let the people who create systems off the hook from accountability or responsibility. We commit to a feminist data ethics that explicitly seeks equity and demands justice by helping us understand and shift how power works.&#39;&#39;&#39;</span>
+
+<span class="c1"># when splitting a list, remember that we have to save the</span>
+<span class="c1"># results to a new variable</span>
+<span class="n">text_split</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> 
+
+<span class="c1"># with the sort method, we don&#39;t have to save the results to</span>
+<span class="c1"># a new variable. It will automatically just print them.</span>
+<span class="n">text_split</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+</pre></div>
+</div>
+<p>Notice a couple of things:</p>
+<ol class="arabic simple">
+<li><p>I cheated. I used a <code class="docutils literal notranslate"><span class="pre">string</span></code> method when I said I was only going to
+show you <code class="docutils literal notranslate"><span class="pre">list</span></code> methods. Can you spot the rouge <code class="docutils literal notranslate"><span class="pre">string</span></code> method?
+Hint: you’ve seen it before, and it is attached to a string type of
+object.</p></li>
+<li><p>Some methods return new objects, while other methods simply change
+existing ones. The <code class="docutils literal notranslate"><span class="pre">sort()</span></code> method is one that changes the existing
+object. Unlike the <code class="docutils literal notranslate"><span class="pre">split()</span></code> method, we don’t have to save the
+results of <code class="docutils literal notranslate"><span class="pre">sort()</span></code> to a new variable. <code class="docutils literal notranslate"><span class="pre">sort()</span></code>, and other methods
+like <code class="docutils literal notranslate"><span class="pre">reverse()</span></code>, change the item in place, meaning that the
+existing list is modified. <code class="docutils literal notranslate"><span class="pre">split()</span></code>, by contrast, creates a new
+object, which needs to be saved. This is a bit of an advanced
+concept in Python, so there is no rush to fully grasp it now.</p></li>
+<li><p>The resulting list is organized alphabetically, which means that any
+punctuation and/or numbers will appear before any letters. This will
+explain why the results may not seem alphabetically sorted at first.</p></li>
+</ol>
+<p>Remember that these <code class="docutils literal notranslate"><span class="pre">list</span></code> methods will not work on <code class="docutils literal notranslate"><span class="pre">string</span></code> type data.
+Try running a few of them on a string, just to see what happens.</p>
+</section>
+<section id="list-indexing">
+<h2><code class="docutils literal notranslate"><span class="pre">list</span></code> indexing<a class="headerlink" href="#list-indexing" title="Permalink to this heading">#</a></h2>
+<p>While list methods enable one to do things like create and modify lists,
+list indexing enables one to access specific items in a list.</p>
+<p>List indexing is super useful for working with large lists, such as a
+full text, or even a collection of texts. It works by accessing items
+according to their position (their location) within a list. The moment a
+list is created in Python, it comes with an implicit index, where each
+item is assigned a numerical position. The first item is assigned to the
+position 0, the second item is assigned 1, the third item is assigned 2,
+the fourth item assigned 3, and so on.</p>
+<p>Why does list indexing begin with 0? The answer is a bit complicated,
+and gets into technical details of how computer memory works in
+programming. Put simply, it has to do with the memory location being
+defined or based by offsets. Because the first item of a list is also
+the origin location of the list, its offset is 0. In other words, to go
+to the first item in the list, there is no movement (or offset) from the
+current, or origin, location. The second item of the list requires 1
+movement from current location, and is therefore assigned to the
+location 1.</p>
+<p>The syntax for list indexing is to declare the list name followed by
+brackets that contain the index. The first item in a list would be
+accessed with the index 0.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">breakfast</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;granola&#39;</span><span class="p">,</span> <span class="s1">&#39;cashew yogurt&#39;</span><span class="p">,</span> <span class="s1">&#39;strawberries&#39;</span><span class="p">,</span> <span class="s1">&#39;mango&#39;</span><span class="p">,</span>
+<span class="s1">&#39;coffee&#39;</span><span class="p">]</span>
+
+<span class="n">breakfast</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The third item in a list would be accessed with the index 2.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">breakfast</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Python offers a specific way of accessing the last item of a list, which
+can really useful for taking a peek at the end of a list. The last item
+in a list is accessed with the index -1. This might seem a little
+strange, but if you imagine the list items forming a circle which goes
+clockwise, then going backward (counterclockwise) one step would take
+you to the last item. That backward step is represented with -1.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">breakfast</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="list-slicing">
+<h2><code class="docutils literal notranslate"><span class="pre">list</span></code> slicing<a class="headerlink" href="#list-slicing" title="Permalink to this heading">#</a></h2>
+<p>Like list indexing, list slicing uses a list’s implicit index to access
+items. Unlike list indexing, however, slicing enables someone to access
+a range, or a “slice,” of items from a list. This capability becomes
+convenient when working with large lists. For example, we might take a
+look into a section of a list without loading the entire list, or we
+might grab a portion of that list to create a new list.</p>
+<p>The syntax for list slicing is a bit wonky, but like list indexing, it
+is just a matter of getting used to the particulars of Python’s
+internal indexing.</p>
+<p>To get a slice, you need to enter the <em>starting</em> and <em>ending</em> point of
+the section which you want to grab. In between these values, insert a
+<em>colon</em>, which represents every item that occurs in between the start
+and end points. A list slice therefore looks like the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">breakfast</span> <span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Here’s the tricky part: the starting point is always inclusive, and the
+ending point is always exclusive. Which means that the slice will take
+everything starting at position 2, up until, but exclusing, the item in
+position 5. This rule for list slicing can cause some confusion, and
+it’s best just to memorize it.</p>
+<p>One more important thing to know is the colon. In its position between
+the start and end point, it signifies everything in between. But if
+there is nothing before or after the colon, then the colon represents
+everything until the beginning or end of the list. For example, the
+syntax [1:] will take everything starting at index 1 (or the second
+item) until the end of the list. Similarly, [:4] will take everything
+from the start until the fourth index position of the list.</p>
+<p>This trick with the colon can be really nifty for grabbing the first 10
+or first 100 items from a list, allowing you to take peeks into the list
+items without printing the entire list.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">breakfast</span> <span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
+</pre></div>
+</div>
+<p>List methods, indexing, and slicing are crucial tools for working with
+lists. The next sections will introduce skills for working more
+programmatically with lists.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="loops">
+<h1>Loops<a class="headerlink" href="#loops" title="Permalink to this heading">#</a></h1>
+<p>Loops are probably one of the more conceptually difficult concepts for
+new programmers, but once they are used a bit in practice, it becomes
+easier to grasp. Loops are ways of working with collections of data
+(like lists) by isolating each item from the list, one at a time. A loop
+will go through each item in a list, for example, a list of breakfast
+items, to do a specific action, like print each item from the list.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">breakfast</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here, we’ve also introduced a new function, <code class="docutils literal notranslate"><span class="pre">print()</span></code>. This function
+will “print,” or display, whatever data you pass into the parentheses.
+Some historical context for the name of the <code class="docutils literal notranslate"><span class="pre">print()</span></code> function: it comes
+from a time before screens, when computers literally <em>printed</em> the
+output of their computations. The name of this function is a holdover
+from that time, but now it means <em>display</em> on the screen rather than
+print.</p>
+<p>Loops work with strings as well. We might print each character (or
+letter) from a string like “hello”:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">letter</span> <span class="ow">in</span> <span class="s1">&#39;hello&#39;</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">letter</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The syntax for writing a loop contains two lines. The first line
+identifies one item from a collection of items, such as a list. You can
+think of the first line saying something like “for (each) item (inside
+this) breakfast (list).” Then, the second line specifies the action
+done to that item, in this case, the instruction to print that item.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="p">(</span><span class="ow">in</span><span class="p">)</span> <span class="n">breakfast</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="a-note-on-variable-names">
+<h2>a note on variable names<a class="headerlink" href="#a-note-on-variable-names" title="Permalink to this heading">#</a></h2>
+<p>The variable which indicates each individual item (<code class="docutils literal notranslate"><span class="pre">item</span></code>) can be
+assigned to any name. That’s because the variable is assigned on the
+fly, <em>as the loop is being executed</em>. This goes against usual practices
+with variable assignments, which always need to be assigned beforehand,
+or there will be a <code class="docutils literal notranslate"><span class="pre">NameError</span></code> because the variable hasn’t been
+defined.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">y</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For example, we could very well name the individual item x, or any other
+letter, and the loop would run just fine. However, it’s helpful to give
+as semantically meaningful names as possible, to avoid code that gives
+no indication about the data contained in the variables. This will be
+really useful for other people reading your code as well. The trick is
+to be semantically meaningful while keeping your code as concise as
+possible.</p>
+<p>For future reference, the convention is to use the letter <code class="docutils literal notranslate"><span class="pre">i</span></code> as
+shorthand for indicating an item from a list.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">breakfast</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="string-methods">
+<h2><code class="docutils literal notranslate"><span class="pre">string</span></code> methods<a class="headerlink" href="#string-methods" title="Permalink to this heading">#</a></h2>
+<p>Loops are great ways to do things en masse to data, such as to
+individual words within a text, in other words, to <code class="docutils literal notranslate"><span class="pre">string</span></code> type data
+that is contained within a <code class="docutils literal notranslate"><span class="pre">list</span></code>.</p>
+<p>Looping over strings in a list is a great way of programmatically
+applying a rule or task to all the strings in a list. For example, you
+might want to lowercase all of the letters from our dataset for
+regularization purposes. To do that, use the <code class="docutils literal notranslate"><span class="pre">lower()</span></code> method.</p>
+<p>Can you guess what it does?</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;HELLO&#39;</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Now, let’s combine this <code class="docutils literal notranslate"><span class="pre">string</span></code> method with what we know about loops.
+Let’s try it on a list of items with varying levels of capitalization.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cities</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Lisbon&#39;</span><span class="p">,</span> <span class="s1">&#39;Setubal&#39;</span><span class="p">,</span> <span class="s1">&#39;Alcacer do Sal&#39;</span><span class="p">,</span> <span class="s1">&#39;Lagos&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">city</span> <span class="ow">in</span> <span class="n">cities</span><span class="p">:</span>
+   <span class="nb">print</span><span class="p">(</span><span class="n">city</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Here, the loop goes through each item in the list of “cities,” and
+lowercases that item while also printing it (remember the <code class="docutils literal notranslate"><span class="pre">print()</span></code>
+function?). Here, the <code class="docutils literal notranslate"><span class="pre">lower()</span></code> method is attached to the “city”
+variable, which is assigned to each item, or city name, in the list.</p>
+<p>Let’s try to do the same with a longer list, like the text from the
+“Feminist Data Manifest-NO”. First, though, we need to split our
+<code class="docutils literal notranslate"><span class="pre">text</span></code>, which is currently one long string, into individual strings
+within a list. For that, we use the string method, <code class="docutils literal notranslate"><span class="pre">split()</span></code>, which we
+saw briefly above when we talked about list methods.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">words</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="n">words</span> 
+</pre></div>
+</div>
+<p>We can see our text as a list of strings, saved to the variable
+“words.” Now, we can do things programmatically to each <code class="docutils literal notranslate"><span class="pre">string</span></code> in
+the <code class="docutils literal notranslate"><span class="pre">list</span></code>, like lowercase the items.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">words_lower</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+  <span class="n">words_lower</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+
+<span class="n">words_lower</span>
+</pre></div>
+</div>
+<p>This loop goes through each item in the list of words, lowercases it,
+then adds that word to a new list, called <code class="docutils literal notranslate"><span class="pre">words_lower</span></code>.</p>
+<p>Notice here that I’ve introduced a few new things:</p>
+<ol class="arabic simple">
+<li><p>Above the loop, I’ve created an empty list, called
+“words~lower~,” where we will eventually drop our lowercased
+words.</p></li>
+<li><p>The first line of the loop uses the <code class="docutils literal notranslate"><span class="pre">i</span></code> variable to stand in for
+each time in the list. I’m going to start using the <code class="docutils literal notranslate"><span class="pre">i</span></code> variable in
+this way, to get used to the widely popular convention of using it
+in loops.</p></li>
+<li><p>The last line of the loop uses a <code class="docutils literal notranslate"><span class="pre">list</span></code> method to add data to our
+empty list. Notice that the list method <code class="docutils literal notranslate"><span class="pre">append()</span></code> is attached to a
+list object, while the string method <code class="docutils literal notranslate"><span class="pre">lower()</span></code> is attached to a
+string object.</p></li>
+</ol>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="logic">
+<h1>Logic<a class="headerlink" href="#logic" title="Permalink to this heading">#</a></h1>
+<p>Logic allows programmers to write code that can “make decisions” based
+on certain conditions. It enables what is called “control flow,” which
+is to direct the order of code execution throughout a program.</p>
+<p>Logic works by inserting conditions into the code. If the condition
+evaluates to be true, then a specific expression can execute. If the
+condition evaluates to be false, then another expression (or no
+expression at all) can execute.</p>
+<p>Logic structures are very useful when working with text, because we can
+specify what kinds of text we want to work on, specific things that we
+want to change or do with that text.</p>
+<section id="boolean">
+<h2><code class="docutils literal notranslate"><span class="pre">boolean</span></code><a class="headerlink" href="#boolean" title="Permalink to this heading">#</a></h2>
+<p>First, let’s take a closer look at a very important (and thus far
+ignored) data type, <code class="docutils literal notranslate"><span class="pre">booleans</span></code>. If you remember, a boolean is a <code class="docutils literal notranslate"><span class="pre">True</span></code>
+or <code class="docutils literal notranslate"><span class="pre">False</span></code> value.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>But why do these values need a separate data type? The answer is because
+computer programs <em>make decisions</em> based on whether expressions are true
+or false.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">10</span> <span class="o">&gt;</span> <span class="mi">5</span>
+</pre></div>
+</div>
+<p>To evaluate whether expressions are true or false, we can use certain
+operators, like <code class="docutils literal notranslate"><span class="pre">==</span></code> to check equivalence.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">10</span> <span class="o">==</span> <span class="mi">5</span>
+</pre></div>
+</div>
+<p>Note that the equivalence operator <code class="docutils literal notranslate"><span class="pre">==</span></code> is different from the assignment
+operator <code class="docutils literal notranslate"><span class="pre">=</span></code> which would be used to assign a variable say in <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">3</span></code>.</p>
+</section>
+<section id="if-statement">
+<h2><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">statement</span></code><a class="headerlink" href="#if-statement" title="Permalink to this heading">#</a></h2>
+<p>Using <code class="docutils literal notranslate"><span class="pre">boolean</span></code> logic, we can write a conditional statement that checks
+whether certain conditions are true. This type of statment is called the
+<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">statement</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="mi">10</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This expression is true!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This conditional statement will print a string if the condition
+evaluates to <code class="docutils literal notranslate"><span class="pre">True</span></code>. Python will first check if the integer 10 is
+greater than 5, and if it is, it will print the string contained within
+the <code class="docutils literal notranslate"><span class="pre">print()</span></code> function’s parentheses.</p>
+<p>Notice that like the <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">loop</span></code> the code here indents automatically on
+the second line. This creates what is called a “code block,” which is
+Python’s way of grouping code into one logical unit, whose expressions
+should be executed together, in the order that they are written.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">statement</span></code> can also be expanded to specify more conditions, with
+the <code class="docutils literal notranslate"><span class="pre">elif</span></code> expression, or to include a catchall for cases that do not
+meet the conditions, with <code class="docutils literal notranslate"><span class="pre">else</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;10 is equal to 5&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">9</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;10 is equal to 9&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;10 is not equal to 5&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can add as many <code class="docutils literal notranslate"><span class="pre">elif</span></code> expressions as we like, to account for many
+conditions in our code.</p>
+</section>
+<section id="loop-with-conditions">
+<h2>loop with conditions<a class="headerlink" href="#loop-with-conditions" title="Permalink to this heading">#</a></h2>
+<p>In this next and final section, we will add logic to our loop fro the
+previous section. Remember that a loop goes through a collection of
+items, like strings in a list, and does something to each item.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">words_lower</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+  <span class="n">words_lower</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+
+<span class="n">words_lower</span><span class="p">[:</span><span class="mi">20</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Notice that we are using list slicing to print only the first twenty
+words from the output, so we can avoid printing out a large list, which
+takes a lot of space on the screen.</p>
+<p>Next, we will write a new loop that includes a condition. This condition
+will check whether a sentence from the text contains the word
+“refuse.” If it does contain the word, it will add it to the new list,
+which we will call “results.”</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sentences</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+  <span class="k">if</span> <span class="s1">&#39;Refuse&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+      <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+ <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+
+</pre></div>
+</div>
+<p>Notice something new: we’ve split the text by <em>sentence</em> rather than
+<em>word</em>. How did we do that? The <code class="docutils literal notranslate"><span class="pre">split()</span></code> method enables us to specify
+(if we choose to) a delimiter to split the string. If we do not specify
+a delimiter, then it defaults to whitespace. For this case, we will
+split the string by period, which we will put between quotes <code class="docutils literal notranslate"><span class="pre">&quot;</span> <span class="pre">&quot;</span></code>. The
+output will then be a list of sentences.</p>
+<p>If you typed in the code exactly as I have written it, the output should
+show an empty list (with empty brackets).</p>
+<p>Why do think it did that? <em>Hint: remember that computers are <strong>very</strong>
+literal and will take the condition exactly as it is written</em>.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="sources">
+<h1>sources<a class="headerlink" href="#sources" title="Permalink to this heading">#</a></h1>
+<p>Cifor, M., Garcia, P., Cowan, T.L., Rault, J., Sutherland, T., Chan, A.,
+Rode, J., Hoffmann, A.L., Salehi, N., Nakamura, L. (2019). Feminist Data
+Manifest-No. Retrieved from: <a class="reference external" href="https://www.manifestno.com/">https://www.manifestno.com/</a>.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="future-workshops">
+<h1>future workshops<a class="headerlink" href="#future-workshops" title="Permalink to this heading">#</a></h1>
+<section id="overview-for-web-scraping">
+<h2>overview for Web Scraping<a class="headerlink" href="#overview-for-web-scraping" title="Permalink to this heading">#</a></h2>
+<section id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="importing-libraries">
+<h3>Importing libraries<a class="headerlink" href="#importing-libraries" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="objects">
+<h3>Objects<a class="headerlink" href="#objects" title="Permalink to this heading">#</a></h3>
+</section>
+</section>
+<section id="overview-for-text-analysis">
+<h2>overview for Text Analysis<a class="headerlink" href="#overview-for-text-analysis" title="Permalink to this heading">#</a></h2>
+<section id="file-types-importing-files">
+<h3>file types, importing files.<a class="headerlink" href="#file-types-importing-files" title="Permalink to this heading">#</a></h3>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Introduction to Python for Working with Text</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#upcoming-digital-scholarship-workshops">Upcoming Digital Scholarship Workshops</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pedagocial-models-using-jupyter-book">Pedagocial models using Jupyter-Book</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning Objectives</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#google-colab-environment">Google Colab environment</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#opening-script">Opening Script</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data-types">Data types</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#variables">Variables</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-note-on-methods-and-functions">a note on Methods and Functions</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#lists">Lists</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-methods"><code class="docutils literal notranslate"><span class="pre">list</span></code> methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-indexing"><code class="docutils literal notranslate"><span class="pre">list</span></code> indexing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-slicing"><code class="docutils literal notranslate"><span class="pre">list</span></code> slicing</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#loops">Loops</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-note-on-variable-names">a note on variable names</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#string-methods"><code class="docutils literal notranslate"><span class="pre">string</span></code> methods</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#logic">Logic</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boolean"><code class="docutils literal notranslate"><span class="pre">boolean</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#if-statement"><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">statement</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-with-conditions">loop with conditions</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#sources">sources</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#future-workshops">future workshops</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-for-web-scraping">overview for Web Scraping</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-libraries">Importing libraries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objects">Objects</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-for-text-analysis">overview for Text Analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#file-types-importing-files">file types, importing files.</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Filipa Calado
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
