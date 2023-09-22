@@ -1,7 +1,5 @@
 # "Intro to Python for Working with Text" workshop series
-By Filipa Calado
-
-Princeton University
+By Filipa Calado | Princeton University
 
 filipa@princeton.edu 
 
@@ -11,11 +9,11 @@ As one of the most popular, versatile, and beginner-friendly programming langaug
 This 3-part workshops introduces participants to the Python programming language for working with text. The first workshop begins with core concepts, like data types, variables, functions, loops, and logic, and builds to basic tasks in web scraping and text analysis in the second and third workshops. 
 
 ## Upcoming Digital Scholarship Workshops
-See more workshop offerings (including on Python) at the [Princeton University library](https://libcal.princeton.edu/calendar/)
+See more workshop offerings (including on Python) at the [Princeton University library](https://libcal.princeton.edu/calendar/). We have upcoming workshops on working with data, digital publishing, and more.
 
 Want to talk Python or another digital project or tool? Sign up for a [consultation with Digital Scholarship](https://bit.ly/ds-consults) at Princeton. 
 
-You can also email us at DiScho@princeton.edu
+For other workshops and reference materials on computational methods at Princeton University, check out the [Research Computing](https://researchcomputing.princeton.edu/).
 
 ## Sources
 Cifor, M., Garcia, P., Cowan, T.L., Rault, J., Sutherland, T., Chan, A., Rode, J., Hoffmann, A.L., Salehi, N., Nakamura, L. (2019). [Feminist Data Manifest-No](https://www.manifestno.com/).
