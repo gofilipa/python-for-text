@@ -1,0 +1,197 @@
+<section id="loops" class="cell markdown">
+<h1>loops</h1>
+<p>Loops are probably one of the more conceptually difficult concepts
+for new programmers, but once they are used a bit in practice, it
+becomes easier to grasp. Loops are ways of working with collections of
+data (like lists) by isolating each item from the list, one at a time. A
+loop will go through each item in a list, for example, a list of
+breakfast items, to do a specific action, like print each item from the
+list.</p>
+</section>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>breakfast <span class="op">=</span> [<span class="st">&#39;egg sandwich&#39;</span>, <span class="st">&#39;coffee&#39;</span>, <span class="st">&#39;biscuits and gravy&#39;</span>, <span class="st">&#39;strawberries&#39;</span>, <span class="st">&#39;omelette&#39;</span>]</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> breakfast:</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(item)</span></code></pre></div>
+</div>
+<div class="cell markdown">
+<p>Here, we've also introduced a new function, <code>print()</code>.
+This function will "print," or display, whatever data you pass into the
+parentheses. Some historical context for the name of the
+<code>print()</code> function: it comes from a time before screens, when
+computers literally <em>printed</em> the output of their computations.
+The name of this function is a holdover from that time, but now it means
+<em>display</em> on the screen rather than print.</p>
+<p>Loops work with strings as well. We might print each character (or
+letter) from a string like "hello":</p>
+</div>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> letter <span class="kw">in</span> <span class="st">&#39;hello&#39;</span>:</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(letter)</span></code></pre></div>
+</div>
+<div class="cell markdown">
+<p>The syntax for writing a loop contains two lines. The first line
+identifies one item from a collection of items, such as a list. You can
+think of the first line saying something like "for (each) item (inside
+this) breakfast (list)." Then, the second line specifies the action done
+to that item, in this case, the instruction to print that item.</p>
+</div>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> breakfast:</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(item)</span></code></pre></div>
+</div>
+<div class="cell markdown">
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> each item inside breakfast:</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  display each item</span></code></pre></div>
+</div>
+<section id="a-note-on-variable-names" class="cell markdown">
+<h2>a note on variable names</h2>
+<p>The variable which indicates each individual item (<code>item</code>)
+can be assigned to any name. That's because the variable is assigned on
+the fly, <em>as the loop is being executed</em>. This goes against usual
+practices with variable assignments, which always need to be assigned
+beforehand, or there will be a <code>NameError</code> because the
+variable hasn't been defined.</p>
+</section>
+<div class="cell markdown">
+
+</div>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> y:</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x)</span></code></pre></div>
+</div>
+<div class="cell markdown">
+<p>For example, we could very well name the individual item x, or any
+other letter, and the loop would run just fine. However, it's helpful to
+give as semantically meaningful names as possible, to avoid code that
+gives no indication about the data contained in the variables. This will
+be really useful for other people reading your code as well. The trick
+is to be semantically meaningful while keeping your code as concise as
+possible.</p>
+<p>For future reference, the convention is to use the letter
+<code>i</code> as shorthand for indicating an item from a list.</p>
+</div>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> breakfast:</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code></pre></div>
+</div>
+<section id="string-methods" class="cell markdown">
+<h2><code>string</code> methods</h2>
+<p>Loops are great ways to do things en masse to data, such as to
+individual words within a text, in other words, to <code>string</code>
+type data that is contained within a <code>list</code>.</p>
+<p>For example, you might want to lowercase all of the letters from our
+dataset for regularization purposes. To do that, use the
+<code>lower()</code> method.</p>
+<p>Can you guess what it does?</p>
+</section>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">&#39;HELLO&#39;</span>.lower()</span></code></pre></div>
+</div>
+<div class="cell markdown">
+<p>Now, let's combine this <code>string</code> method with what we know
+about loops. Let's try it on a list of items with varying levels of
+capitalization.</p>
+</div>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>cities <span class="op">=</span> [<span class="st">&#39;Lisbon&#39;</span>, <span class="st">&#39;Setubal&#39;</span>, <span class="st">&#39;Alcacer do Sal&#39;</span>, <span class="st">&#39;Lagos&#39;</span>]</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> city <span class="kw">in</span> cities:</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>   <span class="bu">print</span>(city.lower())</span></code></pre></div>
+</div>
+<div class="cell markdown">
+<p>Here, the loop goes through each item in the list of "cities," and
+lowercases that item while also printing it (remember the
+<code>print()</code> function?). Here, the <code>lower()</code> method
+is attached to the "city" variable, which is assigned to each item, or
+city name, in the list.</p>
+<p>Let's try to do the same with a longer list, like the text from the
+"Feminist Data Manifest-NO". First, though, we need to split our
+<code>text</code>, which is currently one long string, into individual
+strings within a list. For that, we use the string method,
+<code>split()</code>, which we saw briefly above when we talked about
+list methods.</p>
+</div>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">&#39;&#39;&#39; </span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="st">  1. We refuse to operate under the assumption that risk </span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="st">  and harm associated with data practices can be bounded to  mean </span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="st">  the same thing for everyone, everywhere, at every time. We commit </span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="st">  to acknowledging how historical and systemic patterns of violence </span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="st">  and exploitation produce differential vulnerabilities for </span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="st">  communities.</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="st">  2. We refuse to be disciplined by data, devices, and practices </span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="st">  that seek to shape and normalize racialized, gendered, and </span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="st">  differently-abled bodies in ways that make us available to be </span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="st">  tracked, monitored, and surveilled. We commit to taking back </span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="st">  control over the ways we behave, live, and engage with data and </span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="st">  its technologies.</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="st">  3. We refuse the use of data about people in perpetuity. We </span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="st">  commit to embracing agency and working with intentionality, </span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="st">  preparing bodies or corpuses of data to be laid to rest when they </span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="st">  are not being used in service to the people about whom they were </span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="st">  created.</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="st">  4. We refuse to understand data as disembodied and thereby </span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="st">  dehumanized and departicularized. We commit to understanding </span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="st">  data as always and variously attached to bodies; we vow to </span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="st">  interrogate the biopolitical implications of data with a keen </span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="st">  eye to gender, race, sexuality, class, disability, nationality, </span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="st">  and other forms of embodied difference.</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="st">  5. We refuse any code of phony “ethics” and false proclamations of </span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="st">  transparency that are wielded as cover, as tools of power, as forms </span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="st">  for escape that let the people who create systems off the hook from </span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="st">  accountability or responsibility. We commit to a feminist data </span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="st">  ethics that explicitly seeks equity and demands justice by helping </span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="st">  us understand and shift how power works.&#39;&#39;&#39;</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>words <span class="op">=</span> text.split()</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>words </span></code></pre></div>
+</div>
+<div class="cell markdown">
+<p>We can see our text as a list of strings, saved to the variable
+"words." Now, we can do things programmatically to each
+<code>string</code> in the <code>list</code>, like lowercase the
+items.</p>
+</div>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>words_lower <span class="op">=</span> []</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> words:</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  words_lower.append(i.lower())</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>words_lower</span></code></pre></div>
+</div>
+<div class="cell markdown">
+<p>This loop goes through each item in the list of words, lowercases it,
+then adds that word to a new list, called <code>words_lower</code>.</p>
+<p>Notice here that I've introduced a few new things:</p>
+<ol>
+<li>Above the loop, I've created an empty list, called "words~lower~,"
+where we will eventually drop our lowercased words.</li>
+<li>The first line of the loop uses the <code>i</code> variable to stand
+in for each time in the list. I'm going to start using the
+<code>i</code> variable in this way, to get used to the widely popular
+convention of using it in loops.</li>
+<li>The last line of the loop uses a <code>list</code> method to add
+data to our empty list. Notice that the list method
+<code>append()</code> is attached to a list object, while the string
+method <code>lower()</code> is attached to a string object.</li>
+</ol>
+</div>

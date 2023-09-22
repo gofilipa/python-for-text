@@ -1,0 +1,60 @@
+<section id="data-types" class="cell markdown">
+<h1>data types</h1>
+<p>All real world objects and ideas are transformed into computational
+format, into <em>types of data</em>. There are many data types in
+Python, but a few of them will be important for us in this workshop.</p>
+<p>We use the <code>type()</code> function to check data types. A
+function is a way of doing something to data in Python. We will talk
+more about functions in upcoming lessons.</p>
+<p>The most common data types include:</p>
+<ul>
+<li><code>integer</code> - whole number</li>
+<li><code>string</code> - characters within quotes (sequences)</li>
+<li><code>boolean</code> - true or false values (for logic)</li>
+<li><code>list</code> - collection of all of the above.</li>
+</ul>
+</section>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(<span class="dv">1</span>)</span></code></pre></div>
+</div>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(<span class="st">&#39;hello&#39;</span>)</span></code></pre></div>
+</div>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(<span class="st">&#39;True&#39;</span>)</span></code></pre></div>
+</div>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>([<span class="st">&#39;donut&#39;</span>, <span class="st">&#39;smoothie&#39;</span>, <span class="st">&#39;coffee&#39;</span>, <span class="st">&#39;banana&#39;</span>])</span></code></pre></div>
+</div>
+<div class="cell markdown">
+<p>Two things to keep in mind about data types, both of which have to do
+with data types being a particular kind of <em>constraint</em> that is
+placed on all data.</p>
+<p>First, all information that you want to work with must fit into one
+of these data types. The transformation of real world objects and/or
+ideas into computer-readable data inevitably reduces or simplifies the
+original. For example, words with semantic meaning to a human become a
+<code>string</code>, a sequence of characters wrapped by quotation
+marks, or someone's age expressed as an <code>integer</code>, a whole
+number in years. The significance of this reduction will be more
+apparent when you start to work with data in the text analysis
+workshop.</p>
+<p>Second, that each data type has associated "methods" that go with it.
+You can do things with integers that you cannot do with strings, for
+example. You can add numbers together, but not strings. This will be the
+source of many, many errors as you get started.</p>
+</div>
+<div class="cell markdown">
+<p>Other types you might hear about: floats, tuples, dicts, etc. You can
+read more about these <a
+href="https://www.w3schools.com/python/python_datatypes.asp">on
+W3Schools</a>.</p>
+</div>

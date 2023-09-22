@@ -1,0 +1,149 @@
+<section id="variables" class="cell markdown">
+<h1>variables</h1>
+</section>
+<div class="cell markdown">
+<p>So we have data in a digital format, as a specific type of data, but
+how do we work with that data?</p>
+<p>Before we can use that data in any kind of programming, we need to
+save it. To give it a name, or a label. This is where <em>variables</em>
+become important.</p>
+<p>A variable assigns data, a value, to a label, say "x". We could save
+the integer 34 to "x" like so,</p>
+</div>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">34</span></span></code></pre></div>
+</div>
+<div class="cell markdown">
+<p>With some exceptions, we can assign variables to almost any label we
+want, like "x" or "y." But, we want to make sure that anybody reading
+our code will have as best a sense as possible about what the variable
+refers to. It is therefore encouraged to use precise but meaningful
+variables, like "age", something that reflects the value most accurately
+and succinctly.</p>
+<p>Variables can be used to store any data type, like strings, lists,
+and even booleans.</p>
+</div>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> <span class="dv">34</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="st">&#39;filipa&#39;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>breakfast <span class="op">=</span> [<span class="st">&#39;granola&#39;</span>, <span class="st">&#39;cashew yogurt&#39;</span>, <span class="st">&#39;muffin&#39;</span>, <span class="st">&#39;coffee&#39;</span>]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>truth <span class="op">=</span> <span class="va">True</span></span></code></pre></div>
+</div>
+<section id="methods" class="cell markdown">
+<h2>methods</h2>
+</section>
+<div class="cell markdown">
+<p>As a label for data, variables represent what is officially called an
+an <em>object</em> in Python. Objects are ways of thinking about data in
+its digitized form and what can be done to data in that form. Depending
+on the type of object (like a string, for example) we can run different
+kinds of computations. When applied to objects, the computations we can
+do are called <em>methods</em>.</p>
+<p>For example, with a string type of object, we can use the
+<code>upper()</code> method to make all of the characters in the string
+uppercase.</p>
+</div>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>greeting <span class="op">=</span> <span class="st">&#39;hello&#39;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>greeting.upper()</span></code></pre></div>
+</div>
+<div class="cell markdown">
+<p>Here, we are using <em>dot syntax</em>, that is, a period
+<code>.</code> in between the variable (the object) and the method (the
+action). What comes before the dot is the data, saved to a variable.
+What follows the dot in dot syntax is the action being applied to the
+variable.</p>
+</div>
+<section id="a-note-on-methods-vs-functions" class="cell markdown">
+<h2>a note on methods vs functions</h2>
+<p>You may have already noticed that a <em>method</em> is very similar
+to a <em>function</em>, which we have seen previously with the
+<code>type()</code> function that evaluates data types. Both methods and
+functions do something to data. The difference between them has to do
+with syntax. A function takes data in between the parentheses, like when
+we pass a string into the <code>type()</code> function with
+<code>type('hello')</code>. A method, by contrast, appends an action to
+the end of an object using dot syntax, like with
+<code>greeting.upper()</code> example above.</p>
+<p>The differences in syntax indicate a deeper difference between
+functions and methods, which has to do with <em>object-oriented
+programming</em>, which is an advanced concept that we will discuss
+futher in the Web Scraping workshop. For now, though, it's enough to
+know that functions and methods are recognizable by their syntax, where
+one takes data within parentheses and the other appends to data using
+dot syntax.</p>
+<p>Another way of thinking about the differences between methods and
+functions is that methods only work with specific types of data. There
+are string methods, like with <code>upper()</code> above, and with
+<code>split()</code>, which <em>splits</em> a long string, say a
+paragraph of text, into individual strings. Like the example below, the
+<code>split()</code> method will separate the data into individual items
+based on whitespace.</p>
+</section>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">&#39;&#39;&#39; </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="st">  1. We refuse to operate under the assumption that risk </span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">  and harm associated with data practices can be bounded to  mean </span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st">  the same thing for everyone, everywhere, at every time. We commit </span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">  to acknowledging how historical and systemic patterns of violence </span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">  and exploitation produce differential vulnerabilities for </span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st">  communities.</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="st">  2. We refuse to be disciplined by data, devices, and practices </span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="st">  that seek to shape and normalize racialized, gendered, and </span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="st">  differently-abled bodies in ways that make us available to be </span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="st">  tracked, monitored, and surveilled. We commit to taking back </span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="st">  control over the ways we behave, live, and engage with data and </span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="st">  its technologies.</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="st">  3. We refuse the use of data about people in perpetuity. We </span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="st">  commit to embracing agency and working with intentionality, </span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="st">  preparing bodies or corpuses of data to be laid to rest when they </span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="st">  are not being used in service to the people about whom they were </span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="st">  created.</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="st">  4. We refuse to understand data as disembodied and thereby </span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="st">  dehumanized and departicularized. We commit to understanding </span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="st">  data as always and variously attached to bodies; we vow to </span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="st">  interrogate the biopolitical implications of data with a keen </span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="st">  eye to gender, race, sexuality, class, disability, nationality, </span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="st">  and other forms of embodied difference.</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="st">  5. We refuse any code of phony “ethics” and false proclamations of </span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="st">  transparency that are wielded as cover, as tools of power, as forms </span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="st">  for escape that let the people who create systems off the hook from </span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="st">  accountability or responsibility. We commit to a feminist data </span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="st">  ethics that explicitly seeks equity and demands justice by helping </span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="st">  us understand and shift how power works.&#39;&#39;&#39;</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>text.split()</span></code></pre></div>
+</div>
+<div class="cell markdown">
+<p>The output shows the long string split into several smaller strings.
+Note that what was previously a <code>string</code> data type is now a
+<code>list</code> data type. We can easily check the data type using the
+<code>type()</code> function.</p>
+<p>First, thought, we need to save the output of <code>split()</code> to
+a new variable, which will be called "words." Saving the output of the
+method to a new variable then allows us to do more things with that
+data.</p>
+</div>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>words <span class="op">=</span> text.split()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(words)</span></code></pre></div>
+</div>
+<div class="cell markdown">
+<p>This code also introduces a bit of abstraction, where new variables
+are created by saving the output of computations, like
+<code>split()</code>. This kind of abstraction is common in programming,
+as data is transformed into new formats, which enable further types of
+computations. Later in workshop, creating new variables will be very
+useful for the kind of work we want to do with text.</p>
+</div>

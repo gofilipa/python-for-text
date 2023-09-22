@@ -1,0 +1,185 @@
+<section id="logic" class="cell markdown">
+<h1>logic</h1>
+<p>Logic allows programmers to write code that can "make decisions"
+based on certain conditions. It enables what is called "control flow,"
+which is to direct the order of code execution throughout a program.</p>
+<p>Logic works by inserting conditions into the code. If the condition
+evaluates to be true, then a specific expression can execute. If the
+condition evaluates to be false, then another expression (or no
+expression at all) can execute.</p>
+<p>Logic structures are very useful when working with text, because we
+can specify what kinds of text we want to work on, specific things that
+we want to change or do with that text.</p>
+</section>
+<section id="boolean" class="cell markdown">
+<h2><code>boolean</code></h2>
+<p>First, let's take a closer look at a very important (and thus far
+ignored) data type, <code>booleans</code>. If you remember, a boolean is
+a <code>True</code> or <code>False</code> value.</p>
+</section>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(<span class="va">True</span>)</span></code></pre></div>
+</div>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(<span class="va">False</span>)</span></code></pre></div>
+</div>
+<div class="cell markdown">
+<p>But why do these values need a separate data type? The answer is
+because computer programs <em>make decisions</em> based on whether
+expressions are true or false.</p>
+</div>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="op">&gt;</span> <span class="dv">5</span></span></code></pre></div>
+</div>
+<div class="cell markdown">
+<p>To evaluate whether expressions are true or false, we can use certain
+operators, like <code>&gt;</code>, <code>&lt;</code>, or <code>==</code>
+to check equivalence. See <a
+href="https://www.w3schools.com/python/python_operators.asp">w3schools
+for a list of operators</a>.</p>
+</div>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="op">==</span> <span class="dv">5</span></span></code></pre></div>
+</div>
+<div class="cell markdown">
+<p>Note that the equivalence operator <code>==</code> is different from
+the assignment operator <code>=</code> which would be used to assign a
+variable say in <code>x = 3</code>.</p>
+</div>
+<section id="if-statement" class="cell markdown">
+<h2><code>if statement</code></h2>
+<p>Using <code>boolean</code> logic, we can write a conditional
+statement that checks whether certain conditions are true. This type of
+statment is called the <code>if statement</code></p>
+</section>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="dv">10</span> <span class="op">&gt;</span> <span class="dv">5</span>:</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;This expression is true!&quot;</span>)</span></code></pre></div>
+</div>
+<div class="cell markdown">
+<p>This conditional statement will print a string if the condition
+evaluates to <code>True</code>. Python will first check if the integer
+10 is greater than 5, and if it is, it will print the string contained
+within the <code>print()</code> function's parentheses.</p>
+<p>Notice that like the <code>for loop</code> the code here indents
+automatically on the second line. This creates what is called a "code
+block," which is Python's way of grouping code into one logical unit,
+whose expressions should be executed together, in the order that they
+are written.</p>
+<p>The <code>if statement</code> can also be expanded to specify more
+conditions, with the <code>elif</code> expression, or to include a
+catchall for cases that do not meet the conditions, with
+<code>else</code></p>
+</div>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="dv">10</span> <span class="op">==</span> <span class="dv">5</span>:</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;10 is equal to 5&quot;</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> <span class="dv">10</span> <span class="op">==</span> <span class="dv">9</span>:</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;10 is equal to 9&quot;</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;10 is not equal to 5&quot;</span>)</span></code></pre></div>
+</div>
+<div class="cell markdown">
+<p>We can add as many <code>elif</code> expressions as we like, to
+account for many conditions in our code.</p>
+</div>
+<section id="looping-with-conditions" class="cell markdown">
+<h2>looping with conditions</h2>
+<p>In this next and final section, we will add logic to our loop from
+the previous section, using the text from our openeing script. Remember
+that a loop goes through a collection of items, like strings in a list,
+and does something to each item.</p>
+</section>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> letter <span class="kw">in</span> <span class="st">&#39;hello&#39;</span>:</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(letter)</span></code></pre></div>
+</div>
+<div class="cell markdown">
+<p>Now let's save our text as "text" variable. Then, we can split the
+text from a long string into a list of sentences.</p>
+</div>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">&#39;&#39;&#39; </span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="st">  1. We refuse to operate under the assumption that risk </span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="st">  and harm associated with data practices can be bounded to  mean </span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="st">  the same thing for everyone, everywhere, at every time. We commit </span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="st">  to acknowledging how historical and systemic patterns of violence </span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="st">  and exploitation produce differential vulnerabilities for </span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="st">  communities.</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="st">  2. We refuse to be disciplined by data, devices, and practices </span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="st">  that seek to shape and normalize racialized, gendered, and </span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="st">  differently-abled bodies in ways that make us available to be </span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="st">  tracked, monitored, and surveilled. We commit to taking back </span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="st">  control over the ways we behave, live, and engage with data and </span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="st">  its technologies.</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="st">  3. We refuse the use of data about people in perpetuity. We </span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="st">  commit to embracing agency and working with intentionality, </span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="st">  preparing bodies or corpuses of data to be laid to rest when they </span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="st">  are not being used in service to the people about whom they were </span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="st">  created.</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="st">  4. We refuse to understand data as disembodied and thereby </span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="st">  dehumanized and departicularized. We commit to understanding </span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="st">  data as always and variously attached to bodies; we vow to </span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="st">  interrogate the biopolitical implications of data with a keen </span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="st">  eye to gender, race, sexuality, class, disability, nationality, </span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="st">  and other forms of embodied difference.</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="st">  5. We refuse any code of phony “ethics” and false proclamations of </span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="st">  transparency that are wielded as cover, as tools of power, as forms </span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="st">  for escape that let the people who create systems off the hook from </span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="st">  accountability or responsibility. We commit to a feminist data </span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="st">  ethics that explicitly seeks equity and demands justice by helping </span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="st">  us understand and shift how power works.&#39;&#39;&#39;</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>sentences <span class="op">=</span> text.split(<span class="st">&#39;.&#39;</span>)</span></code></pre></div>
+</div>
+<div class="cell markdown">
+<p>Notice something new: we've split the text by <em>sentence</em>
+rather than <em>word</em>. How did we do that? The <code>split()</code>
+method enables us to specify (if we choose to) a delimiter to split the
+string. If we do not specify a delimiter, then it defaults to
+whitespace. For this case, we will split the string by period, which we
+will put between quotes <code>" "</code>. The output will then be a list
+of sentences.</p>
+</div>
+<div class="cell markdown">
+<p>Next, we will write a new loop that includes a condition. This
+condition will check whether a sentence from the text contains the word
+"Refuse." If it does contain the word, it will add it to the new list,
+which we will call "results."</p>
+</div>
+<div class="cell code"
+data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> []</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> sentences:</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="st">&#39;Refuse&#39;</span> <span class="kw">in</span> i:</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>      results.append(i)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a> <span class="bu">print</span>(results)</span></code></pre></div>
+</div>
+<div class="cell markdown">
+<p>Notice that we are using list slicing to print only the first twenty
+words from the output, so we can avoid printing out a large list, which
+takes a lot of space on the screen.</p>
+<p>If you typed in the code exactly as I have written it, the output
+should show an empty list (with empty brackets).</p>
+<p>Why do think it did that? <em>Hint: remember that computers are
+<strong>very</strong> literal and will take the condition exactly as it
+is written</em>.</p>
+</div>
