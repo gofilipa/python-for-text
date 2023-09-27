@@ -6,7 +6,7 @@ filipa@princeton.edu
 ## Welcome to the series!
 As one of the most popular, versatile, and beginner-friendly programming langauges, Python can be used for a variety of tasks from analyzing data to building websites.
 
-This 3-part workshops introduces participants to the Python programming language for working with text. The first workshop begins with core concepts, like data types, variables, functions, loops, and logic, and builds to basic tasks in web scraping and text analysis in the second and third workshops. 
+This 3-part workshop introduces participants to the Python programming language for working with text. The first workshop begins with core concepts, like data types, variables, functions, loops, and logic, and the second and third workshops build to basic tasks in web scraping and text analysis.
 
 ## Upcoming Digital Scholarship Workshops
 See more workshop offerings (including on Python) at the [Princeton University library](https://libcal.princeton.edu/calendar/). We have upcoming workshops on working with data, digital publishing, and more.
@@ -16,11 +16,17 @@ Want to talk Python or another digital project or tool? Sign up for a [consultat
 For other workshops and reference materials on computational methods at Princeton University, check out the [Research Computing](https://researchcomputing.princeton.edu/).
 
 ## Sources
-Cifor, M., Garcia, P., Cowan, T.L., Rault, J., Sutherland, T., Chan, A., Rode, J., Hoffmann, A.L., Salehi, N., Nakamura, L. (2019). [Feminist Data Manifest-No](https://www.manifestno.com/).
+This curriculum is inspired by the [Graduate Center Digital Initiatives](https://gcdi.commons.gc.cuny.edu/) Python workshop from the [Digital Research Institute](https://github.com/GC-DRI). 
 
-Mattingly, WJB. [Introduction to Python for
+The opening challenge takes text from the [Feminist Data Manifest-No](https://www.manifestno.com/) by M. Cifor, P. Garcia, et al.
+
+For more on Python, please see these greatn workshops and intructional materials: 
+- WJB Mattingly's [Introduction to Python for
 Humanists](https://python-textbook.pythonhumanities.com/intro.html). Smithsonian Data Science Lab.
+- Melanie Walsh's [Introduction to Cultural Analytics &
+Python](https://melaniewalsh.github.io/Intro-Cultural-Analytics/welcome.html)
 
-Walsh, Melanie. [Introduction to Cultural Analytics &
-Python](https://melaniewalsh.github.io/Intro-Cultural-Analytics/welcome.html). U of Washington
+## 
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
 

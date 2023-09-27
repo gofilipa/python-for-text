@@ -376,7 +376,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#methods">methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-as-objects">variables as objects</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-note-on-methods-vs-functions">a note on methods vs functions</a></li>
 </ul>
             </nav>
@@ -407,9 +407,9 @@ integer 34 to “x” like so,</p>
 </div>
 <p>With some exceptions, we can assign variables to almost any label we
 want, like “x” or “y.” But, we want to make sure that anybody reading
-our code will have as best a sense as possible about what the variable
+our code will have a sense of what the variable
 refers to. It is therefore encouraged to use precise but meaningful
-variables, like “age”, something that reflects the value most accurately
+variables, like “age” to describe someone’s age in years, to reflect the value most accurately
 and succinctly.</p>
 <p>Variables can be used to store any data type, like strings, lists, and
 even booleans.</p>
@@ -423,8 +423,8 @@ even booleans.</p>
 </div>
 </div>
 </div>
-<section id="methods">
-<h2>methods<a class="headerlink" href="#methods" title="Permalink to this heading">#</a></h2>
+<section id="variables-as-objects">
+<h2>variables as objects<a class="headerlink" href="#variables-as-objects" title="Permalink to this heading">#</a></h2>
 <p>As a label for data, variables represent what is officially called an an
 <em>object</em> in Python. Objects are ways of thinking about data in its
 digitized form and what can be done to data in that form. Depending on
@@ -467,12 +467,10 @@ is an advanced concept that we will discuss futher in the Web Scraping
 workshop. For now, though, it’s enough to know that functions and
 methods are recognizable by their syntax, where one takes data within
 parentheses and the other appends to data using dot syntax.</p>
-<p>Another way of thinking about the differences between methods and
-functions is that methods only work with specific types of data. There
-are string methods, like with <code class="docutils literal notranslate"><span class="pre">upper()</span></code> above, and with <code class="docutils literal notranslate"><span class="pre">split()</span></code>, which
+<p>Let’s see how different methods work with different data types, for example. There
+are string methods like <code class="docutils literal notranslate"><span class="pre">split()</span></code> which
 <em>splits</em> a long string, say a paragraph of text, into individual
-strings. Like the example below, the <code class="docutils literal notranslate"><span class="pre">split()</span></code> method will separate the
-data into individual items based on whitespace.</p>
+strings, each string being a different word.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39; </span>
@@ -777,28 +775,33 @@ data into individual items based on whitespace.</p>
 </div>
 </div>
 </div>
-<p>The output shows the long string split into several smaller strings.
-Note that what was previously a <code class="docutils literal notranslate"><span class="pre">string</span></code> data type is now a <code class="docutils literal notranslate"><span class="pre">list</span></code> data
+<p>The output shows the long string split into several smaller strings. We can save the output of this to a new variable, called <code class="docutils literal notranslate"><span class="pre">words</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">words</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Now, what was previously a <code class="docutils literal notranslate"><span class="pre">string</span></code> data type has become a <code class="docutils literal notranslate"><span class="pre">list</span></code> data
 type. We can easily check the data type using the <code class="docutils literal notranslate"><span class="pre">type()</span></code> function.</p>
-<p>First, thought, we need to save the output of <code class="docutils literal notranslate"><span class="pre">split()</span></code> to a new
-variable, which will be called “words.” Saving the output of the
-method to a new variable then allows us to do more things with that
-data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">words</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-
-<span class="nb">type</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>list
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">type</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;words&#39; is not defined
 </pre></div>
 </div>
 </div>
 </div>
-<p>This code also introduces a bit of abstraction, where new variables are
+<p>Saving the output of the
+method to a new variable then allows us to do more things with that
+dat</p>
+<p>Not only does this code show that methods work with specific types of objects (like strings or lists), it also introduces us to a bit of abstraction, where new variables are
 created by saving the output of computations, like <code class="docutils literal notranslate"><span class="pre">split()</span></code>. This kind
 of abstraction is common in programming, as data is transformed into new
 formats, which enable further types of computations. Later in workshop,
@@ -870,7 +873,7 @@ to do with text.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#methods">methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-as-objects">variables as objects</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-note-on-methods-vs-functions">a note on methods vs functions</a></li>
 </ul>
   </nav></div>
