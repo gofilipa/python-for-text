@@ -1,23 +1,22 @@
 # workshop overview
 
 ## learning objectives
-This workshop teaches the Python programming language as a tool that takes data, organizes it into collections/groupings, with the goal of doing something to that data.
+This workshop explores how the Python programming language takes data, organizes it into collections or groupings, with the goal of doing something to that data. 
 
-Workshop goals:
+It introduces:
 
--   Introduce ways of saving and categorizing data in Python.
--   Introduce ways of working with data through functions and methods.
--   Introduce the order of operations in code, such as in logical
-    structures and iterative processes.
--   Familiarity with basic Python syntax.
+- data types and variables for categorizing and saving data
+- functions and methods for working with data
+- iterative and logical structures
+- basic Python syntax
 
 ## Google Colab environment
-There are many ways to use Python. For this workshop, we will be using
+There are many ways to use Python. For this "Intro to Python" workshop, we will be using
 [Google Colab](https://colab.research.google.com), a browser-based tool
 for running Python code. Like Google Docs, Google Colab creates a
 collaborate environment hosted on the cloud for authoring content.
 
-Signficantly for programmers, Google Colab offers Python software
+Conveniently for new programmers, Google Colab offers Python software
 pre-installed on the cloud environment. Whereas most Python environments
 require installations (some of which can be really complicated), Google
 Colab enables users to jump right into coding.
