@@ -20,9 +20,9 @@ This curriculum is inspired by the [Graduate Center Digital Initiatives](https:/
 
 The opening challenge takes text from the [Feminist Data Manifest-No](https://www.manifestno.com/) by M. Cifor, P. Garcia, et al.
 
-For more on Python, please see these greatn workshops and intructional materials: 
+For more on Python, please see these great workshops and intructional materials from:
 - WJB Mattingly's [Introduction to Python for
-Humanists](https://python-textbook.pythonhumanities.com/intro.html). Smithsonian Data Science Lab.
+Humanists](https://python-textbook.pythonhumanities.com/intro.html)
 - Melanie Walsh's [Introduction to Cultural Analytics &
 Python](https://melaniewalsh.github.io/Intro-Cultural-Analytics/welcome.html)
 
