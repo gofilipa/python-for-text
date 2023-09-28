@@ -13,7 +13,7 @@ See more workshop offerings (including on Python) at the [Princeton University l
 
 Want to talk Python or another digital project or tool? Sign up for a [consultation with Digital Scholarship](https://bit.ly/ds-consults) at Princeton. 
 
-For other workshops and reference materials on computational methods at Princeton University, check out the [Research Computing](https://researchcomputing.princeton.edu/).
+For other workshops and reference materials on computational methods at Princeton University, check out [Research Computing](https://researchcomputing.princeton.edu/).
 
 ## Sources
 This curriculum is inspired by the [Graduate Center Digital Initiatives](https://gcdi.commons.gc.cuny.edu/) Python workshop from the [Digital Research Institute](https://github.com/GC-DRI). 
