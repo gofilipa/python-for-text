@@ -40,12 +40,12 @@ text = '''
   ethics that explicitly seeks equity and demands justice by helping 
   us understand and shift how power works.'''
 
-sentence = text.split()
+sentences = text.split('.')
 
 results = []
-for sentence in text:
-    if 'Refuse' in sentence:
-      results.append(sentence)
+for item in sentences:
+    if 'Refuse' in item:
+      results.append(item)
 
 print(results)
 

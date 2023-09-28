@@ -417,12 +417,12 @@ Manifest-NO</a>” by Marika Cifor, Patricia Garcia et al. As a statement of dat
 <span class="s1">  ethics that explicitly seeks equity and demands justice by helping </span>
 <span class="s1">  us understand and shift how power works.&#39;&#39;&#39;</span>
 
-<span class="n">sentence</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="n">sentences</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
 
 <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">text</span><span class="p">:</span>
-    <span class="k">if</span> <span class="s1">&#39;Refuse&#39;</span> <span class="ow">in</span> <span class="n">sentence</span><span class="p">:</span>
-      <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+    <span class="k">if</span> <span class="s1">&#39;Refuse&#39;</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+      <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
 
