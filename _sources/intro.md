@@ -1,5 +1,5 @@
 # "Intro to Python for Working with Text" workshop series
-By Filipa Calado | Princeton University
+By Filipa Calado, Princeton University
 
 filipa@princeton.edu 
 
@@ -16,11 +16,13 @@ Want to talk Python or another digital project or tool? Sign up for a [consultat
 For other workshops and reference materials on computational methods at Princeton University, check out [Research Computing](https://researchcomputing.princeton.edu/).
 
 ## Sources
-This curriculum is inspired by the [Graduate Center Digital Initiatives](https://gcdi.commons.gc.cuny.edu/) Python workshop from the [Digital Research Institute](https://github.com/GC-DRI). 
+This curriculum is inspired by the [Graduate Center Digital
+Initiatives](https://gcdi.commons.gc.cuny.edu/) Digital Humanities
+Research Institute [Python workshop](https://github.com/DHRI-Curriculum/python). 
 
 The opening challenge takes text from the [Feminist Data Manifest-No](https://www.manifestno.com/) by M. Cifor, P. Garcia, et al.
 
-For more on Python, please see these great workshops and intructional materials from:
+For more instruction with Python, please see these books:
 - WJB Mattingly's [Introduction to Python for
 Humanists](https://python-textbook.pythonhumanities.com/intro.html)
 - Melanie Walsh's [Introduction to Cultural Analytics &
