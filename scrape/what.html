@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>coming soon! &#8212; Python for Working with Text</title>
+    <title>what is web scraping? &#8212; Python for Working with Text</title>
   
   
   
@@ -62,10 +62,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'text/coming-soon';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'scrape/what';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="scraping with bs4" href="../scrape/scrape.html" />
+    <link rel="next" title="ethics" href="ethics.html" />
+    <link rel="prev" title="workshop overview" href="overview.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -176,17 +177,17 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../intro/logic.html">logic</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python for Web Scraping</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../scrape/overview.html">workshop overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../scrape/what.html">what is web scraping?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../scrape/ethics.html">ethics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../scrape/inspector.html">the HTML Inspector</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../scrape/scrape.html">scraping with bs4</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">workshop overview</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">what is web scraping?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ethics.html">ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inspector.html">the HTML Inspector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scrape.html">scraping with bs4</a></li>
 
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python for Text Analysis</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">coming soon!</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../text/coming-soon.html">coming soon!</a></li>
 </ul>
 
     </div>
@@ -258,7 +259,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Ftext/coming-soon.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fscrape/what.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -288,7 +289,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/text/coming-soon.md" target="_blank"
+      <li><a href="../_sources/scrape/what.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -357,7 +358,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -368,11 +371,26 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>coming soon!</h1>
+    <h1>what is web scraping?</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vs-apis">vs APIs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-the-met-api">an example, the MET API</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tools-for-scraping">tools for scraping</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#beautifulsoup4-or-bs4">BeautifulSoup4, or bs4</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scrapy">Scrapy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selenium">Selenium</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -382,8 +400,75 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="coming-soon">
-<h1>coming soon!<a class="headerlink" href="#coming-soon" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="what-is-web-scraping">
+<h1>what is web scraping?<a class="headerlink" href="#what-is-web-scraping" title="Permalink to this heading">#</a></h1>
+<p>Web scraping is a programmatic method for extracting data from webpages. It is the process of going into the website’s source code, which is in the form of HTML code, pulling out information from the HTML, and manipulating that information into a desired format, like a spreadsheet, for example. My favorite API is the <a class="reference external" href="https://metmuseum.github.io/">Met API</a>, from the Metropolitan Museum of Art in New York City. I like this API because it is free, open, requiring no signup or authentication codes, so can demo how works it right in the URL.</p>
+<section id="vs-apis">
+<h2>vs APIs<a class="headerlink" href="#vs-apis" title="Permalink to this heading">#</a></h2>
+<p>API stands for “application programming interface.” It is a bit of software that allows one application to talk to another. For example, your weather application on your phone uses an API to request data about the current temperature from a computer server that contains this information.</p>
+<p>Both web scraping and API are about getting data from websites. The difference is that APIs are created by the data holders themselves, so they are always more efficient, returning nicely packed data in the form of JSON or XML to the requester. Many popular websites have APIs, for example Reddit, Twitter, the New York Public Library, SkyScanner, and more. Generally, if there is an API that returns JSON, XML, use that before scraping.</p>
+<p>However, you might find yourself in a scenario where there might not be an API to access the data you want, or the access to the API might be too limited  or expensive. In this case, web scraping might be your best route. Just be aware that web scraping requires more work from the individual, who needs to figure out how to get data from the source, mostly without support from the source.</p>
+</section>
+<section id="an-example-the-met-api">
+<h2>an example, the MET API<a class="headerlink" href="#an-example-the-met-api" title="Permalink to this heading">#</a></h2>
+<p>Here’s quick anatomy of an API request, using the <a class="reference external" href="https://metmuseum.github.io/">Met API</a> as an example:</p>
+<ul class="simple">
+<li><p>the <em>root</em> consists of the base URL.</p>
+<ul>
+<li><p><a class="reference external" href="https://collectionapi.metmuseum.org/">https://collectionapi.metmuseum.org/</a></p></li>
+</ul>
+</li>
+<li><p>the <em>path</em> which consists of a directory structure (file structure) where the data is held:</p>
+<ul>
+<li><p>/public/collection/v1/objects</p></li>
+<li><p>/public/collection/v1/departments</p></li>
+<li><p>/public/collection/v1/search</p></li>
+</ul>
+</li>
+<li><p>the <em>query parameter</em> or the <em>endpoint</em> which is the specific request.</p>
+<ul>
+<li><p>?q=SearchTerm</p></li>
+<li><p>?q=Berthe+Morisot</p></li>
+</ul>
+</li>
+</ul>
+<p>So, to search for objects that match the name of the painter “Berthe Morisot,” one would use the following request URL:
+<code class="docutils literal notranslate"><span class="pre">https://collectionapi.metmuseum.org/public/collection/v1/search?q=Berthe+Morisot</span></code></p>
+<p>The results would appear as a list of object IDs in a JSON format. Then, one would use the objects path to search for a specific object.</p>
+<p><code class="docutils literal notranslate"><span class="pre">https://collectionapi.metmuseum.org/public/collection/v1/objects/438009</span></code></p>
+<p>The result is the catalog information for that item in JSON format. Put the above URL in the browser to see it for yourself!</p>
+</section>
+<section id="tools-for-scraping">
+<h2>tools for scraping<a class="headerlink" href="#tools-for-scraping" title="Permalink to this heading">#</a></h2>
+<p>In Python, there are three major “libraries,” or collections of code, for web scraping. They each have different advantages, working best with specific use cases. Here is a brief overview of their differences.</p>
+<section id="beautifulsoup4-or-bs4">
+<h3>BeautifulSoup4, or bs4<a class="headerlink" href="#beautifulsoup4-or-bs4" title="Permalink to this heading">#</a></h3>
+<p>More than a web scraper, <a class="reference external" href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/">bs4</a> is technically an HTML parser, which uses the <code class="docutils literal notranslate"><span class="pre">requests</span></code> library to make http requests using URLs.</p>
+<p>Why it’s useful:</p>
+<ul class="simple">
+<li><p>powerful for manipulating and transforming HTML data.</p></li>
+<li><p>beginner-friendly, get started with just a few lines of code.</p></li>
+</ul>
+</section>
+<section id="scrapy">
+<h3>Scrapy<a class="headerlink" href="#scrapy" title="Permalink to this heading">#</a></h3>
+<p><a class="reference external" href="https://scrapy.org/">Scrapy</a> is a web crawling framework. It requires installation, and comes with many pre-made files for web scraping.</p>
+<p>Why it’s useful:</p>
+<ul class="simple">
+<li><p>it has its own interactive mode. the “scrapy shell,” for exploring web pages.</p></li>
+<li><p>it enables one to “crawl,” or navigate through, websites, pagination, clicking on links, etc.</p></li>
+<li><p>more appropriate for larger scale crawling projects.</p></li>
+</ul>
+</section>
+<section id="selenium">
+<h3>Selenium<a class="headerlink" href="#selenium" title="Permalink to this heading">#</a></h3>
+<p>Like Scrapy, <a class="reference external" href="https://www.selenium.dev/">Selenium</a> can also crawl web pages. The difference is that it uses a “web driver,” that is, a simulated browser to scrape websites.</p>
+<p>Why it’s useful:</p>
+<ul class="simple">
+<li><p>it enables the scraping of dynamic elements. Information served through JavaScript or APIs, for example, can be accessed via the simulated driver.</p></li>
+</ul>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -399,7 +484,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./text"
+            path: "./scrape"
         },
         predefinedOutput: true
     }
@@ -417,13 +502,22 @@ document.write(`
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../scrape/scrape.html"
+       href="overview.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">scraping with bs4</p>
+        <p class="prev-next-title">workshop overview</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="ethics.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">ethics</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -431,6 +525,27 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vs-apis">vs APIs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-the-met-api">an example, the MET API</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tools-for-scraping">tools for scraping</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#beautifulsoup4-or-bs4">BeautifulSoup4, or bs4</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scrapy">Scrapy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selenium">Selenium</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

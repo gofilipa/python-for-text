@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>coming soon! &#8212; Python for Working with Text</title>
+    <title>ethics &#8212; Python for Working with Text</title>
   
   
   
@@ -62,10 +62,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'text/coming-soon';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'scrape/ethics';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="scraping with bs4" href="../scrape/scrape.html" />
+    <link rel="next" title="the HTML Inspector" href="inspector.html" />
+    <link rel="prev" title="what is web scraping?" href="what.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -176,17 +177,17 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../intro/logic.html">logic</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python for Web Scraping</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../scrape/overview.html">workshop overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../scrape/what.html">what is web scraping?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../scrape/ethics.html">ethics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../scrape/inspector.html">the HTML Inspector</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../scrape/scrape.html">scraping with bs4</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">workshop overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="what.html">what is web scraping?</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inspector.html">the HTML Inspector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scrape.html">scraping with bs4</a></li>
 
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python for Text Analysis</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">coming soon!</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../text/coming-soon.html">coming soon!</a></li>
 </ul>
 
     </div>
@@ -258,7 +259,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Ftext/coming-soon.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fscrape/ethics.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -288,7 +289,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/text/coming-soon.md" target="_blank"
+      <li><a href="../_sources/scrape/ethics.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -357,7 +358,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -368,11 +371,26 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>coming soon!</h1>
+    <h1>ethics</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-legal-what-is-ethical">what is legal? what is ethical?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ethical">ethical:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#legal">legal:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#not-everything-legal-is-ethical">not everything legal is ethical</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anti-trans-legislation">anti-trans legislation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions-for-ethical-scraping">questions for ethical scraping</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -382,8 +400,101 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="coming-soon">
-<h1>coming soon!<a class="headerlink" href="#coming-soon" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="ethics">
+<h1>ethics<a class="headerlink" href="#ethics" title="Permalink to this heading">#</a></h1>
+<section id="what-is-legal-what-is-ethical">
+<h2>what is legal? what is ethical?<a class="headerlink" href="#what-is-legal-what-is-ethical" title="Permalink to this heading">#</a></h2>
+<p>The question is crucial needs to be asked <em>prior</em> to scraping. There’s
+a lot of information about the ethics and legality of web scraping,
+written in much more detail that I can here. For example, check out
+University of Michigan’s excellent
+<a class="reference external" href="https://docs.google.com/document/d/11LZweIYD9MmjiZgY-VW1IXUPOP1k-SwXNiOdJDVC7Vw/edit#heading=h.ut4ttuudwb6i">guidebook</a>
+on the subject.</p>
+<section id="ethical">
+<h3>ethical:<a class="headerlink" href="#ethical" title="Permalink to this heading">#</a></h3>
+<p>Before you even start thinking about legality, you want to spend some
+time thinking carefully about <em>who</em> your data pertains to (who is the
+data about?) and how gathering, doing analysis, and/or publishing that
+dataset will affect the groups involved. You especially want to do
+this work if your project involved already marginalized communities.</p>
+<p>Here are some basic questions you want to ask as you get into a web
+scraping project:</p>
+<ul class="simple">
+<li><p>Whose data am I scraping? Who owns the data? (often times, the
+answers are different)</p></li>
+<li><p>Is the data public or private data? Does it contain any identifying
+characteristics?</p></li>
+<li><p>What will I do with the data? (gather it, analyze it, publish it
+online, all of the above, etc.)</p></li>
+<li><p>What will be the effect of my actions on the group who the data is
+about?</p></li>
+</ul>
+<p>The most important thing is to assess any vulnerabilities about the
+people that the data pertains to. And this can only be answered on a
+case by case basis. There is no hard and fast rule that applies to all
+groups.</p>
+<p>For example, if you are scraping data about an indigenous populations
+across the United States, you might want to keep in mind that these
+groups are understandably protective and may not want some information
+to be made public. In that case, you’d want to reach out to the groups
+directly and ask permission, or you’d want to keep the data private
+(doing analysis on your own) and only discuss or publish the results
+of the analysis.</p>
+<p>Another example, the <em>Trans Legislation Tracker</em>, is a different
+case. Collecting and publishing that data would benefit the ones whom
+the data is about by bringing awareness and attention to the
+issue. The goal of the project–to do a text analysis of terms like
+“gender” and “sex” in the bills–also benefits trans people, because
+it creates an opportunity to examine the ways that language is being
+used to oppress and limit them.</p>
+</section>
+<section id="legal">
+<h3>legal:<a class="headerlink" href="#legal" title="Permalink to this heading">#</a></h3>
+<p>If after assessing the communities involved, you’ve determined that
+you want to move forward with the proejct, then you want to think
+about legality.</p>
+<p>What is legal? Basically, there are two questions.</p>
+<ul class="simple">
+<li><p>First, is the data publically accessible (this is distinct from
+“open” or “free” data which are closely related concerns and contain
+their own complexities)</p></li>
+<li><p>Second, does the data publisher permit scraping or mining their
+data? For this, you’d need to check the <code class="docutils literal notranslate"><span class="pre">robots.txt</span></code> file (more on
+this below), and in the absence of that, the “Privacy” or “Terms of
+Service” pages on the website.</p></li>
+</ul>
+<p>If the answer is yes to both of these questions, then scraping (and
+perhaps even publishing) that data is entirely legal. If the answer is
+no to any of them, then your project run the risk of violating the
+law.</p>
+<p>All of this being said, it is important to point out that copyright
+law protects making copies of information for the purpose of academic
+research. This means that, provided you do not distribute or publish
+the data in any public way, you can scrape information for your own
+private study. See more under the “<a class="reference external" href="https://www.copyright.gov/fair-use/">Fair
+Use</a>” description at the US
+Copyright Office.</p>
+</section>
+</section>
+<section id="not-everything-legal-is-ethical">
+<h2>not everything legal is ethical<a class="headerlink" href="#not-everything-legal-is-ethical" title="Permalink to this heading">#</a></h2>
+<p>It’s worth re-iterating the importance of ethics. Just because
+something legally can be scraped doesn’t mean it should be
+scraped. The most important consideration, more important that
+legality (in my view) is how copying, analyzing, and/or publishing
+that data affects the groups to whom that data pertains. Be thoughtful
+about the potential effects of collecting that data and making it
+available. If it makes an already marginalized group more vulnerable,
+don’t scrape it.</p>
+</section>
+<section id="anti-trans-legislation">
+<h2>anti-trans legislation<a class="headerlink" href="#anti-trans-legislation" title="Permalink to this heading">#</a></h2>
+<p>I’m going to demonstrate this process using my project on the <em>Trans
+Legislation Tracker</em> as an example.</p>
+</section>
+<section id="questions-for-ethical-scraping">
+<h2>questions for ethical scraping<a class="headerlink" href="#questions-for-ethical-scraping" title="Permalink to this heading">#</a></h2>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -399,7 +510,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./text"
+            path: "./scrape"
         },
         predefinedOutput: true
     }
@@ -417,13 +528,22 @@ document.write(`
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../scrape/scrape.html"
+       href="what.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">scraping with bs4</p>
+        <p class="prev-next-title">what is web scraping?</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="inspector.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">the HTML Inspector</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -431,6 +551,27 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-legal-what-is-ethical">what is legal? what is ethical?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ethical">ethical:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#legal">legal:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#not-everything-legal-is-ethical">not everything legal is ethical</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anti-trans-legislation">anti-trans legislation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions-for-ethical-scraping">questions for ethical scraping</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
