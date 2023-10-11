@@ -15,7 +15,12 @@ parts:
   - file: intro/logic
 - caption: Python for Web Scraping
   chapters: 
-  - file: scrape/coming-soon
+  - file: scrape/overview
+  - file: scrape/what
+  - file: scrape/ethics
+  - file: scrape/inspector
+  - file: scrape/explore
+  - file: scrape/scrape
 - caption: Python for Text Analysis
   chapters: 
   - file: text/coming-soon

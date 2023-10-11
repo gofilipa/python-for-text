@@ -1,0 +1,1658 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>scraping with bs4 &#8212; Python for Working with Text</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'scrape/scrape';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="coming soon!" href="../text/coming-soon.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="explore.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    “Intro to Python for Working with Text” workshop series
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Intro to Python</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../intro/overview.html">workshop overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/script.html">opening challenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/data-types.html">data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/variables.html">variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/lists.html">lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/loops.html">loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/logic.html">logic</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python for Web Scraping</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">workshop overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="what.html">what is web scraping?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ethics.html">ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inspector.html">the HTML Inspector</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">scraping with bs4</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python for Text Analysis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../text/coming-soon.html">coming soon!</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fscrape/scrape.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/scrape/scrape.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>scraping with bs4</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">scraping with bs4</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-bs4">what is bs4?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exporting-data-to-a-spreadsheet">exporting data to a spreadsheet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#split-ing-the-bill-title"><code class="docutils literal notranslate"><span class="pre">split()</span></code>ing the bill title</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-the-link-to-state-bill">getting the link to state bill</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas">pandas</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="scraping-with-bs4">
+<h1>scraping with bs4<a class="headerlink" href="#scraping-with-bs4" title="Permalink to this heading">#</a></h1>
+<p>Scroll down until you see “Passed anti-trans bills” heading. Click on the red button that says “View 2023 Passed Right click on a headline, any headline, and select inspect element (or whatever option is closest to that phrase in your menu).</p>
+<section id="what-is-bs4">
+<h2>what is bs4?<a class="headerlink" href="#what-is-bs4" title="Permalink to this heading">#</a></h2>
+<p>bs4 is short for <code class="docutils literal notranslate"><span class="pre">Beautiful</span> <span class="pre">Soup</span> <span class="pre">4</span></code>, a python package for parsing HTML data. bs4’s power comes from using python syntax to access and manipulate HTML elements. In other words, this means that it uses the python language and its syntax to get information from pages written in the web’s main computer lanugage, HTML.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span> <span class="nn">lxml</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">site</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://translegislation.com/bills/2023/passed&#39;</span><span class="p">)</span>
+<span class="n">html_code</span> <span class="o">=</span> <span class="n">site</span><span class="o">.</span><span class="n">content</span>
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html_code</span><span class="p">,</span> <span class="s1">&#39;lxml&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for each item in div.css-4rck61</span>
+<span class="c1"># get h3.text</span>
+<span class="c1"># get category text class = css-bu60l4</span>
+<span class="c1"># get h2.text</span>
+<span class="c1"># get a class &quot;chakra-link&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get bill title</span>
+
+<span class="n">soup</span><span class="o">.</span><span class="n">h3</span><span class="o">.</span><span class="n">text</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;AL HB261&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get bill caption</span>
+<span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="n">class_</span> <span class="o">=</span><span class="s1">&#39;css-4rck61&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">h2</span><span class="o">.</span><span class="n">text</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Relating to two-year and four-year public institutions of higher education; to amend Section 16-1-52, Code of Alabama 1975, to prohibit a biological male from participating on an athletic team or sport designated for females; to prohibit a biological female from participating on an athletic team or sport designated for males; to prohibit adverse action against a public K-12 school or public two-year or four-year institution of higher education for complying with this act; to prohibit adverse action or retaliation against a student who reports a violation of this act; and to provide a remedy for any student who suffers harm or is directy deprived of an athletic opportunity as a result of a violation of this act.&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get bill category</span>
+
+<span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;css-4rck61&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">text</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;SPORTS&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get bill description (if any)</span>
+
+<span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="n">class_</span> <span class="o">=</span><span class="s1">&#39;css-4rck61&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">text</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get link extension</span>
+
+<span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="n">class_</span> <span class="o">=</span><span class="s1">&#39;css-4rck61&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;/bills/2023/AL/HB261&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bill_cards</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="n">class_</span> <span class="o">=</span><span class="s1">&#39;css-4rck61&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">div</span> <span class="ow">in</span> <span class="n">bill_cards</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">div</span><span class="o">.</span><span class="n">h3</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">div</span><span class="o">.</span><span class="n">h2</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">div</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">div</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">div</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">])</span> <span class="c1"># add https://translegislation.com/bills/2023/US</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AL HB261
+Relating to two-year and four-year public institutions of higher education; to amend Section 16-1-52, Code of Alabama 1975, to prohibit a biological male from participating on an athletic team or sport designated for females; to prohibit a biological female from participating on an athletic team or sport designated for males; to prohibit adverse action against a public K-12 school or public two-year or four-year institution of higher education for complying with this act; to prohibit adverse action or retaliation against a student who reports a violation of this act; and to provide a remedy for any student who suffers harm or is directy deprived of an athletic opportunity as a result of a violation of this act.
+SPORTS
+
+/bills/2023/AL/HB261
+AL SB261
+Relating to public contracts; to prohibit governmental entities from entering into certain contracts with companies that boycott businesses because the business engages in certain sectors or does not meet certain environmental or corporate governance standards or does not facilitate certain activities; to provide that no company in the state shall be required by a governmental entity, nor penalized by a governmental entity for declining to engage in economic boycotts or other actions that further social, political, or ideological interests; to require the Attorney General to take actions to prevent federal laws or actions from penalizing, inflicting harm on, limiting commercial relations with, or changing or limiting the activities of companies or residents of the state based on the furtherance of economic boycott criteria; and to authorize the Attorney General to investigate and enforce this act; and to provide definitions.
+OTHER
+
+/bills/2023/AL/SB261
+AR HB1156
+Concerning A Public School District Or Open-enrollment Public Charter School Policy Relating To A Public School Student&#39;s Sex.
+BATHROOM
+
+/bills/2023/AR/HB1156
+AR HB1468
+To Create The Given Name Act; And To Prohibit Requiring Employees Of Public Schools And State-supported Institutions Of Higher Education To Use A Person&#39;s Preferred Pronoun, Name, Or Title Without Parental Consent.
+EDUCATION
+
+/bills/2023/AR/HB1468
+AR HB1615
+To Create The Conscience Protection Act; And To Amend The Religious Freedom Restoration Act.
+OTHER
+
+/bills/2023/AR/HB1615
+AR SB125
+Concerning Free Speech Rights At State-supported Institutions Of Higher Education.
+EDUCATION
+
+/bills/2023/AR/SB125
+AR SB199
+Concerning Medical Malpractice And Gender Transition In Minors; And To Create The Protecting Minors From Medical Malpractice Act Of 2023.
+HEALTHCARE
+
+/bills/2023/AR/SB199
+AR SB270
+To Amend The Criminal Offense Of Sexual Indecency With A Child.
+BATHROOM
+
+/bills/2023/AR/SB270
+AR SB294
+To Create The Learns Act; To Amend Various Provisions Of The Arkansas Code As They Relate To Early Childhood Through Grade Twelve Education In The State Of Arkansas; And To Declare An Emergency.
+BATHROOM
+
+/bills/2023/AR/SB294
+AR SB43
+To Add Certain Restrictions To An Adult-oriented Performance; And To Define An Adult-oriented Performance.
+OTHER
+
+/bills/2023/AR/SB43
+FL H1069
+Education
+EDUCATION
+Defines &quot;sex&quot; for Florida Early Learning-20 Education Code; provides requirements relating to titles &amp; pronouns; revises provisions relating to instruction &amp; materials for specified instruction relating to reproductive health; provides additional requirements for instruction regarding human sexuality; provides district school boards are responsible for materials used in classroom libraries; revises provisions relating to objections of certain materials &amp; process related to such objections; revises school principal, school district &amp; district school board duties &amp; responsibilities relating to certain materials &amp; processes.
+/bills/2023/FL/H1069
+FL H1521
+Facility Requirements Based on Sex
+BATHROOM
+Provides requirements for exclusive use of restrooms &amp; changing facilities by gender; prohibits willfully entering restroom or changing facility designated for opposite sex &amp; refusing to depart when asked to do so; provides requirements for exclusive use of domestic violence centers by gender; provides requirements for correctional institutions; requires entities that receive state licenses to submit compliance documentation; authorizes AG to bring enforcement actions provides exception for individuals born with certain genetically or biochemically verifiable disorder of sex development.
+/bills/2023/FL/H1521
+FL S0254
+Treatments for Sex Reassignment
+HEALTHCARE
+Granting courts of this state temporary emergency jurisdiction over a child present in this state if the child has been subjected to or is threatened with being subjected to sex-reassignment prescriptions or procedures; providing that, for purposes of warrants to take physical custody of a child in certain child custody enforcement proceedings, serious physical harm to the child includes, but is not limited to, being subjected to sex-reassignment prescriptions or procedures; prohibiting certain public entities from expending state funds for the provision of sex-reassignment prescriptions or procedures; prohibiting sex-reassignment prescriptions and procedures for patients younger than 18 years of age; requiring the department to immediately suspend the license of a health care practitioner who is arrested for committing or attempting, soliciting, or conspiring to commit specified violations related to sex-reassignment prescriptions or procedures for a patient younger than 18 years of age, etc.
+/bills/2023/FL/S0254
+FL S0266
+Higher Education
+EDUCATION
+Revising the duties of the Board of Governors relating to the mission of each state university; requiring the Board of Governors Accountability Plan to annually report certain research expenditures of a specified amount; prohibiting specified educational institutions from expending funds for certain purposes; revising how general education core courses are established; specifying a one-time limit on the requirement to change accrediting agencies, etc.
+/bills/2023/FL/S0266
+FL S1382
+United States Department of Defense
+OTHER
+Urging Congress to restore the United States Department of Defense&#39;s superior warfighting principles of recruiting, assigning, training, promoting, and retaining personnel solely based on merit and ensuring such personnel maintain and display a warrior ethos, etc.
+/bills/2023/FL/S1382
+GA SB140
+Hospitals; the treatment of gender dysphoria in minors performed in hospitals and other licensed healthcare facilities; prohibit certain surgical procedures
+HEALTHCARE
+A BILL to be entitled an Act to amend Article 1 of Chapter 7 of Title 31 of the Official Code of Georgia Annotated, relating to regulation of hospitals and related institutions, so as to prohibit certain surgical procedures for the treatment of gender dysphoria in minors from being performed in hospitals and other licensed healthcare facilities; to provide for exceptions; to provide for violations; to amend Article 1 of Chapter 34 of Title 43 of the Official Code of Georgia Annotated, relating to the Georgia Composite Medical Board, so as to prohibit certain surgical procedures for the treatment of gender dysphoria in minors; to provide for exceptions; to provide for violations; to provide for legislative findings; to provide for related matters; to repeal conflicting laws; and for other purposes.
+/bills/2023/GA/SB140
+IA SF482
+A bill for an act prohibiting persons from entering single and multiple occupancy restrooms or changing areas and other facilities in elementary and secondary schools that do not correspond with the person&#39;s biological sex and including effective date provisions. (Formerly SF 335.) Effective date: 03/22/2023.
+BATHROOM
+
+/bills/2023/IA/SF482
+IA SF496
+A bill for an act relating to children and students, including establishing a parent&#39;s or guardian&#39;s right to make decisions affecting the parent&#39;s or guardian&#39;s child, authorizing the parent or guardian of a student enrolled in a school district to enroll the student in another attendance center within the same school district in certain specified circumstances, prohibiting instruction related to gender identity and sexual orientation in school districts, charter schools, and innovation zone schools in kindergarten through grade six, and modifying provisions related to student health screenings, school district library programs, the educational program provided to students enrolled in school districts, accredited nonpublic schools, and charter schools, other duties of school districts, accredited nonpublic schools, the department of education, the board of educational examiners, and the governing boards of charter schools and innovation zone schools, competent private instruction, and special education, and including effective date provisions. (Formerly SSB 1145.) Effective date: 05/26/2023, 07/01/2023.
+EDUCATION
+
+/bills/2023/IA/SF496
+IA SF538
+A bill for an act relating to prohibited activities regarding gender transition procedures relative to minors, and including effective date and applicability provisions. (Formerly SSB 1197.) Effective date: 03/22/2023. Contingent applicability date.
+HEALTHCARE
+
+/bills/2023/IA/SF538
+ID H0071
+Adds to existing law to establish provisions regarding vulnerable child protection.
+HEALTHCARE
+VULNERABLE CHILD PROTECTION ACT -- Adds to existing law to establish provisions regarding vulnerable child protection.
+/bills/2023/ID/H0071
+ID S1016
+Amends existing law to provide that a public works contractor shall not be required to provide access to a multiple-occupancy restroom, multiple-occupancy shower facility, or multiple-occupancy changing room on any basis other than sex.
+BATHROOM
+GOVERNMENT -- Amends existing law to provide that a public works contractor shall not be required to provide access to a multiple-occupancy restroom, multiple-occupancy shower facility, or multiple-occupancy changing room on any basis other than sex.
+/bills/2023/ID/S1016
+ID S1100
+Adds to existing law to establish privacy and safety standards in public schools.
+BATHROOM
+EDUCATION -- Adds to existing law to establish privacy and safety standards in public schools.
+/bills/2023/ID/S1100
+IN HB1569
+Restrictions on DOC provision of  gender therapy.
+HEALTHCARE
+Restrictions on DOC provision of  gender therapy. Provides that the department of correction may not authorize the payment of any money, the use of any state resources, or the payment of any federal money administered by the state to provide or facilitate the provision of sexual reassignment surgery to an offender patient.
+/bills/2023/IN/HB1569
+IN HB1608
+Education matters.
+EDUCATION
+Education matters. Provides that a school, an employee or staff member of a school, or a third party vendor used by a school to provide instruction may not provide any instruction to a student in prekindergarten through grade 3 on human sexuality. Provides that a school employee or a school staff member is not prohibited from responding to a question from a student regarding certain topics. Requires a school to notify in writing at least one parent of a student, if the student is an unemancipated minor, of a request made by the student to change the student&#39;s name or pronoun, title, or word to identify the student.
+/bills/2023/IN/HB1608
+IN SB0480
+Gender transition procedures for minors.
+HEALTHCARE
+Gender transition procedures for minors. Prohibits a physician or other practitioner from: (1) knowingly providing gender transition procedures to an individual who is less than 18 years of age (minor); and (2) aiding or abetting another physician or practitioner in the provision of gender transition procedures to a minor. Specifies certain medical exceptions. Establishes civil enforcement actions.
+/bills/2023/IN/SB0480
+KS HB2100
+HB 2100 Enacting the Kansas public investments and contracts protection act concerning environmental, social and governance (ESG) criteria, prohibiting the state and political subdivisions from giving preferential treatment to or discriminating against companies based on such ESG criteria in procuring or letting contracts, requiring KPERS fiduciaries to act solely in the financial interest of the participants and beneficiaries of the system, indemnifying KPERS with respect to actions taken in compliance with such act, restricting state agencies from adopting ESG criteria or requiring any person or business to operate in accordance with such criteria and providing for enforcement of such act by the attorney general.
+OTHER
+
+/bills/2023/KS/HB2100
+KS HB2138
+Senate Substitute for HB 2138 by Committee on Education - Requiring school districts to provide separate accommodations for students of each biological sex on overnight school district sponsored trips, requiring contracts for exclusive broadcasts of state high school activities association activities to permit certain local broadcasts and providing for administrative review of resolutions to permanently close a school building of a school district.
+EDUCATION
+
+/bills/2023/KS/HB2138
+KS HB2238
+Creating the fairness in women&#39;s sports act to require that female student athletic teams only include members who are biologically female.
+SPORTS
+
+/bills/2023/KS/HB2238
+KS SB180
+Establishing the women&#39;s bill of rights to provide a meaning of biological sex for purposes of statutory construction.
+OTHER
+
+/bills/2023/KS/SB180
+KS SB228
+Requiring the secretary for aging and disability services to reimburse counties for certain costs when a person is in a county jail awaiting examination, evaluation or treatment for competency, modernizing statutes concerning county jails, removing the requirement that every county shall have a jail, modifying procedures used when district courts commit prisoners to jail in another county and when counties contract with city jails to keep prisoners and requiring a medical examination before certain United States prisoners or city prisoners are taken into custody of a county jail.
+OTHER
+
+/bills/2023/KS/SB228
+KY SB145
+AN ACT relating to interscholastic athletics.
+SPORTS
+Amend KRS 156.070 to remove the statutory eligibility restriction for nonresident student participation in interscholastic athletics; retain eligibility authority with the agency designated to manage interscholastic athletics.
+/bills/2023/KY/SB145
+KY SB150
+AN ACT relating to children.
+EDUCATION
+Create a new section of KRS Chapter 158 to establish definitions; require specific parental notifications from public schools; require school districts to adopt specific procedures related to parental rights; limit authority of the Kentucky Board of Education and Kentucky Department of Education in relation to parental rights and a student&#39;s use of pronouns; prohibit district or school policies with the intent of keeping student information confidential for parents; prohibit a school district from requiring school personnel or pupils to use pronouns for students that do not conform to that student&#39;s biological sex; provide school districts and district personnel authority to seek emergency medical services for a student; provide conditions for student confidentiality; amend KRS 158.1415 to establish requirements for any public school&#39;s course, curriculum, or program on the subject of human sexuality.
+/bills/2023/KY/SB150
+LA HB648
+Prohibits certain procedures to alter the sex of a minor child
+HEALTHCARE
+
+/bills/2023/LA/HB648
+MO HB15
+APPROPRIATION BILL
+EDUCATION
+
+/bills/2023/MO/HB15
+MO SB39
+Establishes guidelines for student participation in athletic contests organized by sex
+SPORTS
+
+/bills/2023/MO/SB39
+MO SB49
+Establishes the &quot;Missouri Save Adolescents from Experimentation (SAFE) Act&quot; and modifies provisions relating to public funding of certain gender transition procedures
+HEALTHCARE
+
+/bills/2023/MO/SB49
+MS HB1125
+Regulate Experimental Adolescent Procedures (REAP) Act; create to regulate transgender procedures and surgeries.
+HEALTHCARE
+An Act To Create The &quot;regulate Experimental Adolescent Procedures (reap)&quot; Act For Any Person Under Eighteen Years Of Age; To Provide Definitions For The Act; To Prohibit The Direct Or Indirect Use, Grant, Payment Or Distribution Of Public Funds To Any Entity, Organization Or Individual That Provides Gender Transition Procedures To A Person Under Eighteen Years Of Age; To Provide That Health Care Services Furnished In A State Or Locally-owned Health Care Facility Or By A Physician Or Other Health Care Professional Employed By The State Or Local Government Shall Not Include Gender Transition Procedures For A Person Under Eighteen Years Of Age; To Provide That Amounts Paid During A Taxable Year For Provision Of Gender Transition Procedures Or As Premiums For Health Care Coverage That Includes Coverage For Gender Transition Procedures Are Not Deductible Under The State Income Tax Laws; To Authorize The Attorney General To Bring An Action To Enforce Compliance With This Act; To Create New Section 43-13-117.7, Mississippi Code Of 1972, To Prohibit The Division Of Medicaid From Reimbursing Or Providing Coverage For Gender Transition Procedures For A Person Under Eighteen Years Of Age; To Amend Section 83-9-22, Mississippi Code Of 1972, To Provide That Health Coverage Plans Are Not Required To Include Gender Transition Procedures; To Create New Section 83-9-37, Mississippi Code Of 1972, To Provide That A Health Benefit Plan Under An Insurance Policy Or Other Plan Providing Health Care Coverage Shall Not Include Reimbursement For Gender Transition Procedures For A Person Under Eighteen Years Of Age; To Amend Sections 27-7-17, 73-15-29 And 73-25-29, Mississippi Code Of 1972, To Conform To The Provisions Of This Act; To Amend Section 73-25-33, Mississippi Code Of 1972, To Exclude The Performance Gender Transition Procedures From The &quot;practice Of Medicine&quot; Meaning; To Amend Section 11-46-5, Mississippi Code Of 1972, To Exclude From Tort Immunity Violations Of This Act; To Amend Section 41-41-219, Mississippi Code Of 1972, To Conform To The Preceding Section; To Provide Severability If Any Part Of This Act Is Found Unconstitutional; And For Related Purposes.
+/bills/2023/MS/HB1125
+MT HB234
+Revise dissemination of obscene material to minors laws
+EDUCATION
+
+/bills/2023/MT/HB234
+MT HB303
+Implement Medical Ethics and Diversity Act
+HEALTHCARE
+
+/bills/2023/MT/HB303
+MT HB359
+Prohibit minors from attending drag shows
+OTHER
+
+/bills/2023/MT/HB359
+MT HB361
+Provide that use of a name and sex by a student is not discrimination
+EDUCATION
+
+/bills/2023/MT/HB361
+MT SB458
+Define sex in Montana law
+OTHER
+
+/bills/2023/MT/SB458
+MT SB518
+Revise parental rights laws to increase parental involvement in education
+EDUCATION
+
+/bills/2023/MT/SB518
+MT SB99
+Provide for a youth health protection act
+HEALTHCARE
+
+/bills/2023/MT/SB99
+NC H574
+Fairness in Women&#39;s Sports Act
+SPORTS
+
+/bills/2023/NC/H574
+NC H808
+Gender Transition/Minors
+HEALTHCARE
+
+/bills/2023/NC/H808
+NC S49
+Parents&#39; Bill of Rights
+EDUCATION
+
+/bills/2023/NC/S49
+ND HB1139
+Required elements of birth records.
+OTHER
+AN ACT to amend and reenact sections 23-02.1-01, 23-02.1-13, and 23-02.1-15 of the North Dakota Century Code, relating to required elements of birth records.
+/bills/2023/ND/HB1139
+ND HB1205
+Prohibiting public libraries from maintaining explicit sexual material; to provide for a legislative management report; and to provide for application.
+EDUCATION
+AN ACT to create and enact a new section to chapter 12.1-27.1 of the North Dakota Century Code, relating to prohibiting public libraries from maintaining explicit sexual material; to provide for a legislative management report; and to provide for application.
+/bills/2023/ND/HB1205
+ND HB1249
+Requiring schools to designate their athletic teams and sports for male, female, or coed participation and limitations on use of governmental property for athletic events.
+SPORTS
+AN ACT to create and enact chapter 15.1-39 of the North Dakota Century Code, relating to requiring schools to designate their athletic teams and sports for male, female, or coed participation and limitations on use of governmental property for athletic events.
+/bills/2023/ND/HB1249
+ND HB1254
+The prohibition of certain practices against a minor; to provide a penalty; and to declare an emergency.
+HEALTHCARE
+AN ACT to create and enact chapter 12.1-36.1 of the North Dakota Century Code, relating to the prohibition of certain practices against a minor; to provide a penalty; and to declare an emergency.
+/bills/2023/ND/HB1254
+ND HB1297
+Correction or amendment of birth records.
+OTHER
+AN ACT to create and enact a new section to chapter 23-02.1 of the North Dakota Century Code, relating to correction or amendment of birth records.
+/bills/2023/ND/HB1297
+ND HB1333
+State pre-emption of local laws regulating obscenity; and to provide a penalty.
+OTHER
+AN ACT to create and enact a new section to chapter 12.1-27.1 of the North Dakota Century Code, relating to restrictions on adult-oriented performances; to amend and reenact section 12.1-27.1-12 of the North Dakota Century Code, relating to state pre-emption of local laws regulating obscenity; and to provide a penalty.
+/bills/2023/ND/HB1333
+ND HB1473
+The use of restrooms, locker rooms, and shower rooms in a dormitory or living facility controlled by the state board of higher education, a correctional facility, the North Dakota youth correctional center, and the penitentiary exclusively for males and females.
+BATHROOM
+AN ACT to create and enact a new section to chapter 12-44.1, a new section to chapter 12-46, a new section to chapter 12-47, and a new section to chapter 15-10 of the North Dakota Century Code, relating to the use of restrooms, locker rooms, and shower rooms in a dormitory or living facility controlled by the state board of higher education, a correctional facility, the North Dakota youth correctional center, and the penitentiary exclusively for males and females.
+/bills/2023/ND/HB1473
+ND HB1474
+The definition of female, male, sex, and scrap metal dealer.
+OTHER
+AN ACT to amend and reenact section 1-01-49, subsection 3 of section 12.1-36.1-01 of the North Dakota Century Code as created by section 1 of House Bill No. 1254, as approved by the sixty-eighth legislative assembly, subsection 2 of section 15-10.6-01 of the North Dakota Century Code as created by section 1 of House Bill No. 1489, as approved by the sixty-eighth legislative assembly, subsection 2 of section 15.1-41-01 of the North Dakota Century Code as created by section 1 of House Bill No. 1249, as approved by the sixty-eighth legislative assembly, subsection 20 of section 23-02.1-01 of the North Dakota Century Code as amended in section 1 of House Bill No. 1139, as approved by the sixty-eighth legislative assembly, and subsection 7 of section 51-35-01 of the North Dakota Century Code, relating to the definition of female, male, sex, and scrap metal dealer.
+/bills/2023/ND/HB1474
+ND HB1489
+Requiring institutions of higher education designating athletic teams and sports for male, female, or coed participation.
+SPORTS
+AN ACT to create and enact chapter 15-10.6 of the North Dakota Century Code, relating to requiring institutions of higher education designating athletic teams and sports for male, female, or coed participation.
+/bills/2023/ND/HB1489
+ND HB1522
+Preferred pronouns and providing accommodations to a transgender student; to provide a penalty; and to declare an emergency.
+EDUCATION
+AN ACT to create and enact a new section to chapter 14-02.4 and a new section to chapter 15.1-06 of the North Dakota Century Code, relating to preferred pronouns and providing accommodations to a transgender student; to provide a penalty; and to declare an emergency.
+/bills/2023/ND/HB1522
+ND HCR3010
+A concurrent resolution urging public schools and public entities, including agencies or departments that collect vital statistics, to protect women&#39;s rights by distinguishing between the sexes according to biological sex at birth for the purpose of providing equal opportunities and ensuring the privacy and safety of women and girls.
+OTHER
+
+/bills/2023/ND/HCR3010
+NE LB574
+Adopt the Let Them Grow Act and the Preborn Child Protection Act and provide for discipline under the Uniform Credentialing Act
+HEALTHCARE
+
+/bills/2023/NE/LB574
+OK SB26
+Schools; providing certain exception to designation and use of restroom or changing area; exception for athletic activities; remedies for noncompliance. Effective date. Emergency.
+BATHROOM
+
+/bills/2023/OK/SB26
+OK SB404
+Oklahoma Religious Freedom Act; establishing exclusion from certain funds or benefits for certain reasons as substantial burden. Effective date.
+OTHER
+
+/bills/2023/OK/SB404
+OK SB613
+Health care; prohibiting gender transition procedures for children; authorizing certain civil actions and relief; licensure; adding violations and penalties. Emergency.
+HEALTHCARE
+
+/bills/2023/OK/SB613
+SD HB1080
+Prohibit certain medical and surgical interventions on minor patients.
+HEALTHCARE
+
+/bills/2023/SD/HB1080
+TN HB0001
+AN ACT to amend Tennessee Code Annotated, Title 28; Title 29; Title 33; Title 34; Title 36; Title 37; Title 39; Title 40; Title 49; Title 56; Title 63; Title 68 and Title 71, relative to medical care of the young.
+HEALTHCARE
+As enacted, prohibits a healthcare provider from performing on a minor or administering to a minor a medical procedure if the performance or administration of the procedure is for the purpose of enabling a minor to identify with, or live as, a purported identity inconsistent with the minor’s sex. - Amends TCA Title 28; Title 29; Title 33; Title 34; Title 36; Title 37; Title 39; Title 40; Title 49; Title 56; Title 63; Title 68 and Title 71.
+/bills/2023/TN/HB0001
+TN HB0009
+AN ACT to amend Tennessee Code Annotated, Title 7, Chapter 51, Part 14, relative to adult-oriented performances.
+OTHER
+As enacted, creates an offense for a person who engages in an adult cabaret performance on public property or in a location where the adult cabaret performance could be viewed by a person who is not an adult. - Amends TCA Title 7, Chapter 51, Part 14.
+/bills/2023/TN/HB0009
+TN HB0239
+AN ACT to amend Tennessee Code Annotated, Title 1, Chapter 3 and Title 49, Chapter 2, Part 8, relative to statutory definitions.
+OTHER
+As enacted, adds &quot;sex&quot; as a defined term for statutory construction purposes. - Amends TCA Title 1, Chapter 3 and Title 49, Chapter 2, Part 8.
+/bills/2023/TN/HB0239
+TN HB0306
+AN ACT to amend Tennessee Code Annotated, Title 49, Chapter 1 and Title 49, Chapter 50, relative to private schools.
+SPORTS
+As enacted, limits the ability of a student enrolled in a private school to participate in an interscholastic athletic activity or event, to such activity or event where membership in the Tennessee Secondary School Athletic Association is required, in accordance with the student&#39;s immutable biological sex as determined by anatomy and genetics existing at the time of birth. - Amends TCA Title 49, Chapter 1 and Title 49, Chapter 50.
+/bills/2023/TN/HB0306
+TN HB1269
+AN ACT to amend Tennessee Code Annotated, Title 49, Chapter 6, relative to student pronouns.
+EDUCATION
+As enacted, specifies that a teacher or other employee of a public school or LEA is not required to refer to a student using the student&#39;s preferred pronoun if the pronoun is not consistent with the student&#39;s biological sex; insulates a teacher or other employee of a public school or LEA from civil liability and adverse employment action for referring to a student using the pronoun that is consistent with the student&#39;s biological sex. - Amends TCA Title 49, Chapter 6.
+/bills/2023/TN/HB1269
+TN SB0001
+AN ACT to amend Tennessee Code Annotated, Title 28; Title 29; Title 33; Title 34; Title 36; Title 37; Title 39; Title 40; Title 49; Title 56; Title 63; Title 68 and Title 71, relative to medical care of the young.
+HEALTHCARE
+As enacted, prohibits a healthcare provider from performing on a minor or administering to a minor a medical procedure if the performance or administration of the procedure is for the purpose of enabling a minor to identify with, or live as, a purported identity inconsistent with the minor’s sex. - Amends TCA Title 28; Title 29; Title 33; Title 34; Title 36; Title 37; Title 39; Title 40; Title 49; Title 56; Title 63; Title 68 and Title 71.
+/bills/2023/TN/SB0001
+TN SB0003
+AN ACT to amend Tennessee Code Annotated, Title 7, Chapter 51, Part 14, relative to adult-oriented performances.
+OTHER
+As enacted, creates an offense for a person who engages in an adult cabaret performance on public property or in a location where the adult cabaret performance could be viewed by a person who is not an adult. - Amends TCA Title 7, Chapter 51, Part 14.
+/bills/2023/TN/SB0003
+TN SB0466
+AN ACT to amend Tennessee Code Annotated, Title 49, Chapter 6, relative to student pronouns.
+EDUCATION
+As enacted, specifies that a teacher or other employee of a public school or LEA is not required to refer to a student using the student&#39;s preferred pronoun if the pronoun is not consistent with the student&#39;s biological sex; insulates a teacher or other employee of a public school or LEA from civil liability and adverse employment action for referring to a student using the pronoun that is consistent with the student&#39;s biological sex. - Amends TCA Title 49, Chapter 6.
+/bills/2023/TN/SB0466
+TN SB1237
+AN ACT to amend Tennessee Code Annotated, Title 49, Chapter 1 and Title 49, Chapter 50, relative to private schools.
+SPORTS
+As enacted, limits the ability of a student enrolled in a private school to participate in an interscholastic athletic activity or event, to such activity or event where membership in the Tennessee Secondary School Athletic Association is required, in accordance with the student&#39;s immutable biological sex as determined by anatomy and genetics existing at the time of birth. - Amends TCA Title 49, Chapter 1 and Title 49, Chapter 50.
+/bills/2023/TN/SB1237
+TN SB1440
+AN ACT to amend Tennessee Code Annotated, Title 1, Chapter 3 and Title 49, Chapter 2, Part 8, relative to statutory definitions.
+OTHER
+As enacted, adds &quot;sex&quot; as a defined term for statutory construction purposes. - Amends TCA Title 1, Chapter 3 and Title 49, Chapter 2, Part 8.
+/bills/2023/TN/SB1440
+TX SB12
+Relating to the authority to regulate sexually oriented performances and to restricting those performances on the premises of a commercial enterprise, on public property, or in the presence of an individual younger than 18 years of age; authorizing a civil penalty; creating a criminal offense.
+OTHER
+
+/bills/2023/TX/SB12
+TX SB14
+Relating to prohibitions on the provision to certain children of procedures and treatments for gender transitioning, gender reassignment, or gender dysphoria and on the use of public money or public assistance to provide those procedures and treatments.
+HEALTHCARE
+
+/bills/2023/TX/SB14
+TX SB15
+Relating to requiring public institution of higher education students who compete in intercollegiate athletic competitions to compete based on biological sex.
+SPORTS
+
+/bills/2023/TX/SB15
+TX SB17
+Relating to diversity, equity, and inclusion initiatives at public institutions of higher education.
+EDUCATION
+
+/bills/2023/TX/SB17
+UT HB0209
+Participation in Extracurricular Activities Amendments
+SPORTS
+
+/bills/2023/UT/HB0209
+UT SB0016
+Transgender Medical Treatments and Procedures Amendments
+HEALTHCARE
+
+/bills/2023/UT/SB0016
+UT SB0093
+Birth Certificate Modifications
+OTHER
+
+/bills/2023/UT/SB0093
+UT SB0100
+School Gender Identity Policies
+EDUCATION
+
+/bills/2023/UT/SB0100
+WV HB2007
+Prohibiting certain medical practices
+HEALTHCARE
+The purpose of this bill is to prohibit certain medical practices.
+/bills/2023/WV/HB2007
+WY SF0133
+Student eligibility in interscholastic sports.
+SPORTS
+AN ACT relating to education; prohibiting students of the male sex from competing on a team designated for students of the female sex as specified; prohibiting retaliation; providing for an administrative hearing as specified; alternatively providing for a commission to determine student eligibility as specified; providing definitions; providing immunity as specified; providing an appropriation; requiring rulemaking; and providing for an effective date.
+/bills/2023/WY/SF0133
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># next steps: </span>
+<span class="c1"># assign a variable for each item. </span>
+
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">bill_cards</span><span class="p">:</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">h3</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">caption</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">h2</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">category</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">link</span> <span class="o">=</span> <span class="s1">&#39;https://translegislation.com/bills/2023/passed&#39;</span> <span class="o">+</span> <span class="n">item</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">caption</span><span class="p">,</span> <span class="n">category</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">link</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AL HB261 Relating to two-year and four-year public institutions of higher education; to amend Section 16-1-52, Code of Alabama 1975, to prohibit a biological male from participating on an athletic team or sport designated for females; to prohibit a biological female from participating on an athletic team or sport designated for males; to prohibit adverse action against a public K-12 school or public two-year or four-year institution of higher education for complying with this act; to prohibit adverse action or retaliation against a student who reports a violation of this act; and to provide a remedy for any student who suffers harm or is directy deprived of an athletic opportunity as a result of a violation of this act. SPORTS  https://translegislation.com/bills/2023/passed/bills/2023/AL/HB261
+AL SB261 Relating to public contracts; to prohibit governmental entities from entering into certain contracts with companies that boycott businesses because the business engages in certain sectors or does not meet certain environmental or corporate governance standards or does not facilitate certain activities; to provide that no company in the state shall be required by a governmental entity, nor penalized by a governmental entity for declining to engage in economic boycotts or other actions that further social, political, or ideological interests; to require the Attorney General to take actions to prevent federal laws or actions from penalizing, inflicting harm on, limiting commercial relations with, or changing or limiting the activities of companies or residents of the state based on the furtherance of economic boycott criteria; and to authorize the Attorney General to investigate and enforce this act; and to provide definitions. OTHER  https://translegislation.com/bills/2023/passed/bills/2023/AL/SB261
+AR HB1156 Concerning A Public School District Or Open-enrollment Public Charter School Policy Relating To A Public School Student&#39;s Sex. BATHROOM  https://translegislation.com/bills/2023/passed/bills/2023/AR/HB1156
+AR HB1468 To Create The Given Name Act; And To Prohibit Requiring Employees Of Public Schools And State-supported Institutions Of Higher Education To Use A Person&#39;s Preferred Pronoun, Name, Or Title Without Parental Consent. EDUCATION  https://translegislation.com/bills/2023/passed/bills/2023/AR/HB1468
+AR HB1615 To Create The Conscience Protection Act; And To Amend The Religious Freedom Restoration Act. OTHER  https://translegislation.com/bills/2023/passed/bills/2023/AR/HB1615
+AR SB125 Concerning Free Speech Rights At State-supported Institutions Of Higher Education. EDUCATION  https://translegislation.com/bills/2023/passed/bills/2023/AR/SB125
+AR SB199 Concerning Medical Malpractice And Gender Transition In Minors; And To Create The Protecting Minors From Medical Malpractice Act Of 2023. HEALTHCARE  https://translegislation.com/bills/2023/passed/bills/2023/AR/SB199
+AR SB270 To Amend The Criminal Offense Of Sexual Indecency With A Child. BATHROOM  https://translegislation.com/bills/2023/passed/bills/2023/AR/SB270
+AR SB294 To Create The Learns Act; To Amend Various Provisions Of The Arkansas Code As They Relate To Early Childhood Through Grade Twelve Education In The State Of Arkansas; And To Declare An Emergency. BATHROOM  https://translegislation.com/bills/2023/passed/bills/2023/AR/SB294
+AR SB43 To Add Certain Restrictions To An Adult-oriented Performance; And To Define An Adult-oriented Performance. OTHER  https://translegislation.com/bills/2023/passed/bills/2023/AR/SB43
+FL H1069 Education EDUCATION Defines &quot;sex&quot; for Florida Early Learning-20 Education Code; provides requirements relating to titles &amp; pronouns; revises provisions relating to instruction &amp; materials for specified instruction relating to reproductive health; provides additional requirements for instruction regarding human sexuality; provides district school boards are responsible for materials used in classroom libraries; revises provisions relating to objections of certain materials &amp; process related to such objections; revises school principal, school district &amp; district school board duties &amp; responsibilities relating to certain materials &amp; processes. https://translegislation.com/bills/2023/passed/bills/2023/FL/H1069
+FL H1521 Facility Requirements Based on Sex BATHROOM Provides requirements for exclusive use of restrooms &amp; changing facilities by gender; prohibits willfully entering restroom or changing facility designated for opposite sex &amp; refusing to depart when asked to do so; provides requirements for exclusive use of domestic violence centers by gender; provides requirements for correctional institutions; requires entities that receive state licenses to submit compliance documentation; authorizes AG to bring enforcement actions provides exception for individuals born with certain genetically or biochemically verifiable disorder of sex development. https://translegislation.com/bills/2023/passed/bills/2023/FL/H1521
+FL S0254 Treatments for Sex Reassignment HEALTHCARE Granting courts of this state temporary emergency jurisdiction over a child present in this state if the child has been subjected to or is threatened with being subjected to sex-reassignment prescriptions or procedures; providing that, for purposes of warrants to take physical custody of a child in certain child custody enforcement proceedings, serious physical harm to the child includes, but is not limited to, being subjected to sex-reassignment prescriptions or procedures; prohibiting certain public entities from expending state funds for the provision of sex-reassignment prescriptions or procedures; prohibiting sex-reassignment prescriptions and procedures for patients younger than 18 years of age; requiring the department to immediately suspend the license of a health care practitioner who is arrested for committing or attempting, soliciting, or conspiring to commit specified violations related to sex-reassignment prescriptions or procedures for a patient younger than 18 years of age, etc. https://translegislation.com/bills/2023/passed/bills/2023/FL/S0254
+FL S0266 Higher Education EDUCATION Revising the duties of the Board of Governors relating to the mission of each state university; requiring the Board of Governors Accountability Plan to annually report certain research expenditures of a specified amount; prohibiting specified educational institutions from expending funds for certain purposes; revising how general education core courses are established; specifying a one-time limit on the requirement to change accrediting agencies, etc. https://translegislation.com/bills/2023/passed/bills/2023/FL/S0266
+FL S1382 United States Department of Defense OTHER Urging Congress to restore the United States Department of Defense&#39;s superior warfighting principles of recruiting, assigning, training, promoting, and retaining personnel solely based on merit and ensuring such personnel maintain and display a warrior ethos, etc. https://translegislation.com/bills/2023/passed/bills/2023/FL/S1382
+GA SB140 Hospitals; the treatment of gender dysphoria in minors performed in hospitals and other licensed healthcare facilities; prohibit certain surgical procedures HEALTHCARE A BILL to be entitled an Act to amend Article 1 of Chapter 7 of Title 31 of the Official Code of Georgia Annotated, relating to regulation of hospitals and related institutions, so as to prohibit certain surgical procedures for the treatment of gender dysphoria in minors from being performed in hospitals and other licensed healthcare facilities; to provide for exceptions; to provide for violations; to amend Article 1 of Chapter 34 of Title 43 of the Official Code of Georgia Annotated, relating to the Georgia Composite Medical Board, so as to prohibit certain surgical procedures for the treatment of gender dysphoria in minors; to provide for exceptions; to provide for violations; to provide for legislative findings; to provide for related matters; to repeal conflicting laws; and for other purposes. https://translegislation.com/bills/2023/passed/bills/2023/GA/SB140
+IA SF482 A bill for an act prohibiting persons from entering single and multiple occupancy restrooms or changing areas and other facilities in elementary and secondary schools that do not correspond with the person&#39;s biological sex and including effective date provisions. (Formerly SF 335.) Effective date: 03/22/2023. BATHROOM  https://translegislation.com/bills/2023/passed/bills/2023/IA/SF482
+IA SF496 A bill for an act relating to children and students, including establishing a parent&#39;s or guardian&#39;s right to make decisions affecting the parent&#39;s or guardian&#39;s child, authorizing the parent or guardian of a student enrolled in a school district to enroll the student in another attendance center within the same school district in certain specified circumstances, prohibiting instruction related to gender identity and sexual orientation in school districts, charter schools, and innovation zone schools in kindergarten through grade six, and modifying provisions related to student health screenings, school district library programs, the educational program provided to students enrolled in school districts, accredited nonpublic schools, and charter schools, other duties of school districts, accredited nonpublic schools, the department of education, the board of educational examiners, and the governing boards of charter schools and innovation zone schools, competent private instruction, and special education, and including effective date provisions. (Formerly SSB 1145.) Effective date: 05/26/2023, 07/01/2023. EDUCATION  https://translegislation.com/bills/2023/passed/bills/2023/IA/SF496
+IA SF538 A bill for an act relating to prohibited activities regarding gender transition procedures relative to minors, and including effective date and applicability provisions. (Formerly SSB 1197.) Effective date: 03/22/2023. Contingent applicability date. HEALTHCARE  https://translegislation.com/bills/2023/passed/bills/2023/IA/SF538
+ID H0071 Adds to existing law to establish provisions regarding vulnerable child protection. HEALTHCARE VULNERABLE CHILD PROTECTION ACT -- Adds to existing law to establish provisions regarding vulnerable child protection. https://translegislation.com/bills/2023/passed/bills/2023/ID/H0071
+ID S1016 Amends existing law to provide that a public works contractor shall not be required to provide access to a multiple-occupancy restroom, multiple-occupancy shower facility, or multiple-occupancy changing room on any basis other than sex. BATHROOM GOVERNMENT -- Amends existing law to provide that a public works contractor shall not be required to provide access to a multiple-occupancy restroom, multiple-occupancy shower facility, or multiple-occupancy changing room on any basis other than sex. https://translegislation.com/bills/2023/passed/bills/2023/ID/S1016
+ID S1100 Adds to existing law to establish privacy and safety standards in public schools. BATHROOM EDUCATION -- Adds to existing law to establish privacy and safety standards in public schools. https://translegislation.com/bills/2023/passed/bills/2023/ID/S1100
+IN HB1569 Restrictions on DOC provision of  gender therapy. HEALTHCARE Restrictions on DOC provision of  gender therapy. Provides that the department of correction may not authorize the payment of any money, the use of any state resources, or the payment of any federal money administered by the state to provide or facilitate the provision of sexual reassignment surgery to an offender patient. https://translegislation.com/bills/2023/passed/bills/2023/IN/HB1569
+IN HB1608 Education matters. EDUCATION Education matters. Provides that a school, an employee or staff member of a school, or a third party vendor used by a school to provide instruction may not provide any instruction to a student in prekindergarten through grade 3 on human sexuality. Provides that a school employee or a school staff member is not prohibited from responding to a question from a student regarding certain topics. Requires a school to notify in writing at least one parent of a student, if the student is an unemancipated minor, of a request made by the student to change the student&#39;s name or pronoun, title, or word to identify the student. https://translegislation.com/bills/2023/passed/bills/2023/IN/HB1608
+IN SB0480 Gender transition procedures for minors. HEALTHCARE Gender transition procedures for minors. Prohibits a physician or other practitioner from: (1) knowingly providing gender transition procedures to an individual who is less than 18 years of age (minor); and (2) aiding or abetting another physician or practitioner in the provision of gender transition procedures to a minor. Specifies certain medical exceptions. Establishes civil enforcement actions. https://translegislation.com/bills/2023/passed/bills/2023/IN/SB0480
+KS HB2100 HB 2100 Enacting the Kansas public investments and contracts protection act concerning environmental, social and governance (ESG) criteria, prohibiting the state and political subdivisions from giving preferential treatment to or discriminating against companies based on such ESG criteria in procuring or letting contracts, requiring KPERS fiduciaries to act solely in the financial interest of the participants and beneficiaries of the system, indemnifying KPERS with respect to actions taken in compliance with such act, restricting state agencies from adopting ESG criteria or requiring any person or business to operate in accordance with such criteria and providing for enforcement of such act by the attorney general. OTHER  https://translegislation.com/bills/2023/passed/bills/2023/KS/HB2100
+KS HB2138 Senate Substitute for HB 2138 by Committee on Education - Requiring school districts to provide separate accommodations for students of each biological sex on overnight school district sponsored trips, requiring contracts for exclusive broadcasts of state high school activities association activities to permit certain local broadcasts and providing for administrative review of resolutions to permanently close a school building of a school district. EDUCATION  https://translegislation.com/bills/2023/passed/bills/2023/KS/HB2138
+KS HB2238 Creating the fairness in women&#39;s sports act to require that female student athletic teams only include members who are biologically female. SPORTS  https://translegislation.com/bills/2023/passed/bills/2023/KS/HB2238
+KS SB180 Establishing the women&#39;s bill of rights to provide a meaning of biological sex for purposes of statutory construction. OTHER  https://translegislation.com/bills/2023/passed/bills/2023/KS/SB180
+KS SB228 Requiring the secretary for aging and disability services to reimburse counties for certain costs when a person is in a county jail awaiting examination, evaluation or treatment for competency, modernizing statutes concerning county jails, removing the requirement that every county shall have a jail, modifying procedures used when district courts commit prisoners to jail in another county and when counties contract with city jails to keep prisoners and requiring a medical examination before certain United States prisoners or city prisoners are taken into custody of a county jail. OTHER  https://translegislation.com/bills/2023/passed/bills/2023/KS/SB228
+KY SB145 AN ACT relating to interscholastic athletics. SPORTS Amend KRS 156.070 to remove the statutory eligibility restriction for nonresident student participation in interscholastic athletics; retain eligibility authority with the agency designated to manage interscholastic athletics. https://translegislation.com/bills/2023/passed/bills/2023/KY/SB145
+KY SB150 AN ACT relating to children. EDUCATION Create a new section of KRS Chapter 158 to establish definitions; require specific parental notifications from public schools; require school districts to adopt specific procedures related to parental rights; limit authority of the Kentucky Board of Education and Kentucky Department of Education in relation to parental rights and a student&#39;s use of pronouns; prohibit district or school policies with the intent of keeping student information confidential for parents; prohibit a school district from requiring school personnel or pupils to use pronouns for students that do not conform to that student&#39;s biological sex; provide school districts and district personnel authority to seek emergency medical services for a student; provide conditions for student confidentiality; amend KRS 158.1415 to establish requirements for any public school&#39;s course, curriculum, or program on the subject of human sexuality. https://translegislation.com/bills/2023/passed/bills/2023/KY/SB150
+LA HB648 Prohibits certain procedures to alter the sex of a minor child HEALTHCARE  https://translegislation.com/bills/2023/passed/bills/2023/LA/HB648
+MO HB15 APPROPRIATION BILL EDUCATION  https://translegislation.com/bills/2023/passed/bills/2023/MO/HB15
+MO SB39 Establishes guidelines for student participation in athletic contests organized by sex SPORTS  https://translegislation.com/bills/2023/passed/bills/2023/MO/SB39
+MO SB49 Establishes the &quot;Missouri Save Adolescents from Experimentation (SAFE) Act&quot; and modifies provisions relating to public funding of certain gender transition procedures HEALTHCARE  https://translegislation.com/bills/2023/passed/bills/2023/MO/SB49
+MS HB1125 Regulate Experimental Adolescent Procedures (REAP) Act; create to regulate transgender procedures and surgeries. HEALTHCARE An Act To Create The &quot;regulate Experimental Adolescent Procedures (reap)&quot; Act For Any Person Under Eighteen Years Of Age; To Provide Definitions For The Act; To Prohibit The Direct Or Indirect Use, Grant, Payment Or Distribution Of Public Funds To Any Entity, Organization Or Individual That Provides Gender Transition Procedures To A Person Under Eighteen Years Of Age; To Provide That Health Care Services Furnished In A State Or Locally-owned Health Care Facility Or By A Physician Or Other Health Care Professional Employed By The State Or Local Government Shall Not Include Gender Transition Procedures For A Person Under Eighteen Years Of Age; To Provide That Amounts Paid During A Taxable Year For Provision Of Gender Transition Procedures Or As Premiums For Health Care Coverage That Includes Coverage For Gender Transition Procedures Are Not Deductible Under The State Income Tax Laws; To Authorize The Attorney General To Bring An Action To Enforce Compliance With This Act; To Create New Section 43-13-117.7, Mississippi Code Of 1972, To Prohibit The Division Of Medicaid From Reimbursing Or Providing Coverage For Gender Transition Procedures For A Person Under Eighteen Years Of Age; To Amend Section 83-9-22, Mississippi Code Of 1972, To Provide That Health Coverage Plans Are Not Required To Include Gender Transition Procedures; To Create New Section 83-9-37, Mississippi Code Of 1972, To Provide That A Health Benefit Plan Under An Insurance Policy Or Other Plan Providing Health Care Coverage Shall Not Include Reimbursement For Gender Transition Procedures For A Person Under Eighteen Years Of Age; To Amend Sections 27-7-17, 73-15-29 And 73-25-29, Mississippi Code Of 1972, To Conform To The Provisions Of This Act; To Amend Section 73-25-33, Mississippi Code Of 1972, To Exclude The Performance Gender Transition Procedures From The &quot;practice Of Medicine&quot; Meaning; To Amend Section 11-46-5, Mississippi Code Of 1972, To Exclude From Tort Immunity Violations Of This Act; To Amend Section 41-41-219, Mississippi Code Of 1972, To Conform To The Preceding Section; To Provide Severability If Any Part Of This Act Is Found Unconstitutional; And For Related Purposes. https://translegislation.com/bills/2023/passed/bills/2023/MS/HB1125
+MT HB234 Revise dissemination of obscene material to minors laws EDUCATION  https://translegislation.com/bills/2023/passed/bills/2023/MT/HB234
+MT HB303 Implement Medical Ethics and Diversity Act HEALTHCARE  https://translegislation.com/bills/2023/passed/bills/2023/MT/HB303
+MT HB359 Prohibit minors from attending drag shows OTHER  https://translegislation.com/bills/2023/passed/bills/2023/MT/HB359
+MT HB361 Provide that use of a name and sex by a student is not discrimination EDUCATION  https://translegislation.com/bills/2023/passed/bills/2023/MT/HB361
+MT SB458 Define sex in Montana law OTHER  https://translegislation.com/bills/2023/passed/bills/2023/MT/SB458
+MT SB518 Revise parental rights laws to increase parental involvement in education EDUCATION  https://translegislation.com/bills/2023/passed/bills/2023/MT/SB518
+MT SB99 Provide for a youth health protection act HEALTHCARE  https://translegislation.com/bills/2023/passed/bills/2023/MT/SB99
+NC H574 Fairness in Women&#39;s Sports Act SPORTS  https://translegislation.com/bills/2023/passed/bills/2023/NC/H574
+NC H808 Gender Transition/Minors HEALTHCARE  https://translegislation.com/bills/2023/passed/bills/2023/NC/H808
+NC S49 Parents&#39; Bill of Rights EDUCATION  https://translegislation.com/bills/2023/passed/bills/2023/NC/S49
+ND HB1139 Required elements of birth records. OTHER AN ACT to amend and reenact sections 23-02.1-01, 23-02.1-13, and 23-02.1-15 of the North Dakota Century Code, relating to required elements of birth records. https://translegislation.com/bills/2023/passed/bills/2023/ND/HB1139
+ND HB1205 Prohibiting public libraries from maintaining explicit sexual material; to provide for a legislative management report; and to provide for application. EDUCATION AN ACT to create and enact a new section to chapter 12.1-27.1 of the North Dakota Century Code, relating to prohibiting public libraries from maintaining explicit sexual material; to provide for a legislative management report; and to provide for application. https://translegislation.com/bills/2023/passed/bills/2023/ND/HB1205
+ND HB1249 Requiring schools to designate their athletic teams and sports for male, female, or coed participation and limitations on use of governmental property for athletic events. SPORTS AN ACT to create and enact chapter 15.1-39 of the North Dakota Century Code, relating to requiring schools to designate their athletic teams and sports for male, female, or coed participation and limitations on use of governmental property for athletic events. https://translegislation.com/bills/2023/passed/bills/2023/ND/HB1249
+ND HB1254 The prohibition of certain practices against a minor; to provide a penalty; and to declare an emergency. HEALTHCARE AN ACT to create and enact chapter 12.1-36.1 of the North Dakota Century Code, relating to the prohibition of certain practices against a minor; to provide a penalty; and to declare an emergency. https://translegislation.com/bills/2023/passed/bills/2023/ND/HB1254
+ND HB1297 Correction or amendment of birth records. OTHER AN ACT to create and enact a new section to chapter 23-02.1 of the North Dakota Century Code, relating to correction or amendment of birth records. https://translegislation.com/bills/2023/passed/bills/2023/ND/HB1297
+ND HB1333 State pre-emption of local laws regulating obscenity; and to provide a penalty. OTHER AN ACT to create and enact a new section to chapter 12.1-27.1 of the North Dakota Century Code, relating to restrictions on adult-oriented performances; to amend and reenact section 12.1-27.1-12 of the North Dakota Century Code, relating to state pre-emption of local laws regulating obscenity; and to provide a penalty. https://translegislation.com/bills/2023/passed/bills/2023/ND/HB1333
+ND HB1473 The use of restrooms, locker rooms, and shower rooms in a dormitory or living facility controlled by the state board of higher education, a correctional facility, the North Dakota youth correctional center, and the penitentiary exclusively for males and females. BATHROOM AN ACT to create and enact a new section to chapter 12-44.1, a new section to chapter 12-46, a new section to chapter 12-47, and a new section to chapter 15-10 of the North Dakota Century Code, relating to the use of restrooms, locker rooms, and shower rooms in a dormitory or living facility controlled by the state board of higher education, a correctional facility, the North Dakota youth correctional center, and the penitentiary exclusively for males and females. https://translegislation.com/bills/2023/passed/bills/2023/ND/HB1473
+ND HB1474 The definition of female, male, sex, and scrap metal dealer. OTHER AN ACT to amend and reenact section 1-01-49, subsection 3 of section 12.1-36.1-01 of the North Dakota Century Code as created by section 1 of House Bill No. 1254, as approved by the sixty-eighth legislative assembly, subsection 2 of section 15-10.6-01 of the North Dakota Century Code as created by section 1 of House Bill No. 1489, as approved by the sixty-eighth legislative assembly, subsection 2 of section 15.1-41-01 of the North Dakota Century Code as created by section 1 of House Bill No. 1249, as approved by the sixty-eighth legislative assembly, subsection 20 of section 23-02.1-01 of the North Dakota Century Code as amended in section 1 of House Bill No. 1139, as approved by the sixty-eighth legislative assembly, and subsection 7 of section 51-35-01 of the North Dakota Century Code, relating to the definition of female, male, sex, and scrap metal dealer. https://translegislation.com/bills/2023/passed/bills/2023/ND/HB1474
+ND HB1489 Requiring institutions of higher education designating athletic teams and sports for male, female, or coed participation. SPORTS AN ACT to create and enact chapter 15-10.6 of the North Dakota Century Code, relating to requiring institutions of higher education designating athletic teams and sports for male, female, or coed participation. https://translegislation.com/bills/2023/passed/bills/2023/ND/HB1489
+ND HB1522 Preferred pronouns and providing accommodations to a transgender student; to provide a penalty; and to declare an emergency. EDUCATION AN ACT to create and enact a new section to chapter 14-02.4 and a new section to chapter 15.1-06 of the North Dakota Century Code, relating to preferred pronouns and providing accommodations to a transgender student; to provide a penalty; and to declare an emergency. https://translegislation.com/bills/2023/passed/bills/2023/ND/HB1522
+ND HCR3010 A concurrent resolution urging public schools and public entities, including agencies or departments that collect vital statistics, to protect women&#39;s rights by distinguishing between the sexes according to biological sex at birth for the purpose of providing equal opportunities and ensuring the privacy and safety of women and girls. OTHER  https://translegislation.com/bills/2023/passed/bills/2023/ND/HCR3010
+NE LB574 Adopt the Let Them Grow Act and the Preborn Child Protection Act and provide for discipline under the Uniform Credentialing Act HEALTHCARE  https://translegislation.com/bills/2023/passed/bills/2023/NE/LB574
+OK SB26 Schools; providing certain exception to designation and use of restroom or changing area; exception for athletic activities; remedies for noncompliance. Effective date. Emergency. BATHROOM  https://translegislation.com/bills/2023/passed/bills/2023/OK/SB26
+OK SB404 Oklahoma Religious Freedom Act; establishing exclusion from certain funds or benefits for certain reasons as substantial burden. Effective date. OTHER  https://translegislation.com/bills/2023/passed/bills/2023/OK/SB404
+OK SB613 Health care; prohibiting gender transition procedures for children; authorizing certain civil actions and relief; licensure; adding violations and penalties. Emergency. HEALTHCARE  https://translegislation.com/bills/2023/passed/bills/2023/OK/SB613
+SD HB1080 Prohibit certain medical and surgical interventions on minor patients. HEALTHCARE  https://translegislation.com/bills/2023/passed/bills/2023/SD/HB1080
+TN HB0001 AN ACT to amend Tennessee Code Annotated, Title 28; Title 29; Title 33; Title 34; Title 36; Title 37; Title 39; Title 40; Title 49; Title 56; Title 63; Title 68 and Title 71, relative to medical care of the young. HEALTHCARE As enacted, prohibits a healthcare provider from performing on a minor or administering to a minor a medical procedure if the performance or administration of the procedure is for the purpose of enabling a minor to identify with, or live as, a purported identity inconsistent with the minor’s sex. - Amends TCA Title 28; Title 29; Title 33; Title 34; Title 36; Title 37; Title 39; Title 40; Title 49; Title 56; Title 63; Title 68 and Title 71. https://translegislation.com/bills/2023/passed/bills/2023/TN/HB0001
+TN HB0009 AN ACT to amend Tennessee Code Annotated, Title 7, Chapter 51, Part 14, relative to adult-oriented performances. OTHER As enacted, creates an offense for a person who engages in an adult cabaret performance on public property or in a location where the adult cabaret performance could be viewed by a person who is not an adult. - Amends TCA Title 7, Chapter 51, Part 14. https://translegislation.com/bills/2023/passed/bills/2023/TN/HB0009
+TN HB0239 AN ACT to amend Tennessee Code Annotated, Title 1, Chapter 3 and Title 49, Chapter 2, Part 8, relative to statutory definitions. OTHER As enacted, adds &quot;sex&quot; as a defined term for statutory construction purposes. - Amends TCA Title 1, Chapter 3 and Title 49, Chapter 2, Part 8. https://translegislation.com/bills/2023/passed/bills/2023/TN/HB0239
+TN HB0306 AN ACT to amend Tennessee Code Annotated, Title 49, Chapter 1 and Title 49, Chapter 50, relative to private schools. SPORTS As enacted, limits the ability of a student enrolled in a private school to participate in an interscholastic athletic activity or event, to such activity or event where membership in the Tennessee Secondary School Athletic Association is required, in accordance with the student&#39;s immutable biological sex as determined by anatomy and genetics existing at the time of birth. - Amends TCA Title 49, Chapter 1 and Title 49, Chapter 50. https://translegislation.com/bills/2023/passed/bills/2023/TN/HB0306
+TN HB1269 AN ACT to amend Tennessee Code Annotated, Title 49, Chapter 6, relative to student pronouns. EDUCATION As enacted, specifies that a teacher or other employee of a public school or LEA is not required to refer to a student using the student&#39;s preferred pronoun if the pronoun is not consistent with the student&#39;s biological sex; insulates a teacher or other employee of a public school or LEA from civil liability and adverse employment action for referring to a student using the pronoun that is consistent with the student&#39;s biological sex. - Amends TCA Title 49, Chapter 6. https://translegislation.com/bills/2023/passed/bills/2023/TN/HB1269
+TN SB0001 AN ACT to amend Tennessee Code Annotated, Title 28; Title 29; Title 33; Title 34; Title 36; Title 37; Title 39; Title 40; Title 49; Title 56; Title 63; Title 68 and Title 71, relative to medical care of the young. HEALTHCARE As enacted, prohibits a healthcare provider from performing on a minor or administering to a minor a medical procedure if the performance or administration of the procedure is for the purpose of enabling a minor to identify with, or live as, a purported identity inconsistent with the minor’s sex. - Amends TCA Title 28; Title 29; Title 33; Title 34; Title 36; Title 37; Title 39; Title 40; Title 49; Title 56; Title 63; Title 68 and Title 71. https://translegislation.com/bills/2023/passed/bills/2023/TN/SB0001
+TN SB0003 AN ACT to amend Tennessee Code Annotated, Title 7, Chapter 51, Part 14, relative to adult-oriented performances. OTHER As enacted, creates an offense for a person who engages in an adult cabaret performance on public property or in a location where the adult cabaret performance could be viewed by a person who is not an adult. - Amends TCA Title 7, Chapter 51, Part 14. https://translegislation.com/bills/2023/passed/bills/2023/TN/SB0003
+TN SB0466 AN ACT to amend Tennessee Code Annotated, Title 49, Chapter 6, relative to student pronouns. EDUCATION As enacted, specifies that a teacher or other employee of a public school or LEA is not required to refer to a student using the student&#39;s preferred pronoun if the pronoun is not consistent with the student&#39;s biological sex; insulates a teacher or other employee of a public school or LEA from civil liability and adverse employment action for referring to a student using the pronoun that is consistent with the student&#39;s biological sex. - Amends TCA Title 49, Chapter 6. https://translegislation.com/bills/2023/passed/bills/2023/TN/SB0466
+TN SB1237 AN ACT to amend Tennessee Code Annotated, Title 49, Chapter 1 and Title 49, Chapter 50, relative to private schools. SPORTS As enacted, limits the ability of a student enrolled in a private school to participate in an interscholastic athletic activity or event, to such activity or event where membership in the Tennessee Secondary School Athletic Association is required, in accordance with the student&#39;s immutable biological sex as determined by anatomy and genetics existing at the time of birth. - Amends TCA Title 49, Chapter 1 and Title 49, Chapter 50. https://translegislation.com/bills/2023/passed/bills/2023/TN/SB1237
+TN SB1440 AN ACT to amend Tennessee Code Annotated, Title 1, Chapter 3 and Title 49, Chapter 2, Part 8, relative to statutory definitions. OTHER As enacted, adds &quot;sex&quot; as a defined term for statutory construction purposes. - Amends TCA Title 1, Chapter 3 and Title 49, Chapter 2, Part 8. https://translegislation.com/bills/2023/passed/bills/2023/TN/SB1440
+TX SB12 Relating to the authority to regulate sexually oriented performances and to restricting those performances on the premises of a commercial enterprise, on public property, or in the presence of an individual younger than 18 years of age; authorizing a civil penalty; creating a criminal offense. OTHER  https://translegislation.com/bills/2023/passed/bills/2023/TX/SB12
+TX SB14 Relating to prohibitions on the provision to certain children of procedures and treatments for gender transitioning, gender reassignment, or gender dysphoria and on the use of public money or public assistance to provide those procedures and treatments. HEALTHCARE  https://translegislation.com/bills/2023/passed/bills/2023/TX/SB14
+TX SB15 Relating to requiring public institution of higher education students who compete in intercollegiate athletic competitions to compete based on biological sex. SPORTS  https://translegislation.com/bills/2023/passed/bills/2023/TX/SB15
+TX SB17 Relating to diversity, equity, and inclusion initiatives at public institutions of higher education. EDUCATION  https://translegislation.com/bills/2023/passed/bills/2023/TX/SB17
+UT HB0209 Participation in Extracurricular Activities Amendments SPORTS  https://translegislation.com/bills/2023/passed/bills/2023/UT/HB0209
+UT SB0016 Transgender Medical Treatments and Procedures Amendments HEALTHCARE  https://translegislation.com/bills/2023/passed/bills/2023/UT/SB0016
+UT SB0093 Birth Certificate Modifications OTHER  https://translegislation.com/bills/2023/passed/bills/2023/UT/SB0093
+UT SB0100 School Gender Identity Policies EDUCATION  https://translegislation.com/bills/2023/passed/bills/2023/UT/SB0100
+WV HB2007 Prohibiting certain medical practices HEALTHCARE The purpose of this bill is to prohibit certain medical practices. https://translegislation.com/bills/2023/passed/bills/2023/WV/HB2007
+WY SF0133 Student eligibility in interscholastic sports. SPORTS AN ACT relating to education; prohibiting students of the male sex from competing on a team designated for students of the female sex as specified; prohibiting retaliation; providing for an administrative hearing as specified; alternatively providing for a commission to determine student eligibility as specified; providing definitions; providing immunity as specified; providing an appropriation; requiring rulemaking; and providing for an effective date. https://translegislation.com/bills/2023/passed/bills/2023/WY/SF0133
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exporting-data-to-a-spreadsheet">
+<h2>exporting data to a spreadsheet<a class="headerlink" href="#exporting-data-to-a-spreadsheet" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># next steps:</span>
+<span class="c1"># create csv </span>
+
+<span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;bill_data.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;caption&#39;</span><span class="p">,</span> <span class="s1">&#39;category&#39;</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="s1">&#39;link&#39;</span><span class="p">]</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">headers</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>41
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># next steps:</span>
+<span class="c1"># save data to csv</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">bill_cards</span><span class="p">:</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">h3</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">caption</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">h2</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">link</span> <span class="o">=</span> <span class="s1">&#39;https://translegislation.com/bills/2023/passed&#39;</span> <span class="o">+</span> <span class="n">item</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
+    
+    <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;bill_data.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+    <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="n">bill_row</span> <span class="o">=</span> <span class="p">([</span><span class="n">title</span><span class="p">,</span> <span class="n">caption</span><span class="p">,</span> <span class="n">category</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">link</span><span class="p">])</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">bill_row</span><span class="p">)</span>
+    <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># now let&#39;s do the same, but more complicated. We will get:</span>
+<span class="c1"># 1 - split the title column into state and title</span>
+<span class="c1"># 2 - get the link directly to the bill page on LegiScan</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># expand csv</span>
+
+<span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;bill_data.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;caption&#39;</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="s1">&#39;link&#39;</span><span class="p">]</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">headers</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>38
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="split-ing-the-bill-title">
+<h2><code class="docutils literal notranslate"><span class="pre">split()</span></code>ing the bill title<a class="headerlink" href="#split-ing-the-bill-title" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># splitting the title cell into state, title </span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">bill_cards</span><span class="p">:</span>
+    <span class="n">state</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">h3</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AL HB261
+AL SB261
+AR HB1156
+AR HB1468
+AR HB1615
+AR SB125
+AR SB199
+AR SB270
+AR SB294
+AR SB43
+FL H1069
+FL H1521
+FL S0254
+FL S0266
+FL S1382
+GA SB140
+IA SF482
+IA SF496
+IA SF538
+ID H0071
+ID S1016
+ID S1100
+IN HB1569
+IN HB1608
+IN SB0480
+KS HB2100
+KS HB2138
+KS HB2238
+KS SB180
+KS SB228
+KY SB145
+KY SB150
+LA HB648
+MO HB15
+MO SB39
+MO SB49
+MS HB1125
+MT HB234
+MT HB303
+MT HB359
+MT HB361
+MT SB458
+MT SB518
+MT SB99
+NC H574
+NC H808
+NC S49
+ND HB1139
+ND HB1205
+ND HB1249
+ND HB1254
+ND HB1297
+ND HB1333
+ND HB1473
+ND HB1474
+ND HB1489
+ND HB1522
+ND HCR3010
+NE LB574
+OK SB26
+OK SB404
+OK SB613
+SD HB1080
+TN HB0001
+TN HB0009
+TN HB0239
+TN HB0306
+TN HB1269
+TN SB0001
+TN SB0003
+TN SB0466
+TN SB1237
+TN SB1440
+TX SB12
+TX SB14
+TX SB15
+TX SB17
+UT HB0209
+UT SB0016
+UT SB0093
+UT SB0100
+WV HB2007
+WY SF0133
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;bill_data.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;caption&#39;</span><span class="p">,</span> <span class="s1">&#39;category&#39;</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="s1">&#39;link&#39;</span><span class="p">]</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">headers</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">bill_cards</span><span class="p">:</span>
+    <span class="n">state</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">h3</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+    <span class="n">caption</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">h2</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">category</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">extension</span> <span class="o">=</span> <span class="s1">&#39;https://translegislation.com/&#39;</span> <span class="o">+</span> <span class="n">item</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
+    
+    <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;bill_data.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+    <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="n">bill_row</span> <span class="o">=</span> <span class="p">([</span><span class="n">state</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">caption</span><span class="p">,</span> <span class="n">category</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">extension</span><span class="p">])</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">bill_row</span><span class="p">)</span>
+    <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="getting-the-link-to-state-bill">
+<h2>getting the link to state bill<a class="headerlink" href="#getting-the-link-to-state-bill" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## make a list of URLs to go to</span>
+<span class="c1">## for each URL, make a soup.</span>
+<span class="c1">## for each soup, get the link to the state bill</span>
+<span class="c1">## add the link to the spreadsheet</span>
+
+<span class="c1"># I want it to loop through each card item on this page, then</span>
+<span class="c1"># when it gets to the link part, I want it to go into that page</span>
+<span class="c1"># and grab the data from there. </span>
+<span class="c1"># fuck I just need to append a column, don&#39;t I? </span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">bill_cards</span><span class="p">:</span>
+    <span class="n">extension</span> <span class="o">=</span> <span class="s1">&#39;https://translegislation.com/&#39;</span> <span class="o">+</span> <span class="n">item</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">extension</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>https://translegislation.com//bills/2023/AL/HB261
+https://translegislation.com//bills/2023/AL/SB261
+https://translegislation.com//bills/2023/AR/HB1156
+https://translegislation.com//bills/2023/AR/HB1468
+https://translegislation.com//bills/2023/AR/HB1615
+https://translegislation.com//bills/2023/AR/SB125
+https://translegislation.com//bills/2023/AR/SB199
+https://translegislation.com//bills/2023/AR/SB270
+https://translegislation.com//bills/2023/AR/SB294
+https://translegislation.com//bills/2023/AR/SB43
+https://translegislation.com//bills/2023/FL/H1069
+https://translegislation.com//bills/2023/FL/H1521
+https://translegislation.com//bills/2023/FL/S0254
+https://translegislation.com//bills/2023/FL/S0266
+https://translegislation.com//bills/2023/FL/S1382
+https://translegislation.com//bills/2023/GA/SB140
+https://translegislation.com//bills/2023/IA/SF482
+https://translegislation.com//bills/2023/IA/SF496
+https://translegislation.com//bills/2023/IA/SF538
+https://translegislation.com//bills/2023/ID/H0071
+https://translegislation.com//bills/2023/ID/S1016
+https://translegislation.com//bills/2023/ID/S1100
+https://translegislation.com//bills/2023/IN/HB1569
+https://translegislation.com//bills/2023/IN/HB1608
+https://translegislation.com//bills/2023/IN/SB0480
+https://translegislation.com//bills/2023/KS/HB2100
+https://translegislation.com//bills/2023/KS/HB2138
+https://translegislation.com//bills/2023/KS/HB2238
+https://translegislation.com//bills/2023/KS/SB180
+https://translegislation.com//bills/2023/KS/SB228
+https://translegislation.com//bills/2023/KY/SB145
+https://translegislation.com//bills/2023/KY/SB150
+https://translegislation.com//bills/2023/LA/HB648
+https://translegislation.com//bills/2023/MO/HB15
+https://translegislation.com//bills/2023/MO/SB39
+https://translegislation.com//bills/2023/MO/SB49
+https://translegislation.com//bills/2023/MS/HB1125
+https://translegislation.com//bills/2023/MT/HB234
+https://translegislation.com//bills/2023/MT/HB303
+https://translegislation.com//bills/2023/MT/HB359
+https://translegislation.com//bills/2023/MT/HB361
+https://translegislation.com//bills/2023/MT/SB458
+https://translegislation.com//bills/2023/MT/SB518
+https://translegislation.com//bills/2023/MT/SB99
+https://translegislation.com//bills/2023/NC/H574
+https://translegislation.com//bills/2023/NC/H808
+https://translegislation.com//bills/2023/NC/S49
+https://translegislation.com//bills/2023/ND/HB1139
+https://translegislation.com//bills/2023/ND/HB1205
+https://translegislation.com//bills/2023/ND/HB1249
+https://translegislation.com//bills/2023/ND/HB1254
+https://translegislation.com//bills/2023/ND/HB1297
+https://translegislation.com//bills/2023/ND/HB1333
+https://translegislation.com//bills/2023/ND/HB1473
+https://translegislation.com//bills/2023/ND/HB1474
+https://translegislation.com//bills/2023/ND/HB1489
+https://translegislation.com//bills/2023/ND/HB1522
+https://translegislation.com//bills/2023/ND/HCR3010
+https://translegislation.com//bills/2023/NE/LB574
+https://translegislation.com//bills/2023/OK/SB26
+https://translegislation.com//bills/2023/OK/SB404
+https://translegislation.com//bills/2023/OK/SB613
+https://translegislation.com//bills/2023/SD/HB1080
+https://translegislation.com//bills/2023/TN/HB0001
+https://translegislation.com//bills/2023/TN/HB0009
+https://translegislation.com//bills/2023/TN/HB0239
+https://translegislation.com//bills/2023/TN/HB0306
+https://translegislation.com//bills/2023/TN/HB1269
+https://translegislation.com//bills/2023/TN/SB0001
+https://translegislation.com//bills/2023/TN/SB0003
+https://translegislation.com//bills/2023/TN/SB0466
+https://translegislation.com//bills/2023/TN/SB1237
+https://translegislation.com//bills/2023/TN/SB1440
+https://translegislation.com//bills/2023/TX/SB12
+https://translegislation.com//bills/2023/TX/SB14
+https://translegislation.com//bills/2023/TX/SB15
+https://translegislation.com//bills/2023/TX/SB17
+https://translegislation.com//bills/2023/UT/HB0209
+https://translegislation.com//bills/2023/UT/SB0016
+https://translegislation.com//bills/2023/UT/SB0093
+https://translegislation.com//bills/2023/UT/SB0100
+https://translegislation.com//bills/2023/WV/HB2007
+https://translegislation.com//bills/2023/WY/SF0133
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">urls</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">bill_cards</span><span class="p">:</span>
+    <span class="n">extension</span> <span class="o">=</span> <span class="s1">&#39;https://translegislation.com/&#39;</span> <span class="o">+</span> <span class="n">item</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
+    <span class="n">urls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">extension</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">urls</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;https://translegislation.com//bills/2023/AL/HB261&#39;,
+ &#39;https://translegislation.com//bills/2023/AL/SB261&#39;,
+ &#39;https://translegislation.com//bills/2023/AR/HB1156&#39;,
+ &#39;https://translegislation.com//bills/2023/AR/HB1468&#39;,
+ &#39;https://translegislation.com//bills/2023/AR/HB1615&#39;,
+ &#39;https://translegislation.com//bills/2023/AR/SB125&#39;,
+ &#39;https://translegislation.com//bills/2023/AR/SB199&#39;,
+ &#39;https://translegislation.com//bills/2023/AR/SB270&#39;,
+ &#39;https://translegislation.com//bills/2023/AR/SB294&#39;,
+ &#39;https://translegislation.com//bills/2023/AR/SB43&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># this may take several seconds</span>
+
+<span class="n">soups</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">:</span>
+    <span class="n">site</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="n">html_code</span> <span class="o">=</span> <span class="n">site</span><span class="o">.</span><span class="n">content</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html_code</span><span class="p">,</span> <span class="s1">&#39;lxml&#39;</span><span class="p">)</span>
+    <span class="n">soups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">soup</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">legiscan_links</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">soups</span><span class="p">:</span>
+    <span class="c1"># get the url for state url</span>
+    <span class="n">anchor_tag</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;chakra-link css-oga2ct&#39;</span><span class="p">)</span>
+    <span class="n">link</span> <span class="o">=</span> <span class="n">anchor_tag</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
+    <span class="n">legiscan_links</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="pandas">
+<h1>pandas<a class="headerlink" href="#pandas" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;bill_data.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="s1">&#39;legiscan link&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">legiscan_links</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>state</th>
+      <th>title</th>
+      <th>caption</th>
+      <th>category</th>
+      <th>description</th>
+      <th>link</th>
+      <th>legiscan link</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>AL</td>
+      <td>HB261</td>
+      <td>Relating to two-year and four-year public inst...</td>
+      <td>SPORTS</td>
+      <td>NaN</td>
+      <td>https://translegislation.com//bills/2023/AL/HB261</td>
+      <td>https://legiscan.com/AL/text/HB261/id/2817698</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>AL</td>
+      <td>SB261</td>
+      <td>Relating to public contracts; to prohibit gove...</td>
+      <td>OTHER</td>
+      <td>NaN</td>
+      <td>https://translegislation.com//bills/2023/AL/SB261</td>
+      <td>https://legiscan.com/AL/text/SB261/id/2821857</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>AR</td>
+      <td>HB1156</td>
+      <td>Concerning A Public School District Or Open-en...</td>
+      <td>BATHROOM</td>
+      <td>NaN</td>
+      <td>https://translegislation.com//bills/2023/AR/HB...</td>
+      <td>https://legiscan.com/AR/text/HB1156/id/2756961</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>AR</td>
+      <td>HB1468</td>
+      <td>To Create The Given Name Act; And To Prohibit ...</td>
+      <td>EDUCATION</td>
+      <td>NaN</td>
+      <td>https://translegislation.com//bills/2023/AR/HB...</td>
+      <td>https://legiscan.com/AR/text/HB1468/id/2781770</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>AR</td>
+      <td>HB1615</td>
+      <td>To Create The Conscience Protection Act; And T...</td>
+      <td>OTHER</td>
+      <td>NaN</td>
+      <td>https://translegislation.com//bills/2023/AR/HB...</td>
+      <td>https://legiscan.com/AR/text/HB1615/id/2781807</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;bill_data.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./scrape"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="explore.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">&lt;no title&gt;</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../text/coming-soon.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">coming soon!</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">scraping with bs4</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-bs4">what is bs4?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exporting-data-to-a-spreadsheet">exporting data to a spreadsheet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#split-ing-the-bill-title"><code class="docutils literal notranslate"><span class="pre">split()</span></code>ing the bill title</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-the-link-to-state-bill">getting the link to state bill</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas">pandas</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Filipa Calado
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
