@@ -66,7 +66,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="coming soon!" href="../text/coming-soon.html" />
-    <link rel="prev" title="&lt;no title&gt;" href="explore.html" />
+    <link rel="prev" title="exploring bs4" href="explore.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -180,8 +180,11 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">workshop overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="what.html">what is web scraping?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ethics.html">ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ethics.html">what is legal? what is ethical?</a></li>
+
+
 <li class="toctree-l1"><a class="reference internal" href="inspector.html">the HTML Inspector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="explore.html">exploring bs4</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">scraping with bs4</a></li>
 
 </ul>
@@ -382,7 +385,6 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">scraping with bs4</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-bs4">what is bs4?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exporting-data-to-a-spreadsheet">exporting data to a spreadsheet</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#split-ing-the-bill-title"><code class="docutils literal notranslate"><span class="pre">split()</span></code>ing the bill title</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-the-link-to-state-bill">getting the link to state bill</a></li>
@@ -403,16 +405,13 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="scraping-with-bs4">
 <h1>scraping with bs4<a class="headerlink" href="#scraping-with-bs4" title="Permalink to this heading">#</a></h1>
-<p>Scroll down until you see “Passed anti-trans bills” heading. Click on the red button that says “View 2023 Passed Right click on a headline, any headline, and select inspect element (or whatever option is closest to that phrase in your menu).</p>
-<section id="what-is-bs4">
-<h2>what is bs4?<a class="headerlink" href="#what-is-bs4" title="Permalink to this heading">#</a></h2>
-<p>bs4 is short for <code class="docutils literal notranslate"><span class="pre">Beautiful</span> <span class="pre">Soup</span> <span class="pre">4</span></code>, a python package for parsing HTML data. bs4’s power comes from using python syntax to access and manipulate HTML elements. In other words, this means that it uses the python language and its syntax to get information from pages written in the web’s main computer lanugage, HTML.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
 <span class="kn">import</span> <span class="nn">lxml</span>
-<span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="c1"># for creating tabular data</span>
+<span class="kn">import</span> <span class="nn">csv</span> <span class="c1"># for saving data as a csv</span>
 </pre></div>
 </div>
 </div>
@@ -426,6 +425,7 @@ document.write(`
 </div>
 </div>
 </div>
+<p>In what follows, I will be using the process of writing “pseudo-code,” a kind of cross between normal language and coding language, in comments. This process will help me work out how to write the actual code in Python.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for each item in div.css-4rck61</span>
@@ -1047,7 +1047,6 @@ WY SF0133 Student eligibility in interscholastic sports. SPORTS AN ACT relating 
 </div>
 </div>
 </div>
-</section>
 <section id="exporting-data-to-a-spreadsheet">
 <h2>exporting data to a spreadsheet<a class="headerlink" href="#exporting-data-to-a-spreadsheet" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
@@ -1566,7 +1565,7 @@ https://translegislation.com//bills/2023/WY/SF0133
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">&lt;no title&gt;</p>
+        <p class="prev-next-title">exploring bs4</p>
       </div>
     </a>
     <a class="right-next"
@@ -1594,7 +1593,6 @@ https://translegislation.com//bills/2023/WY/SF0133
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">scraping with bs4</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-bs4">what is bs4?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exporting-data-to-a-spreadsheet">exporting data to a spreadsheet</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#split-ing-the-bill-title"><code class="docutils literal notranslate"><span class="pre">split()</span></code>ing the bill title</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-the-link-to-state-bill">getting the link to state bill</a></li>

@@ -180,8 +180,11 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">workshop overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="what.html">what is web scraping?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ethics.html">ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ethics.html">what is legal? what is ethical?</a></li>
+
+
 <li class="toctree-l1"><a class="reference internal" href="inspector.html">the HTML Inspector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="explore.html">exploring bs4</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scrape.html">scraping with bs4</a></li>
 
 </ul>
@@ -398,22 +401,42 @@ document.write(`
 <h1>workshop overview<a class="headerlink" href="#workshop-overview" title="Permalink to this heading">#</a></h1>
 <section id="learning-objectives">
 <h2>learning objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this heading">#</a></h2>
-<p>This workshop explores ethical approaches for programmatically extracting information from websites using recent anti-trans legislation in the US as an example. It applies the BeautifulSoup4 library and principles from object-oriented programming to scrape and parse text data from online trackers about current anti-trans bills in the US.</p>
+<p>This workshop explores approaches for programmatically extracting
+information from websites using recent anti-trans legislation in the
+US as an example. It applies the BeautifulSoup4 library and principles
+from object-oriented programming to scrape and parse text data from
+anti-trans bills in the US.</p>
 <p>This workshop introduces:</p>
 <ul class="simple">
 <li><p>the differences between web scraping and other data gathering methods like web crawling and APIs</p></li>
 <li><p>ethical and legal considerations for web scraping</p></li>
-<li><p>tools for working with web browsers, like HTML, the Inspector, and Web Developer Tools</p></li>
-<li><p>code libraries for web scraping and data analysis, like BeautifulSoup4 and pandas</p></li>
-<li><p>methods and functions for extracing text from web browsers</p></li>
+<li><p>tools for working with HTML and web browsers generally</p></li>
+<li><p>code libraries for web scraping and data analysis</p></li>
+<li><p>methods for extracing text from web browsers</p></li>
 <li><p>object-oriented programming syntax for parsing text based data</p></li>
 </ul>
 <p>This workshop will not to make you an expert at web scraping, but it will create a solid foundation for you begin web scraping projects on your own, even if you are a total beginner.</p>
 </section>
 <section id="anti-trans-legislation">
 <h2>anti-trans legislation<a class="headerlink" href="#anti-trans-legislation" title="Permalink to this heading">#</a></h2>
-<p>The past couple of years has seen an explosion in anti-trans legislation that restricts basic rights and recognition for trans people. In the first ten months of 2023, over 500 bills have already been proposed that prevent trans people from using bathrooms, playing in sports, accessing healthcare, and more in ways that accord with their gender identity. Of those 500 proposals across state legislatures, 83 have passed so far. (Compare that with last year, 2022, where 26 out of 174 bills were passed.) See the <a class="reference external" href="https://translegislation.com/">Trans Legislation Tracker</a> for more information.</p>
-<p>This workshsop uses Python to scrape basic metadata about the 83 bills that have passed in 2023. This dataset, which is relatively small in size, will be a starting point for a larger dataset that includes the full text of the bill. Then, for the next workshop, Text Analysis, participants will use Python to clean and analyze the bills’ text, for example, to explore how the terms “gender” and “sex” are being defined across the bills.</p>
+<p>The past couple of years has seen an explosion in anti-trans
+legislation that restricts basic rights and recognition for trans
+people. As of this writing, in October 2023, over 500 bills have
+already been proposed in 2023 that prevent trans people from using
+bathrooms, playing in sports, accessing healthcare, and more in ways
+that accord with their gender identity. Of those 500 proposals across
+state legislatures, 83 have passed so far. Compare that number with
+last year, 2022, where 26 out of 174 bills were passed. See the <a class="reference external" href="https://translegislation.com/">Trans
+Legislation Tracker</a> for more
+information.</p>
+<p>This workshsop uses Python to scrape basic metadata about the 83 bills
+that have passed in 2023. This dataset, which is relatively small in
+size, will be a starting point for a larger dataset to be used in our
+next workshop on Text Analysis. For that workshop, participants will
+use Python to clean and analyze the full text of the bills
+themselves. They will explore how the terms “gender” and “sex” are
+being defined across the legislation, among other questions about the
+language contained within them.</p>
 </section>
 </section>
 
