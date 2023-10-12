@@ -386,10 +386,12 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-bs4">what is bs4?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-soup-object">the <code class="docutils literal notranslate"><span class="pre">soup</span></code> object</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text">text</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes">attributes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-text">getting text</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-attributes">getting attributes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#find"><code class="docutils literal notranslate"><span class="pre">find()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#find-all"><code class="docutils literal notranslate"><span class="pre">find_all()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspecting-our-page">inspecting our page</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#group-challenge">group challenge</a></li>
 </ul>
             </nav>
         </div>
@@ -473,54 +475,9 @@ document.write(`
 </div>
 </div>
 <p>There are multiple ways for accessing the soup object in Python. The Python syntax offers us a few options. For example, We might access the title attribute using dot syntax, like soup.title, or we might use the find() function, to access the title, like soup.find(‘title’).</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;p class=&quot;chakra-text css-1g6ksko&quot; style=&quot;line-height:1.2rem;margin-right:15px&quot;&gt;&lt;style data-emotion=&quot;css f4h6uy&quot;&gt;.css-f4h6uy{transition-property:var(--chakra-transition-property-common);transition-duration:var(--chakra-transition-duration-fast);transition-timing-function:var(--chakra-transition-easing-ease-out);cursor:pointer;-webkit-text-decoration:none;text-decoration:none;outline:2px solid transparent;outline-offset:2px;color:inherit;}.css-f4h6uy:hover,.css-f4h6uy[data-hover]{-webkit-text-decoration:underline;text-decoration:underline;}.css-f4h6uy:focus,.css-f4h6uy[data-focus]{box-shadow:var(--chakra-shadows-outline);}&lt;/style&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/&quot;&gt;Trans Legislation Tracker&lt;/a&gt;&lt;/p&gt;
-</pre></div>
-</div>
-</div>
-</div>
-<p>You can also save what you find as a new variable. This is really useful for later, when we will write code to work with soup elements.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">paragraph</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">paragraph</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;p class=&quot;chakra-text css-1g6ksko&quot; style=&quot;line-height:1.2rem;margin-right:15px&quot;&gt;&lt;style data-emotion=&quot;css f4h6uy&quot;&gt;.css-f4h6uy{transition-property:var(--chakra-transition-property-common);transition-duration:var(--chakra-transition-duration-fast);transition-timing-function:var(--chakra-transition-easing-ease-out);cursor:pointer;-webkit-text-decoration:none;text-decoration:none;outline:2px solid transparent;outline-offset:2px;color:inherit;}.css-f4h6uy:hover,.css-f4h6uy[data-hover]{-webkit-text-decoration:underline;text-decoration:underline;}.css-f4h6uy:focus,.css-f4h6uy[data-focus]{box-shadow:var(--chakra-shadows-outline);}&lt;/style&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/&quot;&gt;Trans Legislation Tracker&lt;/a&gt;&lt;/p&gt;
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">link</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/&quot;&gt;Trans Legislation Tracker&lt;/a&gt;
-</pre></div>
-</div>
-</div>
-</div>
 </section>
-<section id="text">
-<h2>text<a class="headerlink" href="#text" title="Permalink to this heading">#</a></h2>
+<section id="getting-text">
+<h2>getting text<a class="headerlink" href="#getting-text" title="Permalink to this heading">#</a></h2>
 <p>Let’s go a little deeper than the element. We can access just the text (getting rid of tags like <code class="docutils literal notranslate"><span class="pre">&lt;p&gt;</span></code> or <code class="docutils literal notranslate"><span class="pre">&lt;h3&gt;</span></code> from elements.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -555,8 +512,8 @@ document.write(`
 </div>
 </div>
 </section>
-<section id="attributes">
-<h2>attributes<a class="headerlink" href="#attributes" title="Permalink to this heading">#</a></h2>
+<section id="getting-attributes">
+<h2>getting attributes<a class="headerlink" href="#getting-attributes" title="Permalink to this heading">#</a></h2>
 <p>In addition to text, we can also get the attributes. Attributes are additional data that is contained within the HTML tag, like href, which stands for hyperlink reference. This is the link’s URL. To access the attributes like href, we use the syntax: <code class="docutils literal notranslate"><span class="pre">tag['attr']</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -585,6 +542,93 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;/&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="find">
+<h2><code class="docutils literal notranslate"><span class="pre">find()</span></code><a class="headerlink" href="#find" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;p class=&quot;chakra-text css-1g6ksko&quot; style=&quot;line-height:1.2rem;margin-right:15px&quot;&gt;&lt;style data-emotion=&quot;css f4h6uy&quot;&gt;.css-f4h6uy{transition-property:var(--chakra-transition-property-common);transition-duration:var(--chakra-transition-duration-fast);transition-timing-function:var(--chakra-transition-easing-ease-out);cursor:pointer;-webkit-text-decoration:none;text-decoration:none;outline:2px solid transparent;outline-offset:2px;color:inherit;}.css-f4h6uy:hover,.css-f4h6uy[data-hover]{-webkit-text-decoration:underline;text-decoration:underline;}.css-f4h6uy:focus,.css-f4h6uy[data-focus]{box-shadow:var(--chakra-shadows-outline);}&lt;/style&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/&quot;&gt;Trans Legislation Tracker&lt;/a&gt;&lt;/p&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can also save what you find as a new variable. This is really useful for later, when we will write code to work with soup elements.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">paragraph</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">paragraph</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;p class=&quot;chakra-text css-1g6ksko&quot; style=&quot;line-height:1.2rem;margin-right:15px&quot;&gt;&lt;style data-emotion=&quot;css f4h6uy&quot;&gt;.css-f4h6uy{transition-property:var(--chakra-transition-property-common);transition-duration:var(--chakra-transition-duration-fast);transition-timing-function:var(--chakra-transition-easing-ease-out);cursor:pointer;-webkit-text-decoration:none;text-decoration:none;outline:2px solid transparent;outline-offset:2px;color:inherit;}.css-f4h6uy:hover,.css-f4h6uy[data-hover]{-webkit-text-decoration:underline;text-decoration:underline;}.css-f4h6uy:focus,.css-f4h6uy[data-focus]{box-shadow:var(--chakra-shadows-outline);}&lt;/style&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/&quot;&gt;Trans Legislation Tracker&lt;/a&gt;&lt;/p&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Making variables is useful for layering other operations on top, like getting <code class="docutils literal notranslate"><span class="pre">text</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">paragraph</span><span class="o">.</span><span class="n">text</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Trans Legislation Tracker&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">link</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/&quot;&gt;Trans Legislation Tracker&lt;/a&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can also use <code class="docutils literal notranslate"><span class="pre">find()</span></code> to search by specific attribute. Just include the <code class="docutils literal notranslate"><span class="pre">class_=xxx</span></code> in your <code class="docutils literal notranslate"><span class="pre">find()</span></code> call.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;css-wd7aku&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;div class=&quot;css-wd7aku&quot;&gt;&lt;style data-emotion=&quot;css 1vygpf9&quot;&gt;.css-1vygpf9{font-family:var(--chakra-fonts-heading);font-weight:var(--chakra-fontWeights-bold);font-size:var(--chakra-fontSizes-2xl);line-height:1.33;color:#181818;text-align:left;margin-bottom:var(--chakra-space-1);}@media screen and (min-width: 48em){.css-1vygpf9{font-size:var(--chakra-fontSizes-3xl);line-height:1.2;}}&lt;/style&gt;&lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;style data-emotion=&quot;css f4h6uy&quot;&gt;.css-f4h6uy{transition-property:var(--chakra-transition-property-common);transition-duration:var(--chakra-transition-duration-fast);transition-timing-function:var(--chakra-transition-easing-ease-out);cursor:pointer;-webkit-text-decoration:none;text-decoration:none;outline:2px solid transparent;outline-offset:2px;color:inherit;}.css-f4h6uy:hover,.css-f4h6uy[data-hover]{-webkit-text-decoration:underline;text-decoration:underline;}.css-f4h6uy:focus,.css-f4h6uy[data-focus]{box-shadow:var(--chakra-shadows-outline);}&lt;/style&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/AL/HB261&quot;&gt;AL&lt;!-- --&gt; &lt;!-- --&gt;HB261&lt;/a&gt;&lt;/h3&gt;&lt;style data-emotion=&quot;css bu60l4&quot;&gt;.css-bu60l4{display:-webkit-inline-box;display:-webkit-inline-flex;display:-ms-inline-flexbox;display:inline-flex;vertical-align:top;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;max-width:100%;font-weight:var(--chakra-fontWeights-medium);line-height:1.2;outline:2px solid transparent;outline-offset:2px;min-height:1.5rem;min-width:1.5rem;font-size:var(--chakra-fontSizes-sm);border-radius:0px;-webkit-padding-start:var(--chakra-space-2);padding-inline-start:var(--chakra-space-2);-webkit-padding-end:var(--chakra-space-2);padding-inline-end:var(--chakra-space-2);background:#b55202;color:var(--chakra-colors-white);}.css-bu60l4:focus,.css-bu60l4[data-focus]{box-shadow:var(--chakra-shadows-outline);}&lt;/style&gt;&lt;span class=&quot;css-bu60l4&quot;&gt;SPORTS&lt;/span&gt;&lt;/div&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Combine this with the <code class="docutils literal notranslate"><span class="pre">text</span></code> property to get just the text</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s1">&#39;css-wd7aku&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;AL HB261SPORTS&#39;
 </pre></div>
 </div>
 </div>
@@ -716,6 +760,22 @@ document.write(`
 <p>Let’s navigate to our target website. Go to <a class="reference external" href="https://translegislation.com/"><code class="docutils literal notranslate"><span class="pre">https://translegislation.com/</span></code></a>. Scroll down until you see “Passed anti-trans bills” heading. Click on the red button that says “View 2023 Passed Bills”. (Alternatively, just navigate directly to the page <a class="reference external" href="https://translegislation.com/bills/2023/passed">here</a>.</p>
 <p>Once you’re on the page, right click on a bill title, any bill title, and select inspect element (or whatever option is closest to that phrase in your menu). The inspector will pop up and tell you everything you need to know about that element, including it’s HTML tag <code class="docutils literal notranslate"><span class="pre">h3</span></code>, which contains the <code class="docutils literal notranslate"><span class="pre">a</span></code> and any attributes, like <code class="docutils literal notranslate"><span class="pre">class</span></code> or <code class="docutils literal notranslate"><span class="pre">href</span></code>.</p>
 </section>
+<section id="group-challenge">
+<h2>group challenge<a class="headerlink" href="#group-challenge" title="Permalink to this heading">#</a></h2>
+<p>For our dataset, we want to scrape the following:</p>
+<ul class="simple">
+<li><p>bill title</p></li>
+<li><p>bill category</p></li>
+<li><p>bill description</p></li>
+<li><p>link to bill</p></li>
+</ul>
+<p>Using the inspector, take 5-10 minutes create a list of html elements and attributes that we want to scrape. Work in partners.</p>
+<!--
+# h3.text
+# this.class = css-bu60l4
+# h2.text
+# a.class = chakra-link
+--></section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -783,10 +843,12 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-bs4">what is bs4?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-soup-object">the <code class="docutils literal notranslate"><span class="pre">soup</span></code> object</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text">text</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes">attributes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-text">getting text</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-attributes">getting attributes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#find"><code class="docutils literal notranslate"><span class="pre">find()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#find-all"><code class="docutils literal notranslate"><span class="pre">find_all()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspecting-our-page">inspecting our page</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#group-challenge">group challenge</a></li>
 </ul>
   </nav></div>
 
