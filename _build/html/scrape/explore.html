@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>&lt;no title&gt; &#8212; Python for Working with Text</title>
+    <title>exploring bs4 &#8212; Python for Working with Text</title>
   
   
   
@@ -177,11 +177,14 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../intro/logic.html">logic</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python for Web Scraping</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">workshop overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="what.html">what is web scraping?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ethics.html">ethics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ethics.html">what is legal? what is ethical?</a></li>
+
+
 <li class="toctree-l1"><a class="reference internal" href="inspector.html">the HTML Inspector</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">exploring bs4</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scrape.html">scraping with bs4</a></li>
 
 </ul>
@@ -371,7 +374,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1><no title></h1>
+    <h1>exploring bs4</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -380,9 +383,14 @@ document.write(`
                 <h2> Contents </h2>
             </div>
             <nav aria-label="Page">
-                <ul class="simple visible nav section-nav flex-column">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-bs4">what is bs4?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-soup-object">the <code class="docutils literal notranslate"><span class="pre">soup</span></code> object</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text">text</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes">attributes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#find-all"><code class="docutils literal notranslate"><span class="pre">find_all()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspecting-our-page">inspecting our page</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -393,7 +401,323 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  
+  <section class="tex2jax_ignore mathjax_ignore" id="exploring-bs4">
+<h1>exploring bs4<a class="headerlink" href="#exploring-bs4" title="Permalink to this heading">#</a></h1>
+<section id="what-is-bs4">
+<h2>what is bs4?<a class="headerlink" href="#what-is-bs4" title="Permalink to this heading">#</a></h2>
+<p>bs4 is short for <code class="docutils literal notranslate"><span class="pre">BeautifulSoup4</span></code>, a python package for parsing HTML data. bs4’s power comes from using python syntax to access and manipulate HTML elements. This means that it uses the python language and its syntax to get information from pages written in the web’s main computer lanugage, HTML.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import the following libraries to use bs4</span>
+
+<span class="kn">import</span> <span class="nn">requests</span> <span class="c1"># to make https requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span> <span class="c1"># our web scraping library</span>
+<span class="kn">import</span> <span class="nn">lxml</span> <span class="c1"># a parser for working with html data</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># save the data from the website as a &quot;soup&quot; object</span>
+
+<span class="n">site</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://translegislation.com/bills/2023/passed&#39;</span><span class="p">)</span>
+<span class="n">html_code</span> <span class="o">=</span> <span class="n">site</span><span class="o">.</span><span class="n">content</span>
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html_code</span><span class="p">,</span> <span class="s1">&#39;lxml&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Using dot syntax, we can access the element contained within the <code class="docutils literal notranslate"><span class="pre">soup</span></code> object</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get title</span>
+
+<span class="n">soup</span><span class="o">.</span><span class="n">title</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;title&gt;2023 Passed anti-trans bills: Trans Legislation Tracker&lt;/title&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-soup-object">
+<h2>the <code class="docutils literal notranslate"><span class="pre">soup</span></code> object<a class="headerlink" href="#the-soup-object" title="Permalink to this heading">#</a></h2>
+<p>This word “object” in Python is something you’ll hear often. It means a collection of data and functions that can work on that data. You can think of it as a way of representing real world objects (like this web page) in a way that is organized and accessible, so you can work with that information, with Python.</p>
+<p>Let’s take an initial look into what this beautiful soup object can do. It takes the HTML source, the specific HTML elelements or “tags,” and makes it possible for us to access those tags using python syntax.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">soup</span><span class="o">.</span><span class="n">h2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;h2 class=&quot;chakra-heading css-qwq9lj&quot;&gt;What anti-trans bills passed in &lt;!-- --&gt;2023&lt;!-- --&gt;?&lt;/h2&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">soup</span><span class="o">.</span><span class="n">a</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/&quot;&gt;Trans Legislation Tracker&lt;/a&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>There are multiple ways for accessing the soup object in Python. The Python syntax offers us a few options. For example, We might access the title attribute using dot syntax, like soup.title, or we might use the find() function, to access the title, like soup.find(‘title’).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;p class=&quot;chakra-text css-1g6ksko&quot; style=&quot;line-height:1.2rem;margin-right:15px&quot;&gt;&lt;style data-emotion=&quot;css f4h6uy&quot;&gt;.css-f4h6uy{transition-property:var(--chakra-transition-property-common);transition-duration:var(--chakra-transition-duration-fast);transition-timing-function:var(--chakra-transition-easing-ease-out);cursor:pointer;-webkit-text-decoration:none;text-decoration:none;outline:2px solid transparent;outline-offset:2px;color:inherit;}.css-f4h6uy:hover,.css-f4h6uy[data-hover]{-webkit-text-decoration:underline;text-decoration:underline;}.css-f4h6uy:focus,.css-f4h6uy[data-focus]{box-shadow:var(--chakra-shadows-outline);}&lt;/style&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/&quot;&gt;Trans Legislation Tracker&lt;/a&gt;&lt;/p&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can also save what you find as a new variable. This is really useful for later, when we will write code to work with soup elements.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">paragraph</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">paragraph</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;p class=&quot;chakra-text css-1g6ksko&quot; style=&quot;line-height:1.2rem;margin-right:15px&quot;&gt;&lt;style data-emotion=&quot;css f4h6uy&quot;&gt;.css-f4h6uy{transition-property:var(--chakra-transition-property-common);transition-duration:var(--chakra-transition-duration-fast);transition-timing-function:var(--chakra-transition-easing-ease-out);cursor:pointer;-webkit-text-decoration:none;text-decoration:none;outline:2px solid transparent;outline-offset:2px;color:inherit;}.css-f4h6uy:hover,.css-f4h6uy[data-hover]{-webkit-text-decoration:underline;text-decoration:underline;}.css-f4h6uy:focus,.css-f4h6uy[data-focus]{box-shadow:var(--chakra-shadows-outline);}&lt;/style&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/&quot;&gt;Trans Legislation Tracker&lt;/a&gt;&lt;/p&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">link</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/&quot;&gt;Trans Legislation Tracker&lt;/a&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="text">
+<h2>text<a class="headerlink" href="#text" title="Permalink to this heading">#</a></h2>
+<p>Let’s go a little deeper than the element. We can access just the text (getting rid of tags like <code class="docutils literal notranslate"><span class="pre">&lt;p&gt;</span></code> or <code class="docutils literal notranslate"><span class="pre">&lt;h3&gt;</span></code> from elements.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">soup</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">text</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;2023 Passed anti-trans bills: Trans Legislation Tracker&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Combine this with variables, and we can save just the text.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bill_title</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">h3</span><span class="o">.</span><span class="n">text</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bill_title</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;AL HB261&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="attributes">
+<h2>attributes<a class="headerlink" href="#attributes" title="Permalink to this heading">#</a></h2>
+<p>In addition to text, we can also get the attributes. Attributes are additional data that is contained within the HTML tag, like href, which stands for hyperlink reference. This is the link’s URL. To access the attributes like href, we use the syntax: <code class="docutils literal notranslate"><span class="pre">tag['attr']</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">soup</span><span class="o">.</span><span class="n">h3</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;chakra-heading&#39;, &#39;css-1vygpf9&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">link_location</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">link_location</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;/&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="find-all">
+<h2><code class="docutils literal notranslate"><span class="pre">find_all()</span></code><a class="headerlink" href="#find-all" title="Permalink to this heading">#</a></h2>
+<p>Want to print out all tags of a specific element? Then we use <code class="docutils literal notranslate"><span class="pre">find_all()</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;h3&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;style data-emotion=&quot;css f4h6uy&quot;&gt;.css-f4h6uy{transition-property:var(--chakra-transition-property-common);transition-duration:var(--chakra-transition-duration-fast);transition-timing-function:var(--chakra-transition-easing-ease-out);cursor:pointer;-webkit-text-decoration:none;text-decoration:none;outline:2px solid transparent;outline-offset:2px;color:inherit;}.css-f4h6uy:hover,.css-f4h6uy[data-hover]{-webkit-text-decoration:underline;text-decoration:underline;}.css-f4h6uy:focus,.css-f4h6uy[data-focus]{box-shadow:var(--chakra-shadows-outline);}&lt;/style&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/AL/HB261&quot;&gt;AL&lt;!-- --&gt; &lt;!-- --&gt;HB261&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/AL/SB261&quot;&gt;AL&lt;!-- --&gt; &lt;!-- --&gt;SB261&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/AR/HB1156&quot;&gt;AR&lt;!-- --&gt; &lt;!-- --&gt;HB1156&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/AR/HB1468&quot;&gt;AR&lt;!-- --&gt; &lt;!-- --&gt;HB1468&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/AR/HB1615&quot;&gt;AR&lt;!-- --&gt; &lt;!-- --&gt;HB1615&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/AR/SB125&quot;&gt;AR&lt;!-- --&gt; &lt;!-- --&gt;SB125&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/AR/SB199&quot;&gt;AR&lt;!-- --&gt; &lt;!-- --&gt;SB199&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/AR/SB270&quot;&gt;AR&lt;!-- --&gt; &lt;!-- --&gt;SB270&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/AR/SB294&quot;&gt;AR&lt;!-- --&gt; &lt;!-- --&gt;SB294&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/AR/SB43&quot;&gt;AR&lt;!-- --&gt; &lt;!-- --&gt;SB43&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/FL/H1069&quot;&gt;FL&lt;!-- --&gt; &lt;!-- --&gt;H1069&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/FL/H1521&quot;&gt;FL&lt;!-- --&gt; &lt;!-- --&gt;H1521&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/FL/S0254&quot;&gt;FL&lt;!-- --&gt; &lt;!-- --&gt;S0254&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/FL/S0266&quot;&gt;FL&lt;!-- --&gt; &lt;!-- --&gt;S0266&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/FL/S1382&quot;&gt;FL&lt;!-- --&gt; &lt;!-- --&gt;S1382&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/GA/SB140&quot;&gt;GA&lt;!-- --&gt; &lt;!-- --&gt;SB140&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/IA/SF482&quot;&gt;IA&lt;!-- --&gt; &lt;!-- --&gt;SF482&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/IA/SF496&quot;&gt;IA&lt;!-- --&gt; &lt;!-- --&gt;SF496&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/IA/SF538&quot;&gt;IA&lt;!-- --&gt; &lt;!-- --&gt;SF538&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/ID/H0071&quot;&gt;ID&lt;!-- --&gt; &lt;!-- --&gt;H0071&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/ID/S1016&quot;&gt;ID&lt;!-- --&gt; &lt;!-- --&gt;S1016&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/ID/S1100&quot;&gt;ID&lt;!-- --&gt; &lt;!-- --&gt;S1100&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/IN/HB1569&quot;&gt;IN&lt;!-- --&gt; &lt;!-- --&gt;HB1569&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/IN/HB1608&quot;&gt;IN&lt;!-- --&gt; &lt;!-- --&gt;HB1608&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/IN/SB0480&quot;&gt;IN&lt;!-- --&gt; &lt;!-- --&gt;SB0480&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/KS/HB2100&quot;&gt;KS&lt;!-- --&gt; &lt;!-- --&gt;HB2100&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/KS/HB2138&quot;&gt;KS&lt;!-- --&gt; &lt;!-- --&gt;HB2138&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/KS/HB2238&quot;&gt;KS&lt;!-- --&gt; &lt;!-- --&gt;HB2238&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/KS/SB180&quot;&gt;KS&lt;!-- --&gt; &lt;!-- --&gt;SB180&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/KS/SB228&quot;&gt;KS&lt;!-- --&gt; &lt;!-- --&gt;SB228&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/KY/SB145&quot;&gt;KY&lt;!-- --&gt; &lt;!-- --&gt;SB145&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/KY/SB150&quot;&gt;KY&lt;!-- --&gt; &lt;!-- --&gt;SB150&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/LA/HB648&quot;&gt;LA&lt;!-- --&gt; &lt;!-- --&gt;HB648&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/MO/HB15&quot;&gt;MO&lt;!-- --&gt; &lt;!-- --&gt;HB15&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/MO/SB39&quot;&gt;MO&lt;!-- --&gt; &lt;!-- --&gt;SB39&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/MO/SB49&quot;&gt;MO&lt;!-- --&gt; &lt;!-- --&gt;SB49&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/MS/HB1125&quot;&gt;MS&lt;!-- --&gt; &lt;!-- --&gt;HB1125&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/MT/HB234&quot;&gt;MT&lt;!-- --&gt; &lt;!-- --&gt;HB234&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/MT/HB303&quot;&gt;MT&lt;!-- --&gt; &lt;!-- --&gt;HB303&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/MT/HB359&quot;&gt;MT&lt;!-- --&gt; &lt;!-- --&gt;HB359&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/MT/HB361&quot;&gt;MT&lt;!-- --&gt; &lt;!-- --&gt;HB361&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/MT/SB458&quot;&gt;MT&lt;!-- --&gt; &lt;!-- --&gt;SB458&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/MT/SB518&quot;&gt;MT&lt;!-- --&gt; &lt;!-- --&gt;SB518&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/MT/SB99&quot;&gt;MT&lt;!-- --&gt; &lt;!-- --&gt;SB99&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/NC/H574&quot;&gt;NC&lt;!-- --&gt; &lt;!-- --&gt;H574&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/NC/H808&quot;&gt;NC&lt;!-- --&gt; &lt;!-- --&gt;H808&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/NC/S49&quot;&gt;NC&lt;!-- --&gt; &lt;!-- --&gt;S49&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/ND/HB1139&quot;&gt;ND&lt;!-- --&gt; &lt;!-- --&gt;HB1139&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/ND/HB1205&quot;&gt;ND&lt;!-- --&gt; &lt;!-- --&gt;HB1205&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/ND/HB1249&quot;&gt;ND&lt;!-- --&gt; &lt;!-- --&gt;HB1249&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/ND/HB1254&quot;&gt;ND&lt;!-- --&gt; &lt;!-- --&gt;HB1254&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/ND/HB1297&quot;&gt;ND&lt;!-- --&gt; &lt;!-- --&gt;HB1297&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/ND/HB1333&quot;&gt;ND&lt;!-- --&gt; &lt;!-- --&gt;HB1333&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/ND/HB1473&quot;&gt;ND&lt;!-- --&gt; &lt;!-- --&gt;HB1473&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/ND/HB1474&quot;&gt;ND&lt;!-- --&gt; &lt;!-- --&gt;HB1474&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/ND/HB1489&quot;&gt;ND&lt;!-- --&gt; &lt;!-- --&gt;HB1489&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/ND/HB1522&quot;&gt;ND&lt;!-- --&gt; &lt;!-- --&gt;HB1522&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/ND/HCR3010&quot;&gt;ND&lt;!-- --&gt; &lt;!-- --&gt;HCR3010&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/NE/LB574&quot;&gt;NE&lt;!-- --&gt; &lt;!-- --&gt;LB574&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/OK/SB26&quot;&gt;OK&lt;!-- --&gt; &lt;!-- --&gt;SB26&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/OK/SB404&quot;&gt;OK&lt;!-- --&gt; &lt;!-- --&gt;SB404&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/OK/SB613&quot;&gt;OK&lt;!-- --&gt; &lt;!-- --&gt;SB613&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/SD/HB1080&quot;&gt;SD&lt;!-- --&gt; &lt;!-- --&gt;HB1080&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/TN/HB0001&quot;&gt;TN&lt;!-- --&gt; &lt;!-- --&gt;HB0001&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/TN/HB0009&quot;&gt;TN&lt;!-- --&gt; &lt;!-- --&gt;HB0009&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/TN/HB0239&quot;&gt;TN&lt;!-- --&gt; &lt;!-- --&gt;HB0239&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/TN/HB0306&quot;&gt;TN&lt;!-- --&gt; &lt;!-- --&gt;HB0306&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/TN/HB1269&quot;&gt;TN&lt;!-- --&gt; &lt;!-- --&gt;HB1269&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/TN/SB0001&quot;&gt;TN&lt;!-- --&gt; &lt;!-- --&gt;SB0001&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/TN/SB0003&quot;&gt;TN&lt;!-- --&gt; &lt;!-- --&gt;SB0003&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/TN/SB0466&quot;&gt;TN&lt;!-- --&gt; &lt;!-- --&gt;SB0466&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/TN/SB1237&quot;&gt;TN&lt;!-- --&gt; &lt;!-- --&gt;SB1237&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/TN/SB1440&quot;&gt;TN&lt;!-- --&gt; &lt;!-- --&gt;SB1440&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/TX/SB12&quot;&gt;TX&lt;!-- --&gt; &lt;!-- --&gt;SB12&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/TX/SB14&quot;&gt;TX&lt;!-- --&gt; &lt;!-- --&gt;SB14&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/TX/SB15&quot;&gt;TX&lt;!-- --&gt; &lt;!-- --&gt;SB15&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/TX/SB17&quot;&gt;TX&lt;!-- --&gt; &lt;!-- --&gt;SB17&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/UT/HB0209&quot;&gt;UT&lt;!-- --&gt; &lt;!-- --&gt;HB0209&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/UT/SB0016&quot;&gt;UT&lt;!-- --&gt; &lt;!-- --&gt;SB0016&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/UT/SB0093&quot;&gt;UT&lt;!-- --&gt; &lt;!-- --&gt;SB0093&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/UT/SB0100&quot;&gt;UT&lt;!-- --&gt; &lt;!-- --&gt;SB0100&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/WV/HB2007&quot;&gt;WV&lt;!-- --&gt; &lt;!-- --&gt;HB2007&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/WY/SF0133&quot;&gt;WY&lt;!-- --&gt; &lt;!-- --&gt;SF0133&lt;/a&gt;&lt;/h3&gt;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">headers</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;h3&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># remember list slicing? Here we use list slicing to print out only the first three elements</span>
+
+<span class="n">headers</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;style data-emotion=&quot;css f4h6uy&quot;&gt;.css-f4h6uy{transition-property:var(--chakra-transition-property-common);transition-duration:var(--chakra-transition-duration-fast);transition-timing-function:var(--chakra-transition-easing-ease-out);cursor:pointer;-webkit-text-decoration:none;text-decoration:none;outline:2px solid transparent;outline-offset:2px;color:inherit;}.css-f4h6uy:hover,.css-f4h6uy[data-hover]{-webkit-text-decoration:underline;text-decoration:underline;}.css-f4h6uy:focus,.css-f4h6uy[data-focus]{box-shadow:var(--chakra-shadows-outline);}&lt;/style&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/AL/HB261&quot;&gt;AL&lt;!-- --&gt; &lt;!-- --&gt;HB261&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/AL/SB261&quot;&gt;AL&lt;!-- --&gt; &lt;!-- --&gt;SB261&lt;/a&gt;&lt;/h3&gt;,
+ &lt;h3 class=&quot;chakra-heading css-1vygpf9&quot;&gt;&lt;a class=&quot;chakra-link css-f4h6uy&quot; href=&quot;/bills/2023/AR/HB1156&quot;&gt;AR&lt;!-- --&gt; &lt;!-- --&gt;HB1156&lt;/a&gt;&lt;/h3&gt;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="inspecting-our-page">
+<h2>inspecting our page<a class="headerlink" href="#inspecting-our-page" title="Permalink to this heading">#</a></h2>
+<p>Let’s navigate to our target website. Go to <a class="reference external" href="https://translegislation.com/"><code class="docutils literal notranslate"><span class="pre">https://translegislation.com/</span></code></a>. Scroll down until you see “Passed anti-trans bills” heading. Click on the red button that says “View 2023 Passed Bills”. (Alternatively, just navigate directly to the page <a class="reference external" href="https://translegislation.com/bills/2023/passed">here</a>.</p>
+<p>Once you’re on the page, right click on a bill title, any bill title, and select inspect element (or whatever option is closest to that phrase in your menu). The inspector will pop up and tell you everything you need to know about that element, including it’s HTML tag <code class="docutils literal notranslate"><span class="pre">h3</span></code>, which contains the <code class="docutils literal notranslate"><span class="pre">a</span></code> and any attributes, like <code class="docutils literal notranslate"><span class="pre">class</span></code> or <code class="docutils literal notranslate"><span class="pre">href</span></code>.</p>
+</section>
+</section>
+
     <script type="text/x-thebe-config">
     {
         requestKernel: true,
@@ -456,9 +780,14 @@ document.write(`
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav class="bd-toc-nav page-toc">
-    <ul class="simple visible nav section-nav flex-column">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-bs4">what is bs4?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-soup-object">the <code class="docutils literal notranslate"><span class="pre">soup</span></code> object</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text">text</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes">attributes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#find-all"><code class="docutils literal notranslate"><span class="pre">find_all()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspecting-our-page">inspecting our page</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>
