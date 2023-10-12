@@ -181,8 +181,6 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="overview.html">workshop overview</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">what is web scraping?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ethics.html">what is legal? what is ethical?</a></li>
-
-
 <li class="toctree-l1"><a class="reference internal" href="inspector.html">the HTML Inspector</a></li>
 <li class="toctree-l1"><a class="reference internal" href="explore.html">exploring bs4</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scrape.html">scraping with bs4</a></li>
@@ -385,7 +383,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vs-apis">vs APIs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-the-met-api">an example, the MET API</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-anatomy-of-a-url">the anatomy of a URL</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tools-for-scraping">tools for scraping</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#beautifulsoup4-or-bs4">BeautifulSoup4, or bs4</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scrapy">Scrapy</a></li>
@@ -410,11 +408,13 @@ document.write(`
 <h2>vs APIs<a class="headerlink" href="#vs-apis" title="Permalink to this heading">#</a></h2>
 <p>API stands for “application programming interface.” It is a bit of software that allows one application to talk to another. For example, your weather application on your phone uses an API to request data about the current temperature from a computer server that contains this information.</p>
 <p>Both web scraping and API are about getting data from websites. The difference is that APIs are created by the data holders themselves, so they are always more efficient, returning nicely packed data in the form of JSON or XML to the requester. Many popular websites have APIs, for example Reddit, Twitter, the New York Public Library, SkyScanner, and more. Generally, if there is an API that returns JSON, XML, use that before scraping.</p>
-<p>However, you might find yourself in a scenario where there might not be an API to access the data you want, or the access to the API might be too limited  or expensive. In this case, web scraping might be your best route. Just be aware that web scraping requires more work from the individual, who needs to figure out how to get data from the source, mostly without support from the source.</p>
 </section>
-<section id="an-example-the-met-api">
-<h2>an example, the MET API<a class="headerlink" href="#an-example-the-met-api" title="Permalink to this heading">#</a></h2>
-<p>Here’s quick anatomy of an API request, using the <a class="reference external" href="https://metmuseum.github.io/">Met API</a> as an example:</p>
+<section id="the-anatomy-of-a-url">
+<h2>the anatomy of a URL<a class="headerlink" href="#the-anatomy-of-a-url" title="Permalink to this heading">#</a></h2>
+<p>APIs use URL <em>endpoints</em> to get data from servers. You can think of a URL as a
+series of folders that each contain data. The folder which contains
+the data you want is the endpoint. Here’s quick anatomy of how the
+<a class="reference external" href="https://metmuseum.github.io/">Met API</a> uses URLs in its API:</p>
 <ul class="simple">
 <li><p>the <em>root</em> consists of the base URL.</p>
 <ul>
@@ -443,6 +443,7 @@ document.write(`
 </section>
 <section id="tools-for-scraping">
 <h2>tools for scraping<a class="headerlink" href="#tools-for-scraping" title="Permalink to this heading">#</a></h2>
+<p>However, you might find yourself in a scenario where there might not be an API to access the data you want, or the access to the API might be too limited  or expensive. In this case, web scraping might be your best route. Just be aware that web scraping requires more work from the individual, who needs to figure out how to get data from the source, mostly without support from the source.</p>
 <p>In Python, there are three major “libraries,” or collections of code, for web scraping. They each have different advantages, working best with specific use cases. Here is a brief overview of their differences.</p>
 <section id="beautifulsoup4-or-bs4">
 <h3>BeautifulSoup4, or bs4<a class="headerlink" href="#beautifulsoup4-or-bs4" title="Permalink to this heading">#</a></h3>
@@ -538,7 +539,7 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vs-apis">vs APIs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-the-met-api">an example, the MET API</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-anatomy-of-a-url">the anatomy of a URL</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tools-for-scraping">tools for scraping</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#beautifulsoup4-or-bs4">BeautifulSoup4, or bs4</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scrapy">Scrapy</a></li>
