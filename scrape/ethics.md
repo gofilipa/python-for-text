@@ -1,6 +1,4 @@
-3# ethics
-
-## what is legal? what is ethical?
+# what is legal? what is ethical?
 The question is crucial needs to be asked *prior* to scraping. There's
 a lot to know about the ethics and legality of web scraping, which I
 will not reproduce here. For an excellent explanation, check out
@@ -11,7 +9,7 @@ on the ethics and legality of web scraping.
 What follows is a brief overview of the most important questions you
 should ask yourself as you begin a new web scraping project.
 
-### ethical: 
+## ethical: 
 Before you even start thinking about legality, you want to spend some
 time thinking carefully about *who* your data pertains to (who is the
 data about?) and how gathering, doing analysis, and/or publishing that
@@ -50,7 +48,7 @@ project---which is to do a text analysis of terms like "gender" and
 "sex" in the bills---creates an opportunity to examine the ways that
 language is being used to oppress and limit them.
 
-### legal:
+## legal:
 If after assessing the communities involved, you've determined that
 you want to move forward with the proejct, then you want to think
 about legality.
@@ -181,4 +179,4 @@ User-agent: *
 Allow: /
 ```
 
-No other declaration could be more permissive than that.
+Nothing could be more permissive than that.

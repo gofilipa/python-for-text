@@ -7,11 +7,11 @@ API stands for "application programming interface." It is a bit of software that
 
 Both web scraping and API are about getting data from websites. The difference is that APIs are created by the data holders themselves, so they are always more efficient, returning nicely packed data in the form of JSON or XML to the requester. Many popular websites have APIs, for example Reddit, Twitter, the New York Public Library, SkyScanner, and more. Generally, if there is an API that returns JSON, XML, use that before scraping. 
 
-However, you might find yourself in a scenario where there might not be an API to access the data you want, or the access to the API might be too limited  or expensive. In this case, web scraping might be your best route. Just be aware that web scraping requires more work from the individual, who needs to figure out how to get data from the source, mostly without support from the source. 
-
-## an example, the MET API
-
-Here's quick anatomy of an API request, using the [Met API](https://metmuseum.github.io/) as an example:
+## the anatomy of a URL
+APIs use URL *endpoints* to get data from servers. You can think of a URL as a
+series of folders that each contain data. The folder which contains
+the data you want is the endpoint. Here's quick anatomy of how the
+[Met API](https://metmuseum.github.io/) uses URLs in its API:
 - the *root* consists of the base URL. 
    - https://collectionapi.metmuseum.org/
 - the *path* which consists of a directory structure (file structure) where the data is held: 
@@ -32,6 +32,7 @@ The results would appear as a list of object IDs in a JSON format. Then, one wou
 The result is the catalog information for that item in JSON format. Put the above URL in the browser to see it for yourself!
 
 ## tools for scraping
+However, you might find yourself in a scenario where there might not be an API to access the data you want, or the access to the API might be too limited  or expensive. In this case, web scraping might be your best route. Just be aware that web scraping requires more work from the individual, who needs to figure out how to get data from the source, mostly without support from the source. 
 
 In Python, there are three major "libraries," or collections of code, for web scraping. They each have different advantages, working best with specific use cases. Here is a brief overview of their differences.
 
