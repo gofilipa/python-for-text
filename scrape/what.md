@@ -1,17 +1,19 @@
 # what is web scraping?
-Web scraping is a programmatic method for extracting data from webpages. It is the process of going into the website's source code, which is in the form of HTML code, pulling out information from the HTML, and manipulating that information into a desired format, like a spreadsheet, for example. My favorite API is the [Met API](https://metmuseum.github.io/), from the Metropolitan Museum of Art in New York City. I like this API because it is free, open, requiring no signup or authentication codes, so can demo how works it right in the URL.
+Web scraping is a programmatic method for extracting data from webpages. It is the process of going into the website's source code, which is in the form of HTML code, pulling out information from the HTML, and manipulating that information into a desired format, like a spreadsheet. It is distinguished from web crawling (an even more automated form of scraping that "crawls" over several websites) and APIs (requesting data directly from the source), which are described below.
+
+Before deciding what method of getting data is right for you, consider whether the data holder (the publisher or owner of the data) might be able to give it to you directly. Because web scraping can be considered somewhat invasive, especially if done repeatedly, data holders are often more than happy to give you the data. This is especially true of the data holder is an academic or cultural institution, such as a library, or an archive. 
+
+For example, if you want access to something in the Princeton University Library, including the online catalog, you should email the librarians directly.
 
 ## vs APIs
+The most common way to get data these days is via an API. API stands for "application programming interface." It is a bit of software that allows one application to talk to another. For example, your weather application on your phone uses an API to request data about the current temperature from a computer server that contains this information.
 
-API stands for "application programming interface." It is a bit of software that allows one application to talk to another. For example, your weather application on your phone uses an API to request data about the current temperature from a computer server that contains this information.
-
-Both web scraping and API are about getting data from websites. The difference is that APIs are created by the data holders themselves, so they are always more efficient, returning nicely packed data in the form of JSON or XML to the requester. Many popular websites have APIs, for example Reddit, Twitter, the New York Public Library, SkyScanner, and more. Generally, if there is an API that returns JSON, XML, use that before scraping. 
+The difference between web scraping and APIs is that APIs are created by the data holders themselves, so they are always more efficient. An API will return a nicely packed data in the form of JSON or XML, which are popular data formats, to the requester. Many large websites have APIs, for example Reddit, Twitter, the New York Public Library, SkyScanner, and more. Generally, if there is an API, use that before scraping. 
 
 ## the anatomy of a URL
-APIs use URL *endpoints* to get data from servers. You can think of a URL as a
-series of folders that each contain data. The folder which contains
-the data you want is the endpoint. Here's quick anatomy of how the
-[Met API](https://metmuseum.github.io/) uses URLs in its API:
+My favorite API is the [Met API](https://metmuseum.github.io/), from the Metropolitan Museum of Art in New York City. I like this API because it is free, open, and requires no signup or authentication codes. 
+
+To give more of a sense of how an API gets data from a server, I will explain the "anatomy" of a URL. APIs use URL *endpoints* to get data from servers. You can think of a URL as a series of folders that each contain data. The folder which contains the data you want is the endpoint. Here's how the Met uses URLs in its API:
 - the *root* consists of the base URL. 
    - https://collectionapi.metmuseum.org/
 - the *path* which consists of a directory structure (file structure) where the data is held: 
@@ -32,7 +34,7 @@ The results would appear as a list of object IDs in a JSON format. Then, one wou
 The result is the catalog information for that item in JSON format. Put the above URL in the browser to see it for yourself!
 
 ## tools for scraping
-However, you might find yourself in a scenario where there might not be an API to access the data you want, or the access to the API might be too limited  or expensive. In this case, web scraping might be your best route. Just be aware that web scraping requires more work from the individual, who needs to figure out how to get data from the source, mostly without support from the source. 
+If you find yourself in a scenario where there's no API to access the data you want, or the access to the API might be restricted in some way, web scraping might be your best route. Just be aware that web scraping requires more work from the individual, who needs to figure out how to get and save data from the source, mostly without support from the source. 
 
 In Python, there are three major "libraries," or collections of code, for web scraping. They each have different advantages, working best with specific use cases. Here is a brief overview of their differences.
 
