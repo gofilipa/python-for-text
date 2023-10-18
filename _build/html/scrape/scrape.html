@@ -180,9 +180,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">workshop overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="what.html">what is web scraping?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ethics.html">what is legal? what is ethical?</a></li>
-
-
+<li class="toctree-l1"><a class="reference internal" href="ethics.html">what is ethical? what is legal?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inspector.html">the HTML Inspector</a></li>
 <li class="toctree-l1"><a class="reference internal" href="explore.html">exploring bs4</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">scraping with bs4</a></li>
@@ -425,17 +423,34 @@ document.write(`
 </div>
 </div>
 </div>
-<p>First, let’s create a new object called <code class="docutils literal notranslate"><span class="pre">bill_cards</span></code> to narrow down the parts of the website that we want to scrape.</p>
+<p>In this section, we are going to scrape the following information from the trans legislation website:</p>
+<ul class="simple">
+<li><p>bill title</p></li>
+<li><p>bill category</p></li>
+<li><p>bill description</p></li>
+<li><p>link to bill</p></li>
+</ul>
+<p>The goal is to get all of these items into a CSV (spreadsheet) file. Like all good programmers, we will break our task up into a number of steps:</p>
+<ol class="arabic simple">
+<li><p>isolate the bill_cards data from the rest of the webpage</p></li>
+<li><p>pick out the information we want from the bill cards</p></li>
+<li><p>save that information to a csv file</p></li>
+</ol>
+<p>Each of these steps itself contains smaller steps, which we will figure out as we go along. Let’s begin with the first setp, to create a new object called <code class="docutils literal notranslate"><span class="pre">bill_cards</span></code>, which enables us to narrow down the parts of the website that we want to scrape.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bill_cards</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="n">class_</span> <span class="o">=</span><span class="s1">&#39;css-4rck61&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># to get the element and class for the cards, use the inspector</span>
+
+<span class="n">bill_cards</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="n">class_</span> <span class="o">=</span><span class="s1">&#39;css-4rck61&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bill_cards</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># checking our list by printing just the first three items</span>
+
+<span class="n">bill_cards</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -447,14 +462,13 @@ document.write(`
 </div>
 </div>
 </div>
-<p>Within our <code class="docutils literal notranslate"><span class="pre">bill_cards</span></code>, we have a number of things we want to scrape, like:</p>
+<p>Now we use the inspector to get the elements and attributes for the items within <code class="docutils literal notranslate"><span class="pre">bill_cards</span></code>, like:</p>
 <ul class="simple">
 <li><p>bill title</p></li>
 <li><p>bill category</p></li>
 <li><p>bill description</p></li>
 <li><p>link to bill</p></li>
 </ul>
-<p>Using the inspector, we will get the bs4 code to grab these elements.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get bill title</span>
@@ -472,6 +486,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get bill caption</span>
+
 <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="n">class_</span> <span class="o">=</span><span class="s1">&#39;css-4rck61&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">h2</span><span class="o">.</span><span class="n">text</span>
 </pre></div>
 </div>
@@ -526,22 +541,26 @@ document.write(`
 </div>
 <section id="looping-through-data">
 <h2>looping through data<a class="headerlink" href="#looping-through-data" title="Permalink to this heading">#</a></h2>
-<p>Now, we will write a loop that goes through each bill card and pulls out the information we want. From now on, I will be using the process of writing “pseudo-code,” a kind of cross between normal language and coding language, in comments. This process will help me work out how to write the actual code in Python.</p>
+<p>Now, we will write a loop. A loop will go through each item in a list, for example, a list of <code class="docutils literal notranslate"><span class="pre">bill_cards</span></code>
+and do something to each item from the list, like grab another piece of data inside of it. (Read more about <a class="reference internal" href="../intro/loops.html"><span class="doc std std-doc">loops in the intro workshop</span></a>). Our loop will goes through each bill card, one by one, and pull out the title, description, category, and link.</p>
+<p>Here, I will be using the process of writing “pseudo-code,” a kind of cross between normal language and coding language, in comments. This process will help me work out how to write the actual code in Python.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for each item in div.css-4rck61</span>
-<span class="c1"># get h3.text</span>
-<span class="c1"># get category text class = css-bu60l4</span>
-<span class="c1"># get h2.text</span>
-<span class="c1"># get p text (if any)</span>
-<span class="c1"># get a class &quot;chakra-link&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for each card in bill_cards:</span>
+<span class="c1"># get the title in h3.text</span>
+<span class="c1"># get the caption in h2.text</span>
+<span class="c1"># get the category in span.text</span>
+<span class="c1"># get the descriptoin in p.text (if any)</span>
+<span class="c1"># get the link in a tag, class &quot;chakra-link&quot;</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">bill_cards</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># does this for just the first 10 items to check that it&#39;s working</span>
+
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">bill_cards</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">h3</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="c1"># title</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">h2</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="c1"># caption</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="c1"># category</span>
@@ -593,7 +612,7 @@ BATHROOM
 /bills/2023/AR/SB270
 AR SB294
 To Create The Learns Act; To Amend Various Provisions Of The Arkansas Code As They Relate To Early Childhood Through Grade Twelve Education In The State Of Arkansas; And To Declare An Emergency.
-BATHROOM
+EDUCATION
 
 /bills/2023/AR/SB294
 AR SB43
@@ -629,8 +648,34 @@ AR HB1615 To Create The Conscience Protection Act; And To Amend The Religious Fr
 AR SB125 Concerning Free Speech Rights At State-supported Institutions Of Higher Education. EDUCATION  https://translegislation.com/bills/2023/passed/bills/2023/AR/SB125
 AR SB199 Concerning Medical Malpractice And Gender Transition In Minors; And To Create The Protecting Minors From Medical Malpractice Act Of 2023. HEALTHCARE  https://translegislation.com/bills/2023/passed/bills/2023/AR/SB199
 AR SB270 To Amend The Criminal Offense Of Sexual Indecency With A Child. BATHROOM  https://translegislation.com/bills/2023/passed/bills/2023/AR/SB270
-AR SB294 To Create The Learns Act; To Amend Various Provisions Of The Arkansas Code As They Relate To Early Childhood Through Grade Twelve Education In The State Of Arkansas; And To Declare An Emergency. BATHROOM  https://translegislation.com/bills/2023/passed/bills/2023/AR/SB294
+AR SB294 To Create The Learns Act; To Amend Various Provisions Of The Arkansas Code As They Relate To Early Childhood Through Grade Twelve Education In The State Of Arkansas; And To Declare An Emergency. EDUCATION  https://translegislation.com/bills/2023/passed/bills/2023/AR/SB294
 AR SB43 To Add Certain Restrictions To An Adult-oriented Performance; And To Define An Adult-oriented Performance. OTHER  https://translegislation.com/bills/2023/passed/bills/2023/AR/SB43
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># it works! Now let&#39;s save it to lists (which we will later save as columns inside a csv)</span>
+
+<span class="c1"># a bunch of empty lists where we will dump our data</span>
+<span class="n">titles</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">captions</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">categories</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">descriptions</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># our for loop that saves each item we want from the bill_cards</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">bill_cards</span><span class="p">:</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">h3</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">caption</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">h2</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">category</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">text</span>
+    
+    <span class="c1"># adding the items to the empty lists</span>
+    <span class="n">titles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">captions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">caption</span><span class="p">)</span>
+    <span class="n">categories</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">category</span><span class="p">)</span>
+    <span class="n">descriptions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">description</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -640,7 +685,7 @@ AR SB43 To Add Certain Restrictions To An Adult-oriented Performance; And To Def
 <h2><code class="docutils literal notranslate"><span class="pre">split()</span></code>ing the bill title<a class="headerlink" href="#split-ing-the-bill-title" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># now let&#39;s do the same, but more complicated. We will:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># now let&#39;s do more complicated things to our data. We will:</span>
 <span class="c1"># 1 - split the title column into state and title</span>
 <span class="c1"># 2 - get the link directly to the bill page on LegiScan</span>
 </pre></div>
@@ -685,7 +730,7 @@ AR SB43
 <span class="c1"># I want it to loop through each card item on this page, then</span>
 <span class="c1"># when it gets to the link part, I want it to go into that page</span>
 <span class="c1"># and grab the data from there. </span>
-<span class="c1"># fuck I just need to append a column, don&#39;t I? </span>
+<span class="c1"># I just need to append a column, don&#39;t I? </span>
 </pre></div>
 </div>
 </div>

@@ -36,4 +36,7 @@ Note the different parts of the page indicated by "elements" or "tags." The **he
 </html>
 ```
 
+## scraping on Google Colab
+
+On the next page, we will open a Google Colab document to start scraping. If you are unfamiliar with the Colab environment, please see the [Colab overview section](../intro/overview.md#google-colab-environment)
 

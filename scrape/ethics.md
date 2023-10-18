@@ -68,13 +68,21 @@ Disallow: /bill-logs
 <!-- add the connection to BillTrack50-->
 However, even if the website is legally scrapable, it may not be *technically* scrapable, which I quickly discovered when I tried to scrape the *Track Trans Legislation* site. The reason has to do with its "dynamic" web interface. Because many scrapers work with static HTML (that is, HTML that is rendered just once on the page), it cannot capture dynamic elements like those contained in JavaScript code. You can quickly tell if a site has dynamic elements if it has scrollable boxes, buttons, search bars, or something else that changes or updates in place without reloading the whole page. Those elements include their own processes, like their own APIs, which is not present in the static version of the website code (interestingly, one of the APIs contained in this site is the BillTrack50 API). The information contained in dynamic websites like *Track Trans Legislation* cannot be captured with typical web scrapers. The exception to this is [Selenium](https://www.selenium.dev/), which works by simulating a browser where elements can then be "clicked" or "scrolled" or otherwise interacted with.
 
-Dynamic websites are popular, and unfortunately for me, there were a couple more of them which, while legally permissible, I couldn't scrape:
+Dynamic websites are popular, and unfortunately for me, there were a couple more of them which, while legally permissible, I couldn't scrape. While these websites show the source code in the "page course" or "inspector" views (discussed in the next section), the dynamic elements do not appear in the code that is scraped by tools like bs4. 
+
+Here's a list of the sites that contain the data I want within dynamic elements, in this case, within scrollable boxes: 
 - ACLU's "[Mapping Attacking on LGBTQ Rights in US State Legislatures](https://www.aclu.org/legislative-attacks-on-lgbtq-rights)"
 - Equality Federation's "[Anti-Transgender Legislation](https://www.equalityfederation.org/tracker/cumulative-anti-transgender)"
 
-Besides dynamic websites, another obstacle is the use of "bot blockers," which guards against web scraping by feeding the wrong information (usually a blank webpage) to the scraper. For example, the [Congress.gov](https://www.congress.gov/) website uses bot blockers, even though the federal legislation contained on this site is technically in the public domain. It does offer a [Congress.gov API](https://blogs.loc.gov/law/2022/09/introducing-the-congress-gov-api/), which is a good option for those who want legislative data.
+Besides dynamic websites, another obstacle is the use of "bot blockers," which guards against web scrapers by feeding the wrong information (usually a blank webpage) to the scraper. For example, the [Congress.gov](https://www.congress.gov/) website uses bot blockers (even though the federal legislation is technically in the public domain). A bot blocker will usually give a web scraper a blank page with the following title embedded in the HTML:
 
-At the end of my search, I was left with the following two sites that contained the data I want in a logistically scrapable (that is, static) format: 
+```html
+<title>Just a moment...</title>
+```
+
+To its credit, Congress.gov does offer an API, the [Congress.gov API](https://blogs.loc.gov/law/2022/09/introducing-the-congress-gov-api/), which is a good option for those who want legislative data. If you encounter bot blockers, remember to check for an API, and also consider reaching out directly to the data holders/curators, to get your data.
+
+At the end of my search, I was left with the following two sites that contained the data I want in a static format: 
 - National Center for Transgender Equality's "[State Action Center](https://transequality.org/state-action-center)" 
 - Trans Leglislation Tracker's "[2023 anti-trans bills tracker](https://translegislation.com/)"
   
