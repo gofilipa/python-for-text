@@ -85,9 +85,19 @@ with open('bill_text.txt', 'w') as f:
 Now, finally, I have the full text of the bills saved as a `txt` file. The text looks like the following:
 
 ```
-b"<html><body><pre>\n[Congressional Bills 118th Congress]\n[From the U.S. Government Publishing Office]\n[H.R. 3329 Introduced in House (IH)]\n\n&lt;DOC&gt;\n\n\n\n\n\n\n118th CONGRESS\n  1st Session\n                                H. R. 3329\n\nTo prohibit taxpayer-funded gender transition procedures, and for other \n                               purposes.\n\n\n_______________________________________________________________________\n\n\n                    IN THE HOUSE OF REPRESENTATIVES\n\n                              May 15, 2023\n\n  Mr. LaMalfa (for himself, Mrs. Boebert, Mr. Lamborn, Mr. Gosar, Mr. \nBanks, Mr. Duncan, Mr. Babin, Mr. Rouzer, Mr. Barr, Mr. Rosendale, Mr. \nWeber of Texas, Mr. Brecheen, Mr. Norman, Mrs. Miller of Illinois, Mr. \n Grothman, Mr. Wilson of South Carolina, Mr. Mills, Mr. Burlison, Mr. \n   Smith of New Jersey, Mr. Aderholt, Mrs. McClain, Mrs. Lesko, Mrs. \n   Harshbarger, Mr. Nehls, Mr. Kelly of Mississippi, Mr. Ogles, Mr. \n Fallon, Mr. LaTurner, Mr. Davidson, Mr. Gaetz                             
+b"<html><body><pre>\n[Congressional Bills 118th Congress]\n[From the U.S. Government 
+Publishing Office]\n[H.R. 3329 Introduced in House (IH)]\n\n&lt;DOC&gt;\n\n\n\n\n\n\n118th 
+CONGRESS\n  1st Session\n                                H. R. 3329\n\nTo prohibit 
+taxpayer-funded gender transition procedures, and for other \n                               
+purposes.\n\n\n_______________________________________________________________________\n\n\n                    
+IN THE HOUSE OF REPRESENTATIVES\n\n                              May 15, 2023\n\n  Mr. LaMalfa 
+(for himself, Mrs. Boebert, Mr. Lamborn, Mr. Gosar, Mr. \nBanks, Mr. Duncan, Mr. Babin, Mr. Rouzer, 
+Mr. Barr, Mr. Rosendale, Mr. \nWeber of Texas, Mr. Brecheen, Mr. Norman, Mrs. Miller of Illinois,
+Mr. \n Grothman, Mr. Wilson of South Carolina, Mr. Mills, Mr. Burlison, Mr. \n   Smith of New 
+Jersey, Mr. Aderholt, Mrs. McClain, Mrs. Lesko, Mrs. \n   Harshbarger, Mr. Nehls, Mr. Kelly of 
+Mississippi, Mr. Ogles, Mr. \n Fallon, Mr. LaTurner, Mr. Davidson, Mr. Gaetz                             
 ```
-The next step will be to clean the text of the html character and other unwanted characters and whitespace. 
+The next step will be to clean the text of the html characters and other unwanted characters and whitespace. 
 
 First, I load it back up. Then, I run a function to take out all of the = characters that we don't want like `<html>`, `\n`, `__`, as well as any whitespaces. Finally, I save to a new text file, called `clean`.
 
