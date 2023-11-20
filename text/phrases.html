@@ -367,7 +367,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -383,6 +385,17 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-down-the-phrase">write down the phrase</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-the-phrase-and-pass-into-phrasematcher">code the phrase and pass into PhraseMatcher</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-phrasematcher">run the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#print-the-results">print the results</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -395,13 +408,64 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="analyzing-the-phrasematcher">
 <h1>analyzing: the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code><a class="headerlink" href="#analyzing-the-phrasematcher" title="Permalink to this heading">#</a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code> allows you to write specific phrases or sequences of text to find in the dataset. This is really useful if you already know the kind of thing that you want to pick out, including exact variations of those phrases. But not so useful if you want to account for more than a few variations. For a way to handle more complex variations of phrases, see the token <code class="docutils literal notranslate"><span class="pre">Matcher</span></code> section.</p>
-<p>The process of using the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code> involves four steps:</p>
+<p>The process of using the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code> involves four steps, divided into four sections below.</p>
 <ol class="arabic simple">
 <li><p>write down the exact phrase you’re looking for in the text</p></li>
-<li><p>pass the phrase into the matcher object</p></li>
+<li><p>code the phrase and pass it into the matcher object</p></li>
 <li><p>run the matcher on your doc</p></li>
 <li><p>print out the matches</p></li>
 </ol>
+<section id="write-down-the-phrase">
+<h2>write down the phrase<a class="headerlink" href="#write-down-the-phrase" title="Permalink to this heading">#</a></h2>
+<p>To be write effective phrases, I need to first close-read part of the dataset, the collection of congress bills, to see how the definitions are being formatted and any contextual information about them.</p>
+<p>Here is a definition for “biological sex”:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Biological sex.--The term `biological sex\&#39; means the biological indication 
+of male or female in the context of reproductive potential or capacity, 
+such as sex chromosomes, naturally occurring sex hormones, gonads, and 
+non-ambiguous internal and external genitalia present at birth, without 
+regard to an individual\&#39;s psychological, chosen, or subjective experience 
+of gender.``(2) Cross-sex hormones.--The term `cross-sex hormones\&#39; 
+means--``(A) testosterone or other androgens given to biological females at 
+doses that are profoundly larger or more potent than would naturally occur 
+in healthy biological females; or``(B) estrogen given to biological males at 
+doses that are profoundly larger or more potent than would naturally occur 
+in healthy biological males.``(3) Gender.--The term `gender\&#39; means the 
+psychological, behavioral, social, and cultural aspects of being male or 
+female.
+</pre></div>
+</div>
+<p>A definition for “sex”:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Sex.--The term ``sex\&#39;\&#39; includes--(A) a sex stereotype;(B) pregnancy,
+childbirth, or a related medical condition;(C) sexual orientation or
+gender identity; and(D) sex characteristics, including intersex
+traits.(8) Sexual orientation.--The term ``sexual orientation\&#39;\&#39;
+means homosexuality, heterosexuality, or bisexuality.
+</pre></div>
+</div>
+<p>A definition for “gender identity”:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Gender identity.--The term `gender identity&#39; means the gender-related 
+identity, appearance, mannerisms, or other gender-related 
+characteristics of an individual, regardless of the individual&#39;s 
+designated sex at birth.``(3) Including.--The term `including&#39; means 
+including, but not limited to, consistent with the term&#39;s standard 
+meaning in Federal law.``(4) Sex.--The term `sex&#39; includes--``(A) a 
+sex stereotype;``(B) pregnancy, childbirth, or a related medical 
+condition;``(C) sexual orientation or gender identity; and``(D) sex 
+characteristics, including intersex traits.``(5) Sexual 
+orientation.--The term `sexual orientation&#39; means homosexuality, 
+heterosexuality, or bisexuality.
+</pre></div>
+</div>
+<p>From these examples, I can see that all of them include at least a single quote in the form of a backtick ```, the term, like “gender” and “sex”, and the word “means”. Unforunately, there are too many variations in these to account for all of them, so I’m going to have to narrow down to the most common element that appears in all of them. This is the backtick and the term, like “gender” and “sex”.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>`gender
+`sex
+</pre></div>
+</div>
+<p>These are the phrases that we will code into the matcher to run on our text.</p>
+</section>
+<section id="code-the-phrase-and-pass-into-phrasematcher">
+<h2>code the phrase and pass into PhraseMatcher<a class="headerlink" href="#code-the-phrase-and-pass-into-phrasematcher" title="Permalink to this heading">#</a></h2>
+<p>First, we will import the necessary libraries and load our text through  the <code class="docutils literal notranslate"><span class="pre">nlp()</span></code> pipeline.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
@@ -435,6 +499,7 @@ document.write(`
 </div>
 </div>
 </div>
+<p>Then, we create the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code> object, code our phrases, and pass them into the object.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a matcher object.</span>
@@ -460,6 +525,10 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
+<section id="run-the-phrasematcher">
+<h2>run the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code><a class="headerlink" href="#run-the-phrasematcher" title="Permalink to this heading">#</a></h2>
+<p>Now, we run the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code> on our <code class="docutils literal notranslate"><span class="pre">doc</span></code>. The results will first appear in a numeric form, but we will convert them to plain text in the next step.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># run the matcher on the doc</span>
@@ -499,6 +568,10 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
+<section id="print-the-results">
+<h2>print the results<a class="headerlink" href="#print-the-results" title="Permalink to this heading">#</a></h2>
+<p>Finally, we print out the plain text of our results.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># to see the actual text, need to write code to access the text</span>
@@ -546,6 +619,10 @@ Sexual orientation.--The term ``sexual orientation&#39;&#39; means homosexuality
 </div>
 </div>
 </div>
+<p>We can see that we’ve captured a lot here, even more than what we wanted, which is definitions of our gender terms.
+For example, we captured phrases like “striking ‘sex’” and “inserting ‘sex’”. In the token <code class="docutils literal notranslate"><span class="pre">Matcher</span></code> section, we will
+look at ways of writing patterns that can handle more variations in our results.</p>
+<p>Let’s save the data to a plain text file.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># first, create an empty list to store our definitions</span>
@@ -570,7 +647,7 @@ Sexual orientation.--The term ``sexual orientation&#39;&#39; means homosexuality
 </div>
 </div>
 </div>
-<p>We can see that we’ve captured a lot here, even more than what we wanted, which is definitions of our gender terms. For example, we captured phrases like “striking ‘sex’” and “inserting ‘sex’”. In the token <code class="docutils literal notranslate"><span class="pre">Matcher</span></code> section, we will look at ways of writing patterns that can handle more variations in our results.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -627,6 +704,23 @@ Sexual orientation.--The term ``sexual orientation&#39;&#39; means homosexuality
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-down-the-phrase">write down the phrase</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-the-phrase-and-pass-into-phrasematcher">code the phrase and pass into PhraseMatcher</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-phrasematcher">run the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#print-the-results">print the results</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
