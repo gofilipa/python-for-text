@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>workshop overview &#8212; Python for Working with Text</title>
+    <title>research questions: defining gender &#8212; Python for Working with Text</title>
   
   
   
@@ -62,11 +62,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'text/overview';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'text/questions';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="what is text analysis?" href="what.html" />
-    <link rel="prev" title="scraping with bs4" href="../scrape/scrape.html" />
+    <link rel="next" title="the PhraseMatcher" href="phrases.html" />
+    <link rel="prev" title="the spaCy pipeline" href="processing.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -188,12 +188,12 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python for Text Analysis</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">workshop overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">workshop overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="what.html">what is text analysis?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gathering.html">gathering data: web scraping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="processing.html">the <code class="docutils literal notranslate"><span class="pre">spaCy</span></code> pipeline</a></li>
 
-<li class="toctree-l1"><a class="reference internal" href="questions.html">research questions: defining gender</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">research questions: defining gender</a></li>
 <li class="toctree-l1"><a class="reference internal" href="phrases.html">the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="entities.html">the <code class="docutils literal notranslate"><span class="pre">Entity-Ruler</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="tokens.html">the token <code class="docutils literal notranslate"><span class="pre">Matcher</span></code></a></li>
@@ -268,7 +268,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Ftext/overview.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Ftext/questions.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -298,7 +298,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/text/overview.md" target="_blank"
+      <li><a href="../_sources/text/questions.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -380,7 +380,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>workshop overview</h1>
+    <h1>research questions: defining gender</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -390,8 +390,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">learning objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#google-colab">Google Colab</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-specific-knowledge">domain-specific knowledge</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#close-reading-the-dataset">close-reading the dataset</a></li>
 </ul>
             </nav>
         </div>
@@ -403,24 +403,46 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="workshop-overview">
-<h1>workshop overview<a class="headerlink" href="#workshop-overview" title="Permalink to this heading">#</a></h1>
-<section id="learning-objectives">
-<h2>learning objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this heading">#</a></h2>
-<p>Welcome to text analysis! In this workshop we will build on the skills from the previous ones, <a class="reference internal" href="../intro/overview.html"><span class="doc std std-doc">on Python basics</span></a> and <a class="reference internal" href="../scrape/overview.html"><span class="doc std std-doc">on gathering data with web scraping</span></a>, to explore textual patterns with Python. Although the previous workshops will be helpful for following along with the concepts here, there are no pre-requisites. This workshop is designed to be useful for all beginner and intermediate programmers.</p>
-<p>The text analysis workshop introduces how to use Python to search for patterns in text. By the end of the workshop, students will have:</p>
-<ul class="simple">
-<li><p>a basic understanding of text analysis and the stages of a text analysis project</p></li>
-<li><p>knowledge of <code class="docutils literal notranslate"><span class="pre">spaCy</span></code> library for Natural Language Processing (NLP)</p></li>
-<li><p>familiarity with some popular tasks for NLP, like Named Entity Recognition (NER)</p></li>
-<li><p>practice with writing “rules” for extracting patterns from text</p></li>
-<li><p>practice with reading and understanding Python syntax</p></li>
-</ul>
+  <section class="tex2jax_ignore mathjax_ignore" id="research-questions-defining-gender">
+<h1>research questions: defining gender<a class="headerlink" href="#research-questions-defining-gender" title="Permalink to this heading">#</a></h1>
+<p>Text analysis is a speculative and creative endeavor. It requires that the humans running the computer programs can imagine what kinds of patterns they might find in the data. Every text search or research question implies some kind of assumption or expectation about results. Additionally, the process of analysis itself will likely bring you to re-frame your perspective and re-write your questions. Though it feels like a step backward, this recursive process actually means that you’re making progress toward the goal.
+There is no objective, neutral, or direct way of doing this kind of work.</p>
+<p>Being deliberate about the questions you want to ask and the assumptions that your questions make upon your data is a crucial part of critical analysis. Here is an opportunity to draw from your own domain-specific expertise. It also helps the analytical process along, as it allows you to imagine the kinds of patterns that might result from the analysis.</p>
+<p>For example, for my dataset, I want to know how each bill is defining the terms gender, sex, and sexuality. By getting a list of definitions for these terms, I can start to explore the relationship between them. I can also begin to understand any possible conflation of gender as a cultural and expressive phenomenon and sex as a biological one, which is something I am anticipating from the results.</p>
+<section id="domain-specific-knowledge">
+<h2>domain-specific knowledge<a class="headerlink" href="#domain-specific-knowledge" title="Permalink to this heading">#</a></h2>
+<p>Informing these questions is an understanding of gender drawn from a linked vocabulary of LGBTQ+ terms, the “<a class="reference external" href="https://homosaurus.org/">Homosaurus Vocabulary</a>,” which offers definitions of various LGBTQ+ related terms.</p>
+<p>For example, this vocabulary defines “Gender” as a cultural phenomenon, “A socially constructed system that gives meaning to masculinity and femininity,” which is “developed through the interaction of social roles and expectations, one’s response to those expectations, one’s physiology, and one’s internal sense of self” (“Gender,” Homosaurus). This definition contrasts with “Sex,” which is “The category assigned to an individual to describe their body and its role in sexual reproduction, usually based on external anatomy, but also including chromosomes, gene expression, hormones, and internal and external reproductive/sexual organs” (“Sex,” Homosaurus).</p>
 </section>
-<section id="google-colab">
-<h2>Google Colab<a class="headerlink" href="#google-colab" title="Permalink to this heading">#</a></h2>
-<p>Like the previous workshops in the series, this workshop will continue to use <a class="reference external" href="https://colab.research.google.com/">Google Colab</a>, a browser-based tool for running Python code. Google Colab offers a cloud environment for authoring content, much like Google Docs. This means that you can use Colab without having to download and install Python.</p>
-<p>If you are new to Google Colab, please see <a class="reference external" href="https://colab.research.google.com/?utm_source=scs-index">this tutorial</a> for specifics on how to run Python within the Google Colab environment.</p>
+<section id="close-reading-the-dataset">
+<h2>close-reading the dataset<a class="headerlink" href="#close-reading-the-dataset" title="Permalink to this heading">#</a></h2>
+<p>To write effective research questions, I also ought to also spend some time close-reading part of the dataset, the collection of congress bills. Close-reading the dataset will give me contextual information for writing code that pulls out patterns that I want from the data. Here, I will examine the first few bills for how they are defining the terms that I’m interested in.</p>
+<p>For example, below are some definitions for the terms “biological sex”, “gender”, “sex”, “gender identity”, and “sexual orientation”:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Biological sex.--The term `biological sex\&#39; means the biological indication 
+of male or female in the context of reproductive potential or capacity, 
+such as sex chromosomes, naturally occurring sex hormones, gonads, and 
+non-ambiguous internal and external genitalia present at birth, without 
+regard to an individual\&#39;s psychological, chosen, or subjective experience 
+of gender.
+
+Gender.--The term `gender\&#39; means the psychological, behavioral, social, 
+and cultural aspects of being male or female.
+
+Sex.--The term ``sex\&#39;\&#39; includes--(A) a sex stereotype;(B) pregnancy,
+childbirth, or a related medical condition;(C) sexual orientation or
+gender identity; and(D) sex characteristics, including intersex
+traits.
+
+Gender identity.--The term `gender identity&#39; means the gender-related 
+identity, appearance, mannerisms, or other gender-related 
+characteristics of an individual, regardless of the individual&#39;s 
+designated sex at birth.
+
+Sexual orientation.--The term `sexual orientation&#39; means homosexuality, 
+heterosexuality, or bisexuality.
+</pre></div>
+</div>
+<p>Later in the workshop, we will examine this language even more closely in order to code our patterns.</p>
 </section>
 </section>
 
@@ -455,20 +477,20 @@ document.write(`
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../scrape/scrape.html"
+       href="processing.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">scraping with <code class="docutils literal notranslate"><span class="pre">bs4</span></code></p>
+        <p class="prev-next-title">the <code class="docutils literal notranslate"><span class="pre">spaCy</span></code> pipeline</p>
       </div>
     </a>
     <a class="right-next"
-       href="what.html"
+       href="phrases.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">what is text analysis?</p>
+        <p class="prev-next-title">the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code></p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -487,8 +509,8 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">learning objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#google-colab">Google Colab</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-specific-knowledge">domain-specific knowledge</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#close-reading-the-dataset">close-reading the dataset</a></li>
 </ul>
   </nav></div>
 

@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>analyzing: the token Matcher &#8212; Python for Working with Text</title>
+    <title>the token Matcher &#8212; Python for Working with Text</title>
   
   
   
@@ -65,7 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'text/tokens';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="analyzing: the Entity-Ruler" href="entities.html" />
+    <link rel="prev" title="the Entity-Ruler" href="entities.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -189,12 +189,13 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">workshop overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="what.html">what is text analysis?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gathering.html">gathering: anti-trans legislation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="processing.html">processing: pipes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gathering.html">gathering data: web scraping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing.html">the <code class="docutils literal notranslate"><span class="pre">spaCy</span></code> pipeline</a></li>
 
-<li class="toctree-l1"><a class="reference internal" href="phrases.html">analyzing: the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="entities.html">analyzing: the <code class="docutils literal notranslate"><span class="pre">Entity-Ruler</span></code></a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">analyzing: the token <code class="docutils literal notranslate"><span class="pre">Matcher</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="questions.html">research questions: defining gender</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phrases.html">the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="entities.html">the <code class="docutils literal notranslate"><span class="pre">Entity-Ruler</span></code></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">the token <code class="docutils literal notranslate"><span class="pre">Matcher</span></code></a></li>
 </ul>
 
     </div>
@@ -365,7 +366,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -376,11 +379,21 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>analyzing: the token Matcher</h1>
+    <h1>the token Matcher</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-patterns-to-the-matcher">write patterns to the matcher</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-and-run-matcher">configure and run matcher</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#print-the-matches">print the matches</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -390,12 +403,20 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="analyzing-the-token-matcher">
-<h1>analyzing: the token <code class="docutils literal notranslate"><span class="pre">Matcher</span></code><a class="headerlink" href="#analyzing-the-token-matcher" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="the-token-matcher">
+<h1>the token <code class="docutils literal notranslate"><span class="pre">Matcher</span></code><a class="headerlink" href="#the-token-matcher" title="Permalink to this heading">#</a></h1>
 <p>The token <code class="docutils literal notranslate"><span class="pre">Matcher</span></code> is very similar to the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code> from two sections before. The difference is that this <code class="docutils literal notranslate"><span class="pre">Matcher</span></code> is allows for more variation, so we can capture different forms of the same basic pattern. For example, we could get definitions of gender (and sex, and sexuality) that use different words (like “means” or “includes”) or kinds of punctuation (like single or double quotes) in the defintition.</p>
 <p>The token <code class="docutils literal notranslate"><span class="pre">Matcher</span></code> works by writing a pattern of tokens that we define using the token attributes. We can, for example, leverage the work we did with the <code class="docutils literal notranslate"><span class="pre">EntityRuler</span></code> in the previous section to help create our token <code class="docutils literal notranslate"><span class="pre">Matcher</span></code>.</p>
-<p>First, we will import the matcher to create a matcher object. Then, we will write patterns and save them. After that, we add our new patterns to the matcher. Finally, we will run the matcher on our document.</p>
+<p>First, we will import the matcher to create a matcher object. Then, we will write patterns and save them. After that, we add our new patterns to the matcher. Finally, we will run the matcher on our document. The steps are the following:</p>
+<ol class="arabic simple">
+<li><p>import matcher and create matcher object</p></li>
+<li><p>write patterns to matcher</p></li>
+<li><p>run matcher on our text</p></li>
+<li><p>print the results</p></li>
+</ol>
 <p>Let’s take it one step at a time.</p>
+<section id="write-patterns-to-the-matcher">
+<h2>write patterns to the matcher<a class="headerlink" href="#write-patterns-to-the-matcher" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import our matcher class</span>
@@ -436,6 +457,7 @@ document.write(`
 </div>
 </div>
 <p>We want to capture not just “gender,” but “sex” and “sexuality,” as well as other synonyms for these terms. That’s where the custom entities from the last section will become useful.</p>
+<p>Below I am re-creating the custom entity ruler so that we can leverage these entites in our token matcher.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ruler</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;entity_ruler&quot;</span><span class="p">,</span> <span class="n">after</span><span class="o">=</span><span class="s2">&quot;ner&quot;</span><span class="p">)</span>
@@ -475,8 +497,8 @@ document.write(`
           <span class="s1">&#39;LOWER&#39;</span><span class="p">:</span> <span class="s1">&#39;term&#39;</span><span class="p">,</span> <span class="s1">&#39;OP&#39;</span><span class="p">:</span> <span class="s1">&#39;*&#39;</span> <span class="c1"># allows the pattern to match zero or more times</span>
       <span class="p">},</span> 
       <span class="p">{</span>
-          <span class="c1"># catches punctuation if it appears zero or more times</span>
-          <span class="s1">&#39;IS_PUNCT&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;OP&#39;</span><span class="p">:</span> <span class="s1">&#39;*&#39;</span>
+          <span class="c1"># requires pattern to match one or more times</span>
+          <span class="s1">&#39;IS_PUNCT&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;OP&#39;</span><span class="p">:</span> <span class="s1">&#39;+&#39;</span>
       <span class="p">},</span>
       <span class="p">{</span>
           <span class="c1"># specifying the entity type, which can be one of our three</span>
@@ -489,7 +511,7 @@ document.write(`
       <span class="p">},</span>
       <span class="p">{</span><span class="s1">&#39;OP&#39;</span><span class="p">:</span> <span class="s1">&#39;?&#39;</span><span class="p">},</span> <span class="c1"># catches a &quot;wild card&quot; if it appears zero or one time.</span>
       <span class="p">{</span>
-          <span class="s1">&#39;IS_PUNCT&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;OP&#39;</span><span class="p">:</span> <span class="s1">&#39;*&#39;</span> <span class="c1"># allows the pattern to match zero or more times</span>
+          <span class="s1">&#39;IS_PUNCT&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;OP&#39;</span><span class="p">:</span> <span class="s1">&#39;+&#39;</span> <span class="c1">#one or more times</span>
       <span class="p">},</span>
       <span class="p">{</span>
           <span class="c1"># getting the lowercase word of any of the following terms</span>
@@ -498,12 +520,15 @@ document.write(`
                   <span class="s1">&#39;means&#39;</span><span class="p">,</span> <span class="s1">&#39;signifies&#39;</span><span class="p">,</span> <span class="s1">&#39;includes&#39;</span>
               <span class="p">]</span>
           <span class="p">}</span>
-      <span class="p">}</span>
+       <span class="p">}</span>
   <span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
+</section>
+<section id="configure-and-run-matcher">
+<h2>configure and run matcher<a class="headerlink" href="#configure-and-run-matcher" title="Permalink to this heading">#</a></h2>
 <p>Now we can configure the <code class="docutils literal notranslate"><span class="pre">Matcher</span></code>. First, create the matcher, then add our pattern to the matcher, and finally run the mather on our doc.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -511,10 +536,18 @@ document.write(`
 <span class="n">matcher</span> <span class="o">=</span> <span class="n">Matcher</span><span class="p">(</span><span class="n">nlp</span><span class="o">.</span><span class="n">vocab</span><span class="p">)</span>
 
 <span class="c1"># add pattern to matcher</span>
-<span class="n">matcher</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;definition&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">pattern</span><span class="p">])</span>
+<span class="n">matcher</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;definition&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">pattern</span><span class="p">]</span>
 
 <span class="c1"># run matcher over doc</span>
 <span class="n">matches</span> <span class="o">=</span> <span class="n">matcher</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>  <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
+    <span class="n">matcher</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;definition&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">pattern</span><span class="p">]</span>
+               <span class="o">^</span>
+<span class="ne">SyntaxError</span>: &#39;(&#39; was never closed
 </pre></div>
 </div>
 </div>
@@ -528,15 +561,18 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>62
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>176
 </pre></div>
 </div>
 </div>
 </div>
+</section>
+<section id="print-the-matches">
+<h2>print the matches<a class="headerlink" href="#print-the-matches" title="Permalink to this heading">#</a></h2>
 <p>Let’s see the actual text.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">match_id</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">match_id</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">[</span><span class="o">-</span><span class="mi">20</span><span class="p">:]:</span>
     <span class="n">string_id</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">vocab</span><span class="o">.</span><span class="n">strings</span><span class="p">[</span><span class="n">match_id</span><span class="p">]</span>  <span class="c1"># Get string representation</span>
     <span class="n">span</span> <span class="o">=</span> <span class="n">doc</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>  <span class="c1"># The matched span</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">string_id</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">span</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
@@ -545,26 +581,46 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>definition 918 921 sex&#39; means
-Biological sex.--The term `biological sex&#39; means the biological indication of male or female in the context of reproductive potential or capacity, such as sex chromosomes, naturally occurring sex hormones, gonads, and non-ambiguous internal and external genitalia present at birth, without regard to an individual&#39;s psychological, chosen, or subjective experience of gender.
-definition 917 921 biological sex&#39; means
-Biological sex.--The term `biological sex&#39; means the biological indication of male or female in the context of reproductive potential or capacity, such as sex chromosomes, naturally occurring sex hormones, gonads, and non-ambiguous internal and external genitalia present at birth, without regard to an individual&#39;s psychological, chosen, or subjective experience of gender.
-definition 1048 1051 gender&#39; means
-Gender.--The term `gender&#39; means the psychological, behavioral, social, and cultural aspects of being male or female.
-definition 1073 1077 gender transition&#39; means
-Gender transition.--The term `gender transition&#39; means the process in which a person goes from identifying with and living as a gender that corresponds to his or her biological sex to identifying with and living as a gender different from his or her biological sex, and may involve social, legal, or physical changes.
-definition 5384 5388 gender identity&#39;&#39; means
-Gender identity.--The term ``gender identity&#39;&#39; means the gender-related identity, appearance, mannerisms, or other gender-related characteristics of an individual, regardless of the individual&#39;s designated sex at birth.(5) National gender equity infrastructure.--The term ``national gender equity infrastructure&#39;&#39; means the horizontal and vertical network of title IX coordinators and title IX allies who work to advance gender equity and eliminate discrimination in the United States.(6)
-definition 5513 5516 orientation&#39;&#39; means
-Sexual orientation.--The term ``sexual orientation&#39;&#39; means homosexuality, heterosexuality, or bisexuality.(9)
-definition 14800 14802 orientation includes
-An explicit and comprehensive national solution is needed to address this discrimination, including the full range of remedies available under the Civil Rights Act of 1964.(12) Discrimination based on sexual orientation includes discrimination based on an individual&#39;s actual or perceived romantic, emotional, physical, or sexual attraction to other persons, or lack thereof, on the basis of gender.
-definition 18057 18061 gender identity&#39; means
-Gender identity.--The term `gender identity&#39; means the gender-related identity, appearance, mannerisms, or other gender-related characteristics of an individual, regardless of the individual&#39;s designated sex at birth.
-definition 18162 18165 orientation&#39; means
-``(5) Sexual orientation.--The term `sexual orientation&#39; means homosexuality, heterosexuality, or bisexuality.
-definition 20754 20757 sex&#39; means
-Biological sex.--The term `biological sex&#39; means the indication of male or female sex by reproductive potential or capacity, sex chromosomes, naturally occurring sex hormones, gonads, or internal or external genitalia present at birth.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>small 163977 163981 , gender identity,
+is amended--(A) in paragraph (11)(C), by striking ``; and&#39;&#39; and inserting a semicolon;(B) in paragraph (12)(C)(ii), by striking the period at the end and inserting ``; and&#39;&#39;; and(C) by adding at the end the following new paragraph:``(13) wherever applicable, the nature and extent of criminalization, discrimination, and violence by state and non-state actors based on sexual orientation or gender identity, as those terms are defined in section 12 of the GLOBE Act of 2023, or sex characteristics, including an identification of those countries that have adopted laws or constitutional provisions that criminalize or discriminate based on sexual orientation, gender identity, or sex characteristics, including descriptions of such laws and provisions.
+small 164134 164138 , gender identity,
+Sexual Orientation, Gender Identity, and Sex Characteristics.--The report required under subsection (b) shall include, wherever applicable, the nature and extent of criminalization, discrimination, and violence by state and non-state actors based on sexual orientation or gender identity, as those terms are defined in section 12 of the GLOBE Act of 2023, or sex characteristics, including an identification of those countries that have adopted laws or constitutional provisions that criminalize or discriminate based on sexual orientation, gender identity, or sex characteristics, including descriptions of such laws and provisions.&#39;&#39;.(b) Review at Diplomatic and Consular Posts.--(1)
+small 165095 165099 , gender identity,
+Training at International Law Enforcement Academies.--The President shall ensure that any international law enforcement academy supported by United States assistance shall provide training with respect to the rights of LGBTQI people, including through specialized courses highlighting best practices in the documentation, investigation, and prosecution of bias-motivated hate crimes targeting persons based on actual or perceived sexual orientation, gender identity, or sex characteristics.(f)
+small 165237 165241 , gender identity,
+In General.--Not later than 180 days after the date of enactment of this Act and biannually thereafter, the President shall transmit to the appropriate congressional committees a list of each foreign person the President determines, based on credible information, including information obtained by other countries or by nongovernmental organizations that monitor violations of human rights--(1) is responsible for or complicit in, with respect to persons based on actual or perceived sexual orientation, gender identity, or sex characteristics--(A) torture or cruel, inhuman, or degrading treatment or punishment;(B) prolonged detention without charges and trial;(C) causing the disappearance of such persons by the abduction and clandestine detention of such persons; or(D) other flagrant denial of the right to life, liberty, or the security of such persons; or(2) acted as an agent of or on behalf of a foreign person in a matter relating to an activity described in paragraph (1).(b)
+small 166536 166540 , gender identity,
+In general.--A covered individual shall not be subject to sanctions under this section if the President certifies to the appropriate congressional committees, in accordance with clause (ii), that such individual has a reasonable fear of persecution based on--(I) actual or perceived sexual orientation, gender identity, or sex characteristics;(II) race, religion, or nationality; or(III) political opinion or membership in a particular social group.(ii) Determination and certification.--A certification under clause (i) shall be made not later than 30 days after the date of the determination required by such clause.
+small 167046 167050 , gender identity,
+In general.--The President may waive the application of paragraph (1) or (2) with respect to a foreign person included in the list required by subsection (a) if the President determines and transmits to the appropriate congressional committees notice and justification, that such a waiver--(i) is necessary to permit the United States to comply with the Agreement between the United Nations and the United States regarding the Headquarters of the United Nations, signed June 26, 1947, and entered into force November 21, 1947, or other applicable international obligations of the United States; or(ii) is in the national security interests of the United States.(B) Timing of certain waivers.--A waiver pursuant to a determination under clause (ii) of subparagraph (A) shall be transmitted not later than 15 days before the granting of such waiver.(f) Report to Congress.--Not later than 1 year after the date of enactment of this Act and annually thereafter, the President, acting through the Secretary of State, shall submit to the appropriate congressional committees a report on--(1) the actions taken to carry out this section, including--(A) the number of foreign persons added to or removed from the list required by subsection (a) during the year preceding each such report, the dates on which such persons were so added or removed, and the reasons for so adding or removing such persons; and(B) an analysis that compares increases or decreases in the number of such persons added or removed year-over-year and the reasons therefore;(2) any efforts by the President to coordinate with the governments of other countries, as appropriate, to impose sanctions that are similar to the sanctions imposed under this section;(3) the impact of the sanctions imposed under this section with respect to altering the behavior of each of the foreign persons included, as of the date of submission of the report, in the list required by subsection (a); and(4) steps the Department can take to improve coordination with foreign governments, civil society groups, and the private sector, to prevent the commission of the human rights violations described in section 3(a)(1) against persons based on actual or perceived sexual orientation, gender identity, or sex characteristics.(g) Definitions.--In this section:(1)
+small 167760 167764 , gender identity,
+Protecting persons or groups against the threat of violence, including medically unnecessary interventions performed on intersex infants.(C) Advocating against laws that criminalize LGBTQI status, expression, or conduct or discriminate against individuals on the basis of sexual orientation, gender identity, or sex characteristics.(D)
+small 172017 172020 , queer,
+Gender identity.--The term ``gender identity&#39;&#39; means the gender-related identity, appearance, mannerisms, or other gender-related characteristics of an individual, regardless of the individual&#39;s designated sex at birth.(3) LGBTQI.--The term ``LGBTQI&#39;&#39; means lesbian, gay, bisexual, transgender, queer, or intersex.(4)
+small 172924 172927 , nonbinary,
+In General.--The Secretary, acting through the Assistant Secretary for Mental Health and Substance Use (referred to in this section as the `Secretary&#39;), shall establish a program under which the Secretary will award grants to eligible entities to assess and improve lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth mental health and substance abuse outcomes.
+small 172983 172986 , nonbinary,
+``(b) Use of Funds.--An eligible entity receiving a grant under this section shall use funds received through such grant--``(1) to provide mental and behavioral health and crisis intervention resources for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, including trauma-informed care;``(2) to provide cultural competency training for caregivers;``(3) to develop and disseminate mental and behavioral health and crisis intervention resources for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, and their families and caregivers;``(4) to develop and disseminate evidence-based practices to be added to the Evidence-Based Practices Resource Center of the Substance Abuse and Mental Health Administration;``(5) to collect data with respect to the mental and behavioral health of lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth;``(6) to issue school bullying prevention guidelines with respect to lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth;``(7) to provide for the integration within school systems of mental and behavioral health services for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth;``(8) to establish and implement mental and behavioral patient navigator programs for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, and their families; and``(9) to create and disseminate family acceptance and support models for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, and their families and caregivers.
+small 173031 173034 , nonbinary,
+``(b) Use of Funds.--An eligible entity receiving a grant under this section shall use funds received through such grant--``(1) to provide mental and behavioral health and crisis intervention resources for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, including trauma-informed care;``(2) to provide cultural competency training for caregivers;``(3) to develop and disseminate mental and behavioral health and crisis intervention resources for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, and their families and caregivers;``(4) to develop and disseminate evidence-based practices to be added to the Evidence-Based Practices Resource Center of the Substance Abuse and Mental Health Administration;``(5) to collect data with respect to the mental and behavioral health of lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth;``(6) to issue school bullying prevention guidelines with respect to lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth;``(7) to provide for the integration within school systems of mental and behavioral health services for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth;``(8) to establish and implement mental and behavioral patient navigator programs for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, and their families; and``(9) to create and disseminate family acceptance and support models for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, and their families and caregivers.
+small 173098 173101 , nonbinary,
+``(b) Use of Funds.--An eligible entity receiving a grant under this section shall use funds received through such grant--``(1) to provide mental and behavioral health and crisis intervention resources for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, including trauma-informed care;``(2) to provide cultural competency training for caregivers;``(3) to develop and disseminate mental and behavioral health and crisis intervention resources for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, and their families and caregivers;``(4) to develop and disseminate evidence-based practices to be added to the Evidence-Based Practices Resource Center of the Substance Abuse and Mental Health Administration;``(5) to collect data with respect to the mental and behavioral health of lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth;``(6) to issue school bullying prevention guidelines with respect to lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth;``(7) to provide for the integration within school systems of mental and behavioral health services for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth;``(8) to establish and implement mental and behavioral patient navigator programs for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, and their families; and``(9) to create and disseminate family acceptance and support models for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, and their families and caregivers.
+small 173128 173131 , nonbinary,
+``(b) Use of Funds.--An eligible entity receiving a grant under this section shall use funds received through such grant--``(1) to provide mental and behavioral health and crisis intervention resources for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, including trauma-informed care;``(2) to provide cultural competency training for caregivers;``(3) to develop and disseminate mental and behavioral health and crisis intervention resources for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, and their families and caregivers;``(4) to develop and disseminate evidence-based practices to be added to the Evidence-Based Practices Resource Center of the Substance Abuse and Mental Health Administration;``(5) to collect data with respect to the mental and behavioral health of lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth;``(6) to issue school bullying prevention guidelines with respect to lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth;``(7) to provide for the integration within school systems of mental and behavioral health services for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth;``(8) to establish and implement mental and behavioral patient navigator programs for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, and their families; and``(9) to create and disseminate family acceptance and support models for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, and their families and caregivers.
+small 173164 173167 , nonbinary,
+``(b) Use of Funds.--An eligible entity receiving a grant under this section shall use funds received through such grant--``(1) to provide mental and behavioral health and crisis intervention resources for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, including trauma-informed care;``(2) to provide cultural competency training for caregivers;``(3) to develop and disseminate mental and behavioral health and crisis intervention resources for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, and their families and caregivers;``(4) to develop and disseminate evidence-based practices to be added to the Evidence-Based Practices Resource Center of the Substance Abuse and Mental Health Administration;``(5) to collect data with respect to the mental and behavioral health of lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth;``(6) to issue school bullying prevention guidelines with respect to lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth;``(7) to provide for the integration within school systems of mental and behavioral health services for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth;``(8) to establish and implement mental and behavioral patient navigator programs for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, and their families; and``(9) to create and disseminate family acceptance and support models for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, and their families and caregivers.
+small 173196 173199 , nonbinary,
+``(b) Use of Funds.--An eligible entity receiving a grant under this section shall use funds received through such grant--``(1) to provide mental and behavioral health and crisis intervention resources for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, including trauma-informed care;``(2) to provide cultural competency training for caregivers;``(3) to develop and disseminate mental and behavioral health and crisis intervention resources for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, and their families and caregivers;``(4) to develop and disseminate evidence-based practices to be added to the Evidence-Based Practices Resource Center of the Substance Abuse and Mental Health Administration;``(5) to collect data with respect to the mental and behavioral health of lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth;``(6) to issue school bullying prevention guidelines with respect to lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth;``(7) to provide for the integration within school systems of mental and behavioral health services for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth;``(8) to establish and implement mental and behavioral patient navigator programs for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, and their families; and``(9) to create and disseminate family acceptance and support models for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, and their families and caregivers.
+small 173233 173236 , nonbinary,
+``(b) Use of Funds.--An eligible entity receiving a grant under this section shall use funds received through such grant--``(1) to provide mental and behavioral health and crisis intervention resources for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, including trauma-informed care;``(2) to provide cultural competency training for caregivers;``(3) to develop and disseminate mental and behavioral health and crisis intervention resources for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, and their families and caregivers;``(4) to develop and disseminate evidence-based practices to be added to the Evidence-Based Practices Resource Center of the Substance Abuse and Mental Health Administration;``(5) to collect data with respect to the mental and behavioral health of lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth;``(6) to issue school bullying prevention guidelines with respect to lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth;``(7) to provide for the integration within school systems of mental and behavioral health services for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth;``(8) to establish and implement mental and behavioral patient navigator programs for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, and their families; and``(9) to create and disseminate family acceptance and support models for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth, and their families and caregivers.
+small 173685 173688 , nonbinary,
+In general.--Not later than 1 year after the date of the enactment of this section, the Secretary shall review, and update as necessary, the reports and publications listed on the internet website of the Substance Abuse and Mental Health Administration as of the date of the enactment of this section that are focused on lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit individuals.
+small 173743 173746 , nonbinary,
+``(2) Priority.--In reviewing reports and publications under paragraph (1), the Secretary shall prioritize updating older reports and commissioning new reports that fill information gaps with respect to the mental and behavioral health of lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit individuals.
+small 173792 173795 , nonbinary,
+Federal Survey.--The Secretary shall develop and conduct a Federal survey measuring serious psychological distress, mental illness, mental health, and mental health care among lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth.
+small 173906 173909 , nonbinary,
+In general.--Not later than 180 days after the date of the enactment of this section, the Secretary shall, in consultation with the Director of the National Institute of Mental Health and the Assistant Secretary for the Administration for Children and Families, commence a report on mental health, mental health care, and cultural competency in mental health care for lesbian, gay, bisexual, transgender, queer or questioning, nonbinary, intersex, and Two Spirit youth in foster care and who are beneficiaries of other social services programs subject to Federal oversight.
 </pre></div>
 </div>
 </div>
@@ -587,6 +643,7 @@ Biological sex.--The term `biological sex&#39; means the indication of male or f
 </div>
 </div>
 <p>That’s all, folks!</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -625,7 +682,7 @@ Biological sex.--The term `biological sex&#39; means the indication of male or f
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">analyzing: the <code class="docutils literal notranslate"><span class="pre">Entity-Ruler</span></code></p>
+        <p class="prev-next-title">the <code class="docutils literal notranslate"><span class="pre">Entity-Ruler</span></code></p>
       </div>
     </a>
 </div>
@@ -634,6 +691,22 @@ Biological sex.--The term `biological sex&#39; means the indication of male or f
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-patterns-to-the-matcher">write patterns to the matcher</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-and-run-matcher">configure and run matcher</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#print-the-matches">print the matches</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

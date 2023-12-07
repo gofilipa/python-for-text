@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>processing: pipes &#8212; Python for Working with Text</title>
+    <title>the spaCy pipeline &#8212; Python for Working with Text</title>
   
   
   
@@ -65,8 +65,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'text/processing';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="analyzing: the PhraseMatcher" href="phrases.html" />
-    <link rel="prev" title="gathering: anti-trans legislation" href="gathering.html" />
+    <link rel="next" title="research questions: defining gender" href="questions.html" />
+    <link rel="prev" title="gathering data: web scraping" href="gathering.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -190,12 +190,13 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">workshop overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="what.html">what is text analysis?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gathering.html">gathering: anti-trans legislation</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">processing: pipes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gathering.html">gathering data: web scraping</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">the <code class="docutils literal notranslate"><span class="pre">spaCy</span></code> pipeline</a></li>
 
-<li class="toctree-l1"><a class="reference internal" href="phrases.html">analyzing: the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="entities.html">analyzing: the <code class="docutils literal notranslate"><span class="pre">Entity-Ruler</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="tokens.html">analyzing: the token <code class="docutils literal notranslate"><span class="pre">Matcher</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="questions.html">research questions: defining gender</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phrases.html">the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="entities.html">the <code class="docutils literal notranslate"><span class="pre">Entity-Ruler</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="tokens.html">the token <code class="docutils literal notranslate"><span class="pre">Matcher</span></code></a></li>
 </ul>
 
     </div>
@@ -379,7 +380,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>processing: pipes</h1>
+    <h1>the spaCy pipeline</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -389,13 +390,12 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">processing: pipes</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-spacy">importing <code class="docutils literal notranslate"><span class="pre">spaCy</span></code></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">the <code class="docutils literal notranslate"><span class="pre">spaCy</span></code> pipeline</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-pipeline">the pipeline</a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tokenization">tokenization</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parts-of-speech-dependency">Parts of Speech, Dependency</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parts-of-speech-dependency">Parts of Speech &amp; Dependency</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#named-entity-recognition-ner">Named Entity Recognition (NER)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-doc-object">the <code class="docutils literal notranslate"><span class="pre">Doc</span></code> object</a></li>
 </ul>
@@ -412,60 +412,43 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="processing-pipes">
-<h1>processing: pipes<a class="headerlink" href="#processing-pipes" title="Permalink to this heading">#</a></h1>
-<section id="importing-spacy">
-<h2>importing <code class="docutils literal notranslate"><span class="pre">spaCy</span></code><a class="headerlink" href="#importing-spacy" title="Permalink to this heading">#</a></h2>
-<p>Since we are using Python on Google Colab, no installation is necessary. But if you’re not on Google colab, and using a Python on your local computer (through a distribution like Anaconda), you can follow the instructions to download and install spaCy here: <a class="reference external" href="https://spacy.io/usage">https://spacy.io/usage</a></p>
-<p>On google colab, all you need is the following code to import spacy and get it up and running:</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="the-spacy-pipeline">
+<h1>the <code class="docutils literal notranslate"><span class="pre">spaCy</span></code> pipeline<a class="headerlink" href="#the-spacy-pipeline" title="Permalink to this heading">#</a></h1>
+<p><em>Note: Because we are using Python on Google Colab’s cloud environment, no installation of Python nor <code class="docutils literal notranslate"><span class="pre">spaCy</span></code> is necessary. But if you’re not on Google colab, and using a Python on your local computer (through a distribution like Anaconda), you can follow the instructions to download and install spaCy here: <a class="reference external" href="https://spacy.io/usage">https://spacy.io/usage</a></em></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">spaCy</span></code> library offers powerful text processing capabilities. It processes text by adding tags, what the library’s creators call “annotations,” to text. These annotations are filled with <a class="reference external" href="https://spacy.io/usage/spacy-101#features">linguistic information</a> about each word or bit of punctuation in the text. For example, they can describe parts of speech, grammatical dependency, punctuation, sentence and clause spans, and a lot more.</p>
+<p>How does <code class="docutils literal notranslate"><span class="pre">spaCy</span></code> know what information to annotate to each piece of text? The program gets this information from a language model, such as <code class="docutils literal notranslate"><span class="pre">en_core_web_sm</span></code>, that you load before you can process the text. This language model is a statistical model that enable <code class="docutils literal notranslate"><span class="pre">spaCy</span></code> to make predictions about a word’s part of speech, for example. It has been trained from popular lexical datasets, like Princeton’s <a class="reference external" href="https://wordnet.princeton.edu/">WordNet</a>, and also contains information for words, such as their root form, in data files and lookup tables. From this information, the model can make predictions about the linguistic features of new text.</p>
+<p>For example, if it comes across the word “trans,” which can be an adjective, a prefix, or a shortened form of a longer word like “transgender,” it will make a guess on how to categorize this particular usage of “trans” based on other aspects of the sentence, such as the parts of speech of the other words surrounding it.</p>
+<p>The code below demonstrates how to import the library, load up the lanugage model, and save it to <code class="docutils literal notranslate"><span class="pre">nlp()</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># importing our spacy library</span>
+<span class="kn">import</span> <span class="nn">spacy</span>
 
 <span class="c1"># loading up the model in english</span>
 <span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
-
-<span class="c1"># passing a dataset (a sentence, in this case) into the nlp() function</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>After saving the model to <code class="docutils literal notranslate"><span class="pre">nlp</span></code>, it can be used to process our text. In <code class="docutils literal notranslate"><span class="pre">spaCy</span></code> speak, this is called passing a text through the “pipeline.”</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># passing a dataset (a sentence, in this case) into the nlp() function</span>
 <span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;My name is Filipa, and I teach workshops about Python programming at Princeton University.&quot;</span><span class="p">)</span>
-
-<span class="c1"># printing out each word or character, one at a time. </span>
-<span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>My
-name
-is
-Filipa
-,
-and
-I
-teach
-workshops
-about
-Python
-programming
-at
-Princeton
-University
-.
 </pre></div>
 </div>
 </div>
 </div>
-<p>You may use other languages, like Russian or Greek, depending on your specific project. But today we will be using English version. Even if you are working with another language, I recommend you follow along with the english model for now.</p>
-</section>
 <section id="the-pipeline">
 <h2>the pipeline<a class="headerlink" href="#the-pipeline" title="Permalink to this heading">#</a></h2>
-<p>So what happens to a text when we process it with the <code class="docutils literal notranslate"><span class="pre">nlp()</span></code> function? It goes through a series of “pipes” that separate out the individual words and add descriptive data, or “annotations,” to them. We will go through the steps one by one.</p>
+<p>So what happens to a text when we process it with the <code class="docutils literal notranslate"><span class="pre">nlp()</span></code> function? It goes through a series of “pipes” that separate out the individual words and adds linguistic annotations to each of them. These steps include “tokenization,” “tagging,” “parsing,” and “named entity recognition.”</p>
+<p>We will go through the steps one by one.</p>
 <p><img alt="image of the pipeline" src="../_images/pipeline.svg" /></p>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="tokenization">
 <h1>tokenization<a class="headerlink" href="#tokenization" title="Permalink to this heading">#</a></h1>
-<p>First in the pipeline is tokenization. This is the separation of our dataset, which is a long list of words within sentences within documents, into individual words or <em>tokens</em>. This creates a smaller unit for our data to be more amenable to counting and other kinds of analysis. Punctuation counts as a token, by the way, an important one!</p>
+<p>First in the pipeline is tokenization. This is the separation of our dataset, which is a long list of words within sentences within documents, into individual words or <em>tokens</em>. Tokens make data more amenable to counting and other kinds of analysis. Punctuation counts as a token, by the way, an important one!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">:</span>
@@ -529,9 +512,9 @@ University
 </div>
 </div>
 <section id="parts-of-speech-dependency">
-<h2>Parts of Speech, Dependency<a class="headerlink" href="#parts-of-speech-dependency" title="Permalink to this heading">#</a></h2>
-<p>After the tokenizer, we have the tagger and the parser. For each token in the text, the tagger applies “parts of speech” tags (like noun, verb, adverb, preposition, and so on), and the parser derives its grammatical dependency (subject, predicate, object, for example).</p>
-<p>Some of these annotations might seem so specific that they are extraneous, but later on you’ll see how they can be really useful for writing code that selects only certain parts of the text.</p>
+<h2>Parts of Speech &amp; Dependency<a class="headerlink" href="#parts-of-speech-dependency" title="Permalink to this heading">#</a></h2>
+<p>After the tokenizer come the tagger and the parser. For each token in the text, the tagger applies “parts of speech” tags (like noun, verb, adverb, preposition, and so on), and the parser derives its grammatical dependency (subject, predicate, object, for example).</p>
+<p>Some of these annotations might seem excessive, but later on they will become really useful for writing code that selects only specific parts of the text.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">:</span>
@@ -619,7 +602,7 @@ part of speech: PUNCT
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span class="tex2jax_ignore"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en" id="02071e71b54b4282a6a47b9589d07d71-0" class="displacy" width="2150" height="362.0" direction="ltr" style="max-width: none; height: 362.0px; color: #000000; background: #ffffff; font-family: Arial; direction: ltr">
+<div class="output text_html"><span class="tex2jax_ignore"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en" id="d7605e9afca249da9aae651d2ae81a28-0" class="displacy" width="2150" height="362.0" direction="ltr" style="max-width: none; height: 362.0px; color: #000000; background: #ffffff; font-family: Arial; direction: ltr">
 <text class="displacy-token" fill="currentColor" text-anchor="middle" y="272.0">
     <tspan class="displacy-word" fill="currentColor" x="50">My</tspan>
     <tspan class="displacy-tag" dy="2em" fill="currentColor" x="50">PRON</tspan>
@@ -691,105 +674,105 @@ part of speech: PUNCT
 </text>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-02071e71b54b4282a6a47b9589d07d71-0-0" stroke-width="2px" d="M62,227.0 62,202.0 194.0,202.0 194.0,227.0" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-d7605e9afca249da9aae651d2ae81a28-0-0" stroke-width="2px" d="M62,227.0 62,202.0 194.0,202.0 194.0,227.0" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-02071e71b54b4282a6a47b9589d07d71-0-0" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">poss</textPath>
+        <textPath xlink:href="#arrow-d7605e9afca249da9aae651d2ae81a28-0-0" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">poss</textPath>
     </text>
     <path class="displacy-arrowhead" d="M62,229.0 L58,221.0 66,221.0" fill="currentColor"/>
 </g>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-02071e71b54b4282a6a47b9589d07d71-0-1" stroke-width="2px" d="M212,227.0 212,202.0 344.0,202.0 344.0,227.0" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-d7605e9afca249da9aae651d2ae81a28-0-1" stroke-width="2px" d="M212,227.0 212,202.0 344.0,202.0 344.0,227.0" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-02071e71b54b4282a6a47b9589d07d71-0-1" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">nsubj</textPath>
+        <textPath xlink:href="#arrow-d7605e9afca249da9aae651d2ae81a28-0-1" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">nsubj</textPath>
     </text>
     <path class="displacy-arrowhead" d="M212,229.0 L208,221.0 216,221.0" fill="currentColor"/>
 </g>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-02071e71b54b4282a6a47b9589d07d71-0-2" stroke-width="2px" d="M362,227.0 362,202.0 494.0,202.0 494.0,227.0" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-d7605e9afca249da9aae651d2ae81a28-0-2" stroke-width="2px" d="M362,227.0 362,202.0 494.0,202.0 494.0,227.0" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-02071e71b54b4282a6a47b9589d07d71-0-2" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">attr</textPath>
+        <textPath xlink:href="#arrow-d7605e9afca249da9aae651d2ae81a28-0-2" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">attr</textPath>
     </text>
     <path class="displacy-arrowhead" d="M494.0,229.0 L498.0,221.0 490.0,221.0" fill="currentColor"/>
 </g>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-02071e71b54b4282a6a47b9589d07d71-0-3" stroke-width="2px" d="M362,227.0 362,177.0 647.0,177.0 647.0,227.0" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-d7605e9afca249da9aae651d2ae81a28-0-3" stroke-width="2px" d="M362,227.0 362,177.0 647.0,177.0 647.0,227.0" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-02071e71b54b4282a6a47b9589d07d71-0-3" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">cc</textPath>
+        <textPath xlink:href="#arrow-d7605e9afca249da9aae651d2ae81a28-0-3" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">cc</textPath>
     </text>
     <path class="displacy-arrowhead" d="M647.0,229.0 L651.0,221.0 643.0,221.0" fill="currentColor"/>
 </g>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-02071e71b54b4282a6a47b9589d07d71-0-4" stroke-width="2px" d="M812,227.0 812,202.0 944.0,202.0 944.0,227.0" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-d7605e9afca249da9aae651d2ae81a28-0-4" stroke-width="2px" d="M812,227.0 812,202.0 944.0,202.0 944.0,227.0" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-02071e71b54b4282a6a47b9589d07d71-0-4" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">nsubj</textPath>
+        <textPath xlink:href="#arrow-d7605e9afca249da9aae651d2ae81a28-0-4" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">nsubj</textPath>
     </text>
     <path class="displacy-arrowhead" d="M812,229.0 L808,221.0 816,221.0" fill="currentColor"/>
 </g>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-02071e71b54b4282a6a47b9589d07d71-0-5" stroke-width="2px" d="M362,227.0 362,152.0 950.0,152.0 950.0,227.0" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-d7605e9afca249da9aae651d2ae81a28-0-5" stroke-width="2px" d="M362,227.0 362,152.0 950.0,152.0 950.0,227.0" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-02071e71b54b4282a6a47b9589d07d71-0-5" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">conj</textPath>
+        <textPath xlink:href="#arrow-d7605e9afca249da9aae651d2ae81a28-0-5" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">conj</textPath>
     </text>
     <path class="displacy-arrowhead" d="M950.0,229.0 L954.0,221.0 946.0,221.0" fill="currentColor"/>
 </g>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-02071e71b54b4282a6a47b9589d07d71-0-6" stroke-width="2px" d="M962,227.0 962,202.0 1094.0,202.0 1094.0,227.0" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-d7605e9afca249da9aae651d2ae81a28-0-6" stroke-width="2px" d="M962,227.0 962,202.0 1094.0,202.0 1094.0,227.0" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-02071e71b54b4282a6a47b9589d07d71-0-6" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">dobj</textPath>
+        <textPath xlink:href="#arrow-d7605e9afca249da9aae651d2ae81a28-0-6" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">dobj</textPath>
     </text>
     <path class="displacy-arrowhead" d="M1094.0,229.0 L1098.0,221.0 1090.0,221.0" fill="currentColor"/>
 </g>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-02071e71b54b4282a6a47b9589d07d71-0-7" stroke-width="2px" d="M1112,227.0 1112,202.0 1244.0,202.0 1244.0,227.0" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-d7605e9afca249da9aae651d2ae81a28-0-7" stroke-width="2px" d="M1112,227.0 1112,202.0 1244.0,202.0 1244.0,227.0" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-02071e71b54b4282a6a47b9589d07d71-0-7" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">prep</textPath>
+        <textPath xlink:href="#arrow-d7605e9afca249da9aae651d2ae81a28-0-7" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">prep</textPath>
     </text>
     <path class="displacy-arrowhead" d="M1244.0,229.0 L1248.0,221.0 1240.0,221.0" fill="currentColor"/>
 </g>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-02071e71b54b4282a6a47b9589d07d71-0-8" stroke-width="2px" d="M1412,227.0 1412,202.0 1544.0,202.0 1544.0,227.0" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-d7605e9afca249da9aae651d2ae81a28-0-8" stroke-width="2px" d="M1412,227.0 1412,202.0 1544.0,202.0 1544.0,227.0" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-02071e71b54b4282a6a47b9589d07d71-0-8" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">compound</textPath>
+        <textPath xlink:href="#arrow-d7605e9afca249da9aae651d2ae81a28-0-8" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">compound</textPath>
     </text>
     <path class="displacy-arrowhead" d="M1412,229.0 L1408,221.0 1416,221.0" fill="currentColor"/>
 </g>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-02071e71b54b4282a6a47b9589d07d71-0-9" stroke-width="2px" d="M1262,227.0 1262,177.0 1547.0,177.0 1547.0,227.0" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-d7605e9afca249da9aae651d2ae81a28-0-9" stroke-width="2px" d="M1262,227.0 1262,177.0 1547.0,177.0 1547.0,227.0" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-02071e71b54b4282a6a47b9589d07d71-0-9" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">pobj</textPath>
+        <textPath xlink:href="#arrow-d7605e9afca249da9aae651d2ae81a28-0-9" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">pobj</textPath>
     </text>
     <path class="displacy-arrowhead" d="M1547.0,229.0 L1551.0,221.0 1543.0,221.0" fill="currentColor"/>
 </g>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-02071e71b54b4282a6a47b9589d07d71-0-10" stroke-width="2px" d="M1562,227.0 1562,202.0 1694.0,202.0 1694.0,227.0" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-d7605e9afca249da9aae651d2ae81a28-0-10" stroke-width="2px" d="M1562,227.0 1562,202.0 1694.0,202.0 1694.0,227.0" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-02071e71b54b4282a6a47b9589d07d71-0-10" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">prep</textPath>
+        <textPath xlink:href="#arrow-d7605e9afca249da9aae651d2ae81a28-0-10" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">prep</textPath>
     </text>
     <path class="displacy-arrowhead" d="M1694.0,229.0 L1698.0,221.0 1690.0,221.0" fill="currentColor"/>
 </g>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-02071e71b54b4282a6a47b9589d07d71-0-11" stroke-width="2px" d="M1862,227.0 1862,202.0 1994.0,202.0 1994.0,227.0" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-d7605e9afca249da9aae651d2ae81a28-0-11" stroke-width="2px" d="M1862,227.0 1862,202.0 1994.0,202.0 1994.0,227.0" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-02071e71b54b4282a6a47b9589d07d71-0-11" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">compound</textPath>
+        <textPath xlink:href="#arrow-d7605e9afca249da9aae651d2ae81a28-0-11" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">compound</textPath>
     </text>
     <path class="displacy-arrowhead" d="M1862,229.0 L1858,221.0 1866,221.0" fill="currentColor"/>
 </g>
 
 <g class="displacy-arrow">
-    <path class="displacy-arc" id="arrow-02071e71b54b4282a6a47b9589d07d71-0-12" stroke-width="2px" d="M1712,227.0 1712,177.0 1997.0,177.0 1997.0,227.0" fill="none" stroke="currentColor"/>
+    <path class="displacy-arc" id="arrow-d7605e9afca249da9aae651d2ae81a28-0-12" stroke-width="2px" d="M1712,227.0 1712,177.0 1997.0,177.0 1997.0,227.0" fill="none" stroke="currentColor"/>
     <text dy="1.25em" style="font-size: 0.8em; letter-spacing: 1px">
-        <textPath xlink:href="#arrow-02071e71b54b4282a6a47b9589d07d71-0-12" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">pobj</textPath>
+        <textPath xlink:href="#arrow-d7605e9afca249da9aae651d2ae81a28-0-12" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">pobj</textPath>
     </text>
     <path class="displacy-arrowhead" d="M1997.0,229.0 L2001.0,221.0 1993.0,221.0" fill="currentColor"/>
 </g>
@@ -798,7 +781,7 @@ part of speech: PUNCT
 </section>
 <section id="named-entity-recognition-ner">
 <h2>Named Entity Recognition (NER)<a class="headerlink" href="#named-entity-recognition-ner" title="Permalink to this heading">#</a></h2>
-<p>Named Entity Recognition, or NER, annotates words that seem to indicate real-world objects, people, or concepts, “entities,” in other words. These include names of persons, places, titles, monetary and other values, times, and dates.</p>
+<p>Named Entity Recognition, or NER, annotates words that seem to indicate real-world objects, people, or concepts–“entities,” in other words. Entities include names of persons, places, titles, monetary and other values, times, and dates.</p>
 <p>NER is based on predictions made from the underlying model, <code class="docutils literal notranslate"><span class="pre">en_core_web_sm</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -880,15 +863,15 @@ Princeton University ORG
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">gathering: anti-trans legislation</p>
+        <p class="prev-next-title">gathering data: web scraping</p>
       </div>
     </a>
     <a class="right-next"
-       href="phrases.html"
+       href="questions.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">analyzing: the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code></p>
+        <p class="prev-next-title">research questions: defining gender</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -907,13 +890,12 @@ Princeton University ORG
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">processing: pipes</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-spacy">importing <code class="docutils literal notranslate"><span class="pre">spaCy</span></code></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">the <code class="docutils literal notranslate"><span class="pre">spaCy</span></code> pipeline</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-pipeline">the pipeline</a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tokenization">tokenization</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parts-of-speech-dependency">Parts of Speech, Dependency</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parts-of-speech-dependency">Parts of Speech &amp; Dependency</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#named-entity-recognition-ner">Named Entity Recognition (NER)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-doc-object">the <code class="docutils literal notranslate"><span class="pre">Doc</span></code> object</a></li>
 </ul>

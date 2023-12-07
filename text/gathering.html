@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>gathering: anti-trans legislation &#8212; Python for Working with Text</title>
+    <title>gathering data: web scraping &#8212; Python for Working with Text</title>
   
   
   
@@ -65,7 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'text/gathering';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="processing: pipes" href="processing.html" />
+    <link rel="next" title="the spaCy pipeline" href="processing.html" />
     <link rel="prev" title="what is text analysis?" href="what.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -190,12 +190,13 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">workshop overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="what.html">what is text analysis?</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">gathering: anti-trans legislation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="processing.html">processing: pipes</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">gathering data: web scraping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing.html">the <code class="docutils literal notranslate"><span class="pre">spaCy</span></code> pipeline</a></li>
 
-<li class="toctree-l1"><a class="reference internal" href="phrases.html">analyzing: the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="entities.html">analyzing: the <code class="docutils literal notranslate"><span class="pre">Entity-Ruler</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="tokens.html">analyzing: the token <code class="docutils literal notranslate"><span class="pre">Matcher</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="questions.html">research questions: defining gender</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phrases.html">the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="entities.html">the <code class="docutils literal notranslate"><span class="pre">Entity-Ruler</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="tokens.html">the token <code class="docutils literal notranslate"><span class="pre">Matcher</span></code></a></li>
 </ul>
 
     </div>
@@ -379,7 +380,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>gathering: anti-trans legislation</h1>
+    <h1>gathering data: web scraping</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -402,15 +403,15 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="gathering-anti-trans-legislation">
-<h1>gathering: anti-trans legislation<a class="headerlink" href="#gathering-anti-trans-legislation" title="Permalink to this heading">#</a></h1>
-<p>This section contains an overview of everything I did to get the data ready to analyze with <code class="docutils literal notranslate"><span class="pre">spaCy</span></code>. It begins with downloading search results from <code class="docutils literal notranslate"><span class="pre">www.congress.gov</span></code>, then web scraping to get the text of the individual bills, and finally, cleaning extraneous information from the text, like extra punctuation and blank spaces.</p>
-<p>I’m showing you the data gathering process because it can be an invisible and challenging one, involving complicated steps like using APIs (or, if APIs fail to work, web scraping) and cleaning the resulting data. Researchers generally only share the analysis they have done <em>after</em> they got the data, which makes it hard for beginners to replicate the process. It’s a subject that deserves its own workshop (hopefully by yours truly).</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="gathering-data-web-scraping">
+<h1>gathering data: web scraping<a class="headerlink" href="#gathering-data-web-scraping" title="Permalink to this heading">#</a></h1>
+<p>Researchers generally only share the analysis they have done <em>after</em> they got the data, which makes it hard for beginners to replicate the process. For that reason, I’m showing the data gathering process, which involves complicated steps like using APIs (or, if APIs fail to work, web scraping) and cleaning the resulting data.</p>
+<p>This section outlines this often invisible and challenging data gathering process. It begins with an overview of the topic, the anti-trans legislation. Then, it explains the code I used to download bill data from <code class="docutils literal notranslate"><span class="pre">congress.gov</span></code> and scrape the text of the individual bills. Finally, it demonstrates how I cleaned extraneous information from the text, like formatting, some punctuation, and blank spaces.</p>
 <section id="anti-trans-legislation">
 <h2>anti-trans legislation<a class="headerlink" href="#anti-trans-legislation" title="Permalink to this heading">#</a></h2>
 <p>Over the past several years, there has been a dramatic increase in “anti-trans legislation,” that is, legislation that limits trans peoples’ rights. According to the <a class="reference external" href="https://translegislation.com/">Trans Legislation Tracker</a>, in just one month in 2023 (the year of this writing), “the U.S. doubled the number of anti-trans bills being considered across the country from the previous year.”</p>
 <p>Many of these bills block access to healthcare that is gender-affirming and to public places and activities, like the “bathroom bans,” the bans in sports, and the bans on expressing gender identity in school. The explosion of bills across the country not only codifies discrimination, but also reflects a worrying trend about how the general public views trans peoples’ existence and rights.</p>
-<p>I am interested in examining the language of the bills themselves for the assumptions they might make about sex and gender. How are these terms being defined? Are they being defined as biological fact, cultural phenomena, or a mixture of both? What assumptions are being made in these definitions? How do certain perspectives exacerbate the current discrimination against trans people?</p>
+<p>I am interested in examining the language of the bills themselves for the assumptions they might make about sex and gender. <em>How are these terms being defined? Are they being defined as biological fact, cultural phenomena, or a mixture of both? What assumptions are being made in these definitions? How do certain perspectives exacerbate the current discrimination against trans people?</em></p>
 </section>
 <section id="web-scraping">
 <h2>web scraping<a class="headerlink" href="#web-scraping" title="Permalink to this heading">#</a></h2>
@@ -432,7 +433,7 @@ document.write(`
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">bills</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>At the end of the process, I have a DataFrame (the pandas object for data in a tabular format) that looks like the following:</p>
+<p>At the end of the process, I have a DataFrame (that is, data in a tabular format) that looks like the following:</p>
 <p><img alt="image of csv file containing bill data" src="../_images/bills.png" /></p>
 <p>Then, I go through the spreadsheet to pull out the bill numbers, from the column all the way on the left. These numbers will be fed into a function that inserts them into the URL that will access <a class="reference external" href="http://congress.gov">congress.gov</a> servers.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">## go through each row in numbers column of our spreadsheet</span>
@@ -460,7 +461,7 @@ document.write(`
 <span class="n">full_text</span> <span class="o">=</span> <span class="n">scrape_bill_text</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Next, I turned the results, which is a bytes object, into a string, so that I could manipulate it. Then I saved the results, just so I could have a copy of them.</p>
+<p>Next, I turned the results, which is a <code class="docutils literal notranslate"><span class="pre">bytes</span></code> (or binary) object, into a <code class="docutils literal notranslate"><span class="pre">string</span></code> (or alphanumeric character) type of object, so that I could manipulate it. Then I saved the results, just so I could have a copy of them.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">strings</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">full_text</span><span class="p">:</span>
     <span class="n">i</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
@@ -472,17 +473,17 @@ document.write(`
 </pre></div>
 </div>
 <p>Now, finally, I have the full text of the bills saved as a <code class="docutils literal notranslate"><span class="pre">txt</span></code> file. The text looks like the following:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sa">b</span><span class="s2">&quot;&lt;html&gt;&lt;body&gt;&lt;pre&gt;</span><span class="se">\n</span><span class="s2">[Congressional Bills 118th Congress]</span><span class="se">\n</span><span class="s2">[From the U.S. Government </span>
-<span class="n">Publishing</span> <span class="n">Office</span><span class="p">]</span>\<span class="n">n</span><span class="p">[</span><span class="n">H</span><span class="o">.</span><span class="n">R</span><span class="o">.</span> <span class="mi">3329</span> <span class="n">Introduced</span> <span class="ow">in</span> <span class="n">House</span> <span class="p">(</span><span class="n">IH</span><span class="p">)]</span>\<span class="n">n</span>\<span class="n">n</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">DOC</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span>\<span class="n">n</span>\<span class="n">n</span>\<span class="n">n</span>\<span class="n">n</span>\<span class="n">n</span>\<span class="n">n</span>\<span class="n">n118th</span> 
-<span class="n">CONGRESS</span>\<span class="n">n</span>  <span class="mi">1</span><span class="n">st</span> <span class="n">Session</span>\<span class="n">n</span>                                <span class="n">H</span><span class="o">.</span> <span class="n">R</span><span class="o">.</span> <span class="mi">3329</span>\<span class="n">n</span>\<span class="n">nTo</span> <span class="n">prohibit</span> 
-<span class="n">taxpayer</span><span class="o">-</span><span class="n">funded</span> <span class="n">gender</span> <span class="n">transition</span> <span class="n">procedures</span><span class="p">,</span> <span class="ow">and</span> <span class="k">for</span> <span class="n">other</span> \<span class="n">n</span>                               
-<span class="n">purposes</span><span class="o">.</span>\<span class="n">n</span>\<span class="n">n</span>\<span class="n">n_______________________________________________________________________</span>\<span class="n">n</span>\<span class="n">n</span>\<span class="n">n</span>                    
-<span class="n">IN</span> <span class="n">THE</span> <span class="n">HOUSE</span> <span class="n">OF</span> <span class="n">REPRESENTATIVES</span>\<span class="n">n</span>\<span class="n">n</span>                              <span class="n">May</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">2023</span>\<span class="n">n</span>\<span class="n">n</span>  <span class="n">Mr</span><span class="o">.</span> <span class="n">LaMalfa</span> 
-<span class="p">(</span><span class="k">for</span> <span class="n">himself</span><span class="p">,</span> <span class="n">Mrs</span><span class="o">.</span> <span class="n">Boebert</span><span class="p">,</span> <span class="n">Mr</span><span class="o">.</span> <span class="n">Lamborn</span><span class="p">,</span> <span class="n">Mr</span><span class="o">.</span> <span class="n">Gosar</span><span class="p">,</span> <span class="n">Mr</span><span class="o">.</span> \<span class="n">nBanks</span><span class="p">,</span> <span class="n">Mr</span><span class="o">.</span> <span class="n">Duncan</span><span class="p">,</span> <span class="n">Mr</span><span class="o">.</span> <span class="n">Babin</span><span class="p">,</span> <span class="n">Mr</span><span class="o">.</span> <span class="n">Rouzer</span><span class="p">,</span> 
-<span class="n">Mr</span><span class="o">.</span> <span class="n">Barr</span><span class="p">,</span> <span class="n">Mr</span><span class="o">.</span> <span class="n">Rosendale</span><span class="p">,</span> <span class="n">Mr</span><span class="o">.</span> \<span class="n">nWeber</span> <span class="n">of</span> <span class="n">Texas</span><span class="p">,</span> <span class="n">Mr</span><span class="o">.</span> <span class="n">Brecheen</span><span class="p">,</span> <span class="n">Mr</span><span class="o">.</span> <span class="n">Norman</span><span class="p">,</span> <span class="n">Mrs</span><span class="o">.</span> <span class="n">Miller</span> <span class="n">of</span> <span class="n">Illinois</span><span class="p">,</span>
-<span class="n">Mr</span><span class="o">.</span> \<span class="n">n</span> <span class="n">Grothman</span><span class="p">,</span> <span class="n">Mr</span><span class="o">.</span> <span class="n">Wilson</span> <span class="n">of</span> <span class="n">South</span> <span class="n">Carolina</span><span class="p">,</span> <span class="n">Mr</span><span class="o">.</span> <span class="n">Mills</span><span class="p">,</span> <span class="n">Mr</span><span class="o">.</span> <span class="n">Burlison</span><span class="p">,</span> <span class="n">Mr</span><span class="o">.</span> \<span class="n">n</span>   <span class="n">Smith</span> <span class="n">of</span> <span class="n">New</span> 
-<span class="n">Jersey</span><span class="p">,</span> <span class="n">Mr</span><span class="o">.</span> <span class="n">Aderholt</span><span class="p">,</span> <span class="n">Mrs</span><span class="o">.</span> <span class="n">McClain</span><span class="p">,</span> <span class="n">Mrs</span><span class="o">.</span> <span class="n">Lesko</span><span class="p">,</span> <span class="n">Mrs</span><span class="o">.</span> \<span class="n">n</span>   <span class="n">Harshbarger</span><span class="p">,</span> <span class="n">Mr</span><span class="o">.</span> <span class="n">Nehls</span><span class="p">,</span> <span class="n">Mr</span><span class="o">.</span> <span class="n">Kelly</span> <span class="n">of</span> 
-<span class="n">Mississippi</span><span class="p">,</span> <span class="n">Mr</span><span class="o">.</span> <span class="n">Ogles</span><span class="p">,</span> <span class="n">Mr</span><span class="o">.</span> \<span class="n">n</span> <span class="n">Fallon</span><span class="p">,</span> <span class="n">Mr</span><span class="o">.</span> <span class="n">LaTurner</span><span class="p">,</span> <span class="n">Mr</span><span class="o">.</span> <span class="n">Davidson</span><span class="p">,</span> <span class="n">Mr</span><span class="o">.</span> <span class="n">Gaetz</span>                             
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&lt;html&gt;&lt;body&gt;&lt;pre&gt;\n[Congressional Bills 118th Congress]\n[From the U.S. Government </span>
+<span class="go">Publishing Office]\n[H.R. 3329 Introduced in House (IH)]\n\n&amp;lt;DOC&amp;gt;\n\n\n\n\n\n\n118th </span>
+<span class="go">CONGRESS\n  1st Session\n                                H. R. 3329\n\nTo prohibit </span>
+<span class="go">taxpayer-funded gender transition procedures, and for other \n                               </span>
+<span class="go">purposes.\n\n\n_______________________________________________________________________\n\n\n                    </span>
+<span class="go">IN THE HOUSE OF REPRESENTATIVES\n\n                              May 15, 2023\n\n  Mr. LaMalfa </span>
+<span class="go">(for himself, Mrs. Boebert, Mr. Lamborn, Mr. Gosar, Mr. \nBanks, Mr. Duncan, Mr. Babin, Mr. Rouzer, </span>
+<span class="go">Mr. Barr, Mr. Rosendale, Mr. \nWeber of Texas, Mr. Brecheen, Mr. Norman, Mrs. Miller of Illinois,</span>
+<span class="go">Mr. \n Grothman, Mr. Wilson of South Carolina, Mr. Mills, Mr. Burlison, Mr. \n   Smith of New </span>
+<span class="go">Jersey, Mr. Aderholt, Mrs. McClain, Mrs. Lesko, Mrs. \n   Harshbarger, Mr. Nehls, Mr. Kelly of </span>
+<span class="go">Mississippi, Mr. Ogles, Mr. \n Fallon, Mr. LaTurner, Mr. Davidson, Mr. Gaetz                             </span>
 </pre></div>
 </div>
 <p>The next step will be to clean the text of the html characters and other unwanted characters and whitespace.</p>
@@ -558,7 +559,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">processing: pipes</p>
+        <p class="prev-next-title">the <code class="docutils literal notranslate"><span class="pre">spaCy</span></code> pipeline</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

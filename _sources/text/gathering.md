@@ -1,16 +1,14 @@
-# gathering: anti-trans legislation
+# gathering data: web scraping
+Researchers generally only share the analysis they have done *after* they got the data, which makes it hard for beginners to replicate the process. For that reason, I'm showing the data gathering process, which involves complicated steps like using APIs (or, if APIs fail to work, web scraping) and cleaning the resulting data.
 
-This section contains an overview of everything I did to get the data ready to analyze with `spaCy`. It begins with downloading search results from `www.congress.gov`, then web scraping to get the text of the individual bills, and finally, cleaning extraneous information from the text, like extra punctuation and blank spaces.
-
-I'm showing you the data gathering process because it can be an invisible and challenging one, involving complicated steps like using APIs (or, if APIs fail to work, web scraping) and cleaning the resulting data. Researchers generally only share the analysis they have done *after* they got the data, which makes it hard for beginners to replicate the process. It's a subject that deserves its own workshop (hopefully by yours truly).
+This section outlines this often invisible and challenging data gathering process. It begins with an overview of the topic, the anti-trans legislation. Then, it explains the code I used to download bill data from `congress.gov` and scrape the text of the individual bills. Finally, it demonstrates how I cleaned extraneous information from the text, like formatting, some punctuation, and blank spaces.
 
 ## anti-trans legislation
-
 Over the past several years, there has been a dramatic increase in "anti-trans legislation," that is, legislation that limits trans peoples' rights. According to the [Trans Legislation Tracker](https://translegislation.com/), in just one month in 2023 (the year of this writing), "the U.S. doubled the number of anti-trans bills being considered across the country from the previous year." 
 
 Many of these bills block access to healthcare that is gender-affirming and to public places and activities, like the "bathroom bans," the bans in sports, and the bans on expressing gender identity in school. The explosion of bills across the country not only codifies discrimination, but also reflects a worrying trend about how the general public views trans peoples' existence and rights. 
 
-I am interested in examining the language of the bills themselves for the assumptions they might make about sex and gender. How are these terms being defined? Are they being defined as biological fact, cultural phenomena, or a mixture of both? What assumptions are being made in these definitions? How do certain perspectives exacerbate the current discrimination against trans people?
+I am interested in examining the language of the bills themselves for the assumptions they might make about sex and gender. *How are these terms being defined? Are they being defined as biological fact, cultural phenomena, or a mixture of both? What assumptions are being made in these definitions? How do certain perspectives exacerbate the current discrimination against trans people?*
 
 ## web scraping
 To ge my data, I got the bill numbers from `www.congress.gov`, then used those numbers to scrape the plain text from the congress.gov servers. I'll go through the whole process step-by-step.
@@ -37,7 +35,7 @@ bills = pd.read_csv('bill_data.csv')
 df = pd.DataFrame(bills)
 ```
 
-At the end of the process, I have a DataFrame (the pandas object for data in a tabular format) that looks like the following:
+At the end of the process, I have a DataFrame (that is, data in a tabular format) that looks like the following:
 
 ![image of csv file containing bill data](./bills.png)
 
@@ -69,7 +67,7 @@ def scrape_bill_text(numbers):
 full_text = scrape_bill_text(numbers)
 ```
 
-Next, I turned the results, which is a bytes object, into a string, so that I could manipulate it. Then I saved the results, just so I could have a copy of them.
+Next, I turned the results, which is a `bytes` (or binary) object, into a `string` (or alphanumeric character) type of object, so that I could manipulate it. Then I saved the results, just so I could have a copy of them.
 
 ``` python
 strings = []
@@ -84,8 +82,8 @@ with open('bill_text.txt', 'w') as f:
 
 Now, finally, I have the full text of the bills saved as a `txt` file. The text looks like the following:
 
-```
-b"<html><body><pre>\n[Congressional Bills 118th Congress]\n[From the U.S. Government 
+```console
+<html><body><pre>\n[Congressional Bills 118th Congress]\n[From the U.S. Government 
 Publishing Office]\n[H.R. 3329 Introduced in House (IH)]\n\n&lt;DOC&gt;\n\n\n\n\n\n\n118th 
 CONGRESS\n  1st Session\n                                H. R. 3329\n\nTo prohibit 
 taxpayer-funded gender transition procedures, and for other \n                               

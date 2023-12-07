@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>analyzing: the PhraseMatcher &#8212; Python for Working with Text</title>
+    <title>the PhraseMatcher &#8212; Python for Working with Text</title>
   
   
   
@@ -65,8 +65,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'text/phrases';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="analyzing: the Entity-Ruler" href="entities.html" />
-    <link rel="prev" title="processing: pipes" href="processing.html" />
+    <link rel="next" title="the Entity-Ruler" href="entities.html" />
+    <link rel="prev" title="research questions: defining gender" href="questions.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -190,12 +190,13 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">workshop overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="what.html">what is text analysis?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gathering.html">gathering: anti-trans legislation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="processing.html">processing: pipes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gathering.html">gathering data: web scraping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing.html">the <code class="docutils literal notranslate"><span class="pre">spaCy</span></code> pipeline</a></li>
 
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">analyzing: the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="entities.html">analyzing: the <code class="docutils literal notranslate"><span class="pre">Entity-Ruler</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="tokens.html">analyzing: the token <code class="docutils literal notranslate"><span class="pre">Matcher</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="questions.html">research questions: defining gender</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="entities.html">the <code class="docutils literal notranslate"><span class="pre">Entity-Ruler</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="tokens.html">the token <code class="docutils literal notranslate"><span class="pre">Matcher</span></code></a></li>
 </ul>
 
     </div>
@@ -379,7 +380,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>analyzing: the PhraseMatcher</h1>
+    <h1>the PhraseMatcher</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -389,10 +390,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-down-the-phrase">write down the phrase</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-the-phrase-and-pass-into-phrasematcher">code the phrase and pass into PhraseMatcher</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-phrasematcher">run the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#print-the-results">print the results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-down-the-phrase">1. write down the phrase</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-the-phrase-and-pass-into-phrasematcher">2. code the phrase and pass into PhraseMatcher</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-phrasematcher">3. run the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#print-the-results">4. print the results</a></li>
 </ul>
             </nav>
         </div>
@@ -404,66 +405,27 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="analyzing-the-phrasematcher">
-<h1>analyzing: the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code><a class="headerlink" href="#analyzing-the-phrasematcher" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="the-phrasematcher">
+<h1>the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code><a class="headerlink" href="#the-phrasematcher" title="Permalink to this heading">#</a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code> allows you to write specific phrases or sequences of text to find in the dataset. This is really useful if you already know the kind of thing that you want to pick out, including exact variations of those phrases. But not so useful if you want to account for more than a few variations. For a way to handle more complex variations of phrases, see the token <code class="docutils literal notranslate"><span class="pre">Matcher</span></code> section.</p>
 <p>The process of using the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code> involves four steps, divided into four sections below.</p>
 <ol class="arabic simple">
 <li><p>write down the exact phrase you’re looking for in the text</p></li>
-<li><p>code the phrase and pass it into the matcher object</p></li>
-<li><p>run the matcher on your doc</p></li>
+<li><p>code the phrase and pass it into the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code> object</p></li>
+<li><p>run the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code> on your doc</p></li>
 <li><p>print out the matches</p></li>
 </ol>
 <section id="write-down-the-phrase">
-<h2>write down the phrase<a class="headerlink" href="#write-down-the-phrase" title="Permalink to this heading">#</a></h2>
-<p>To be write effective phrases, I need to first close-read part of the dataset, the collection of congress bills, to see how the definitions are being formatted and any contextual information about them.</p>
-<p>Here is a definition for “biological sex”:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Biological sex.--The term `biological sex\&#39; means the biological indication 
-of male or female in the context of reproductive potential or capacity, 
-such as sex chromosomes, naturally occurring sex hormones, gonads, and 
-non-ambiguous internal and external genitalia present at birth, without 
-regard to an individual\&#39;s psychological, chosen, or subjective experience 
-of gender.``(2) Cross-sex hormones.--The term `cross-sex hormones\&#39; 
-means--``(A) testosterone or other androgens given to biological females at 
-doses that are profoundly larger or more potent than would naturally occur 
-in healthy biological females; or``(B) estrogen given to biological males at 
-doses that are profoundly larger or more potent than would naturally occur 
-in healthy biological males.``(3) Gender.--The term `gender\&#39; means the 
-psychological, behavioral, social, and cultural aspects of being male or 
-female.
-</pre></div>
-</div>
-<p>A definition for “sex”:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Sex.--The term ``sex\&#39;\&#39; includes--(A) a sex stereotype;(B) pregnancy,
-childbirth, or a related medical condition;(C) sexual orientation or
-gender identity; and(D) sex characteristics, including intersex
-traits.(8) Sexual orientation.--The term ``sexual orientation\&#39;\&#39;
-means homosexuality, heterosexuality, or bisexuality.
-</pre></div>
-</div>
-<p>A definition for “gender identity”:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Gender identity.--The term `gender identity&#39; means the gender-related 
-identity, appearance, mannerisms, or other gender-related 
-characteristics of an individual, regardless of the individual&#39;s 
-designated sex at birth.``(3) Including.--The term `including&#39; means 
-including, but not limited to, consistent with the term&#39;s standard 
-meaning in Federal law.``(4) Sex.--The term `sex&#39; includes--``(A) a 
-sex stereotype;``(B) pregnancy, childbirth, or a related medical 
-condition;``(C) sexual orientation or gender identity; and``(D) sex 
-characteristics, including intersex traits.``(5) Sexual 
-orientation.--The term `sexual orientation&#39; means homosexuality, 
-heterosexuality, or bisexuality.
-</pre></div>
-</div>
-<p>From these examples, I can see that all of them include at least a single quote in the form of a backtick `, terms like “gender” and “sex”, and the word “means”. Unforunately, there are too many variations in these to account for all of them, so I’m going to have to narrow down to the most common element that appears in all of them. This is the backtick and the term, like “gender” and “sex”.</p>
+<h2>1. write down the phrase<a class="headerlink" href="#write-down-the-phrase" title="Permalink to this heading">#</a></h2>
+<p>From close reading the bills dataset (in the <a class="reference internal" href="questions.html"><span class="doc std std-doc">defining gender section</span></a>), we saw that the definitions include at least a single quote in the form of a backtick, terms like “gender” and “sex”, and the word “means”. The <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code> requires that we narrow down to the most common element that appears in all of them. This would be the backtick ` and terms like “gender” and “sex”. I am leaving out everything after the term “gender” or “sex” because sometimes they are followed by single quotes and sometimes by double quotes, and I want to catch all of the possibilities for now.</p>
+<p>Our patterns would therefore be the following:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>`gender
 `sex
 </pre></div>
 </div>
-<p>These are the phrases that we will code into the matcher to run on our text.</p>
 </section>
 <section id="code-the-phrase-and-pass-into-phrasematcher">
-<h2>code the phrase and pass into PhraseMatcher<a class="headerlink" href="#code-the-phrase-and-pass-into-phrasematcher" title="Permalink to this heading">#</a></h2>
+<h2>2. code the phrase and pass into PhraseMatcher<a class="headerlink" href="#code-the-phrase-and-pass-into-phrasematcher" title="Permalink to this heading">#</a></h2>
 <p>First, we will import the necessary libraries and load our text through  the <code class="docutils literal notranslate"><span class="pre">nlp()</span></code> pipeline.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -515,18 +477,15 @@ heterosexuality, or bisexuality.
 <span class="c1"># also, running each of our phrases through the nlp, to create it&#39;s</span>
 <span class="c1"># own &quot;doc&quot; object for each one. </span>
 <span class="n">matcher</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;definitions&quot;</span><span class="p">,</span> <span class="p">[</span>
-  <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;`transgender&quot;</span><span class="p">),</span>
-  <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;`trans&quot;</span><span class="p">),</span>
-  <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;`sex&quot;</span><span class="p">),</span>
-  <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;`sexual&quot;</span><span class="p">),</span>
-  <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;`gender&quot;</span><span class="p">)])</span>
+  <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;`gender&quot;</span><span class="p">),</span>
+  <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;`sex&quot;</span><span class="p">)])</span>
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="run-the-phrasematcher">
-<h2>run the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code><a class="headerlink" href="#run-the-phrasematcher" title="Permalink to this heading">#</a></h2>
+<h2>3. run the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code><a class="headerlink" href="#run-the-phrasematcher" title="Permalink to this heading">#</a></h2>
 <p>Now, we run the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code> on our <code class="docutils literal notranslate"><span class="pre">doc</span></code>. The results will first appear in a numeric form, but we will convert them to plain text in the next step.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -547,9 +506,9 @@ heterosexuality, or bisexuality.
  (5344954752463023658, 1457, 1459),
  (5344954752463023658, 5383, 5385),
  (5344954752463023658, 5473, 5475),
- (5344954752463023658, 5511, 5513),
  (5344954752463023658, 16205, 16207),
- (5344954752463023658, 16418, 16420)]
+ (5344954752463023658, 16418, 16420),
+ (5344954752463023658, 16546, 16548)]
 </pre></div>
 </div>
 </div>
@@ -562,14 +521,14 @@ heterosexuality, or bisexuality.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>154
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>129
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="print-the-results">
-<h2>print the results<a class="headerlink" href="#print-the-results" title="Permalink to this heading">#</a></h2>
+<h2>4. print the results<a class="headerlink" href="#print-the-results" title="Permalink to this heading">#</a></h2>
 <p>Finally, we print out the plain text of our results.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -607,13 +566,13 @@ Gender identity.--The term ``gender identity&#39;&#39; means the gender-related 
 Sex.--The term ``sex&#39;&#39; includes--(A) a sex stereotype;(B) pregnancy, childbirth, or a related medical condition;(C) sexual orientation or gender identity; and(D) sex characteristics, including intersex traits.(8)
 
 
-Sexual orientation.--The term ``sexual orientation&#39;&#39; means homosexuality, heterosexuality, or bisexuality.(9)
-
-
 3. PUBLIC ACCOMMODATIONS.(a) Prohibition on Discrimination or Segregation in Public Accommodations.--Section 201 of the Civil Rights Act of 1964 (42 U.S.C. 2000a) is amended--(1) in subsection (a), by inserting ``sex (including sexual orientation and gender identity),&#39;&#39; before ``or national origin&#39;&#39;; and(2) in subsection (b)--(A) in paragraph (3), by striking ``stadium&#39;&#39; and all that follows and inserting ``stadium or other place of or establishment that provides exhibition, entertainment, recreation, exercise, amusement, public gathering, or public display;&#39;&#39;;(B) by redesignating paragraph (4) as paragraph (6); and(C) by inserting after paragraph (3) the following:``(4) any establishment that provides a good, service, or program, including a store, shopping center, online retailer or service provider, salon, bank, gas station, food bank, service or care center, shelter, travel agency, or funeral parlor, or establishment that provides health care, accounting, or legal services;``(5) any train service, bus service, car service, taxi service, airline service, station, depot, or other place of or establishment that provides transportation service; and&#39;&#39;.(b) Prohibition on Discrimination or Segregation Under Law.--Section 202 of such Act (42 U.S.C. 2000a-1) is amended by inserting ``sex (including sexual orientation and gender identity),&#39;&#39; before ``or national origin&#39;&#39;.(c)
 
 
 3. PUBLIC ACCOMMODATIONS.(a) Prohibition on Discrimination or Segregation in Public Accommodations.--Section 201 of the Civil Rights Act of 1964 (42 U.S.C. 2000a) is amended--(1) in subsection (a), by inserting ``sex (including sexual orientation and gender identity),&#39;&#39; before ``or national origin&#39;&#39;; and(2) in subsection (b)--(A) in paragraph (3), by striking ``stadium&#39;&#39; and all that follows and inserting ``stadium or other place of or establishment that provides exhibition, entertainment, recreation, exercise, amusement, public gathering, or public display;&#39;&#39;;(B) by redesignating paragraph (4) as paragraph (6); and(C) by inserting after paragraph (3) the following:``(4) any establishment that provides a good, service, or program, including a store, shopping center, online retailer or service provider, salon, bank, gas station, food bank, service or care center, shelter, travel agency, or funeral parlor, or establishment that provides health care, accounting, or legal services;``(5) any train service, bus service, car service, taxi service, airline service, station, depot, or other place of or establishment that provides transportation service; and&#39;&#39;.(b) Prohibition on Discrimination or Segregation Under Law.--Section 202 of such Act (42 U.S.C. 2000a-1) is amended by inserting ``sex (including sexual orientation and gender identity),&#39;&#39; before ``or national origin&#39;&#39;.(c)
+
+
+4. DESEGREGATION OF PUBLIC FACILITIES.Section 301(a) of the Civil Rights Act of 1964 (42 U.S.C. 2000b(a)) is amended by inserting ``sex (including sexual orientation and gender identity),&#39;&#39; before ``or national origin&#39;&#39;.
 </pre></div>
 </div>
 </div>
@@ -680,12 +639,12 @@ look at ways of writing patterns that can handle more variations in our results.
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="processing.html"
+       href="questions.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">processing: pipes</p>
+        <p class="prev-next-title">research questions: defining gender</p>
       </div>
     </a>
     <a class="right-next"
@@ -693,7 +652,7 @@ look at ways of writing patterns that can handle more variations in our results.
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">analyzing: the <code class="docutils literal notranslate"><span class="pre">Entity-Ruler</span></code></p>
+        <p class="prev-next-title">the <code class="docutils literal notranslate"><span class="pre">Entity-Ruler</span></code></p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -712,10 +671,10 @@ look at ways of writing patterns that can handle more variations in our results.
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-down-the-phrase">write down the phrase</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-the-phrase-and-pass-into-phrasematcher">code the phrase and pass into PhraseMatcher</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-phrasematcher">run the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#print-the-results">print the results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-down-the-phrase">1. write down the phrase</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-the-phrase-and-pass-into-phrasematcher">2. code the phrase and pass into PhraseMatcher</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-phrasematcher">3. run the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#print-the-results">4. print the results</a></li>
 </ul>
   </nav></div>
 
