@@ -18,22 +18,6 @@ This workshop will not to make you an expert at web scraping, but it will create
 
 ## anti-trans legislation
 
-The past couple of years has seen an explosion in anti-trans
-legislation that restricts basic rights and recognition for trans
-people. As of this writing, in October 2023, over 500 bills have
-already been proposed in 2023 that prevent trans people from using
-bathrooms, playing in sports, accessing healthcare, and more in ways
-that accord with their gender identity. Of those 500 proposals across
-state legislatures, 83 have passed so far. Compare that number with
-last year, 2022, where 26 out of 174 bills were passed. See the [Trans
-Legislation Tracker](https://translegislation.com/) for more
-information.
+The past couple of years has seen an explosion in anti-trans legislation that restricts basic rights and recognition for trans people. In 2023, more than 500 bills have already been proposed that prevent trans people from using bathrooms, playing in sports, accessing healthcare, and more in ways that accord with their gender identity. Of those 500 proposals across state legislatures, 83 have passed. Compare that number with last year, 2022, 174 bills were proposed, and 26 passed. See the [Trans Legislation Tracker](https://translegislation.com/) for more information.
 
-This workshsop uses Python to scrape basic metadata about the 83 bills
-that have passed in 2023. This dataset, which is relatively small in
-size, will be a starting point for a larger dataset to be used in our
-next workshop on Text Analysis. For that workshop, participants will
-use Python to clean and analyze the full text of the bills
-themselves. They will explore how the terms "gender" and "sex" are
-being defined across the legislation, among other questions about the
-language contained within them. 
+This workshsop uses Python to scrape basic metadata about the 83 bills that have passed in 2023. This dataset, which is relatively small in size, will be a starting point for a larger dataset to be used in our next workshop on Text Analysis. For that workshop, participants will use Python to gather, clean, and analyze the full text of the bills themselves from `congress.gov`. They will explore how the terms "gender" and "sex" are being defined across the legislation, among other questions about the language contained within them. 

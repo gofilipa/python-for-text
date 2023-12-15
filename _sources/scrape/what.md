@@ -1,17 +1,20 @@
 # what is web scraping?
-Web scraping is a programmatic method for extracting data from webpages. It is the process of going into the website's source code, which is in the form of HTML code, pulling out information from the HTML, and manipulating that information into a desired format, like a spreadsheet. It is distinguished from web crawling (an even more automated form of scraping that "crawls" over several websites) and APIs (requesting data directly from the source), which are described below.
+Web scraping is a programmatic method for extracting data from webpages. It is the process of going into the website's source code, which is in the form of HTML code, pulling out information from the HTML, and manipulating that information into a desired format, like a spreadsheet. It is distinguished from web crawling (an even more automated form of scraping that "crawls" over several websites) and APIs (requesting data directly from the source), both of which are described below.
 
-Before deciding what method of getting data is right for you, consider whether the data holder (the publisher or owner of the data) might be able to give it to you directly. Because web scraping can be considered somewhat invasive, especially if done repeatedly, data holders are often more than happy to give you the data. This is especially true of the data holder is an academic or cultural institution, such as a library, or an archive. 
-
-For example, if you want access to something in the Princeton University Library, including the online catalog, you should email the librarians directly.
+Before deciding what method of getting data is right for you, consider whether the data holder (the publisher or owner of the data) might be able to give it to you directly. Because web scraping can be considered invasive, especially if done repeatedly, data holders are often more than happy to package up the data for you. This is especially true of the data holder is an academic or cultural institution, such as a library, or an archive. If you want access to something in the Princeton University Library, including the online catalog, for example, you should email the librarians directly.
 
 ## vs APIs
-The most common way to get data these days is via an API. API stands for "application programming interface." It is a bit of software that allows one application to talk to another. For example, your weather application on your phone uses an API to request data about the current temperature from a computer server that contains this information.
+The most common way to get data these days is via an API. API stands
+for "application programming interface." It is a bit of software that
+allows you to interface, or "talk," with an application. For example,
+your weather application on your phone uses an API to request data
+about the current temperature from a computer server that contains
+this information.
 
 The difference between web scraping and APIs is that APIs are created by the data holders themselves, so they are always more efficient. An API will return a nicely packed data in the form of JSON or XML, which are popular data formats, to the requester. Many large websites have APIs, for example Reddit, Twitter, the New York Public Library, SkyScanner, and more. Generally, if there is an API, use that before scraping. 
 
 ## the anatomy of a URL
-My favorite API is the [Met API](https://metmuseum.github.io/), from the Metropolitan Museum of Art in New York City. I like this API because it is free, open, and requires no signup or authentication codes. 
+My favorite API is the [Met API](https://metmuseum.github.io/), from the Metropolitan Museum of Art in New York City. I like this API because it is free, open, and requires no sign-up or authentication codes. 
 
 To give more of a sense of how an API gets data from a server, I will explain the "anatomy" of a URL. APIs use URL *endpoints* to get data from servers. You can think of a URL as a series of folders that each contain data. The folder which contains the data you want is the endpoint. Here's how the Met uses URLs in its API:
 - the *root* consists of the base URL. 

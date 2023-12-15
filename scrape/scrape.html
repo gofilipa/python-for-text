@@ -391,12 +391,14 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">scraping with <code class="docutils literal notranslate"><span class="pre">bs4</span></code></a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#looping-through-data">looping through data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#split-ing-the-bill-title"><code class="docutils literal notranslate"><span class="pre">split()</span></code>ing the bill title</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-the-link-to-state-bill">getting the link to state bill</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-isolate-the-bill-cards-data-from-the-rest-of-the-page">step 1: isolate the bill cards data from the rest of the page</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas">pandas</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-pick-out-information-from-each-bill-card">step 2: pick out information from each bill card</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-processing-information-about-the-bills">step 3: processing information about the bills</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-our-data-to-a-csv">3. saving our data to a CSV</a></li>
+</ul>
+</li>
 </ul>
 
             </nav>
@@ -411,13 +413,13 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="scraping-with-bs4">
 <h1>scraping with <code class="docutils literal notranslate"><span class="pre">bs4</span></code><a class="headerlink" href="#scraping-with-bs4" title="Permalink to this heading">#</a></h1>
+<p>Now we have a sense of the <code class="docutils literal notranslate"><span class="pre">bs4</span></code> syntax, and a list of the html elements that we want to scrape from the <code class="docutils literal notranslate"><span class="pre">https://translegislation.com/</span></code> website, we can write some code that extracts those elements and saves them in a structured format, like a spreadsheet.</p>
+<p>Before doing all that, we will import the libraries we need and create our <code class="docutils literal notranslate"><span class="pre">soup</span></code> object (that holds our website content).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
 <span class="kn">import</span> <span class="nn">lxml</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="c1"># for creating tabular data</span>
-<span class="kn">import</span> <span class="nn">csv</span> <span class="c1"># for saving data as a csv</span>
 </pre></div>
 </div>
 </div>
@@ -431,20 +433,17 @@ document.write(`
 </div>
 </div>
 </div>
-<p>In this section, we are going to scrape the following information from the trans legislation website:</p>
-<ul class="simple">
-<li><p>bill title</p></li>
-<li><p>bill category</p></li>
-<li><p>bill description</p></li>
-<li><p>link to bill</p></li>
-</ul>
-<p>The goal is to get all of these items into a CSV (spreadsheet) file. Like all good programmers, we will break our task up into a number of steps:</p>
+<p>Now that we have loaded up the necessary libraries and soup object, we can extract the data we want. Like all good programmers, we will break our task up into a number of steps:</p>
 <ol class="arabic simple">
 <li><p>isolate the bill_cards data from the rest of the webpage</p></li>
 <li><p>pick out the information we want from the bill cards</p></li>
+<li><p>process the information from the bill cards into the format we want</p></li>
 <li><p>save that information to a csv file</p></li>
 </ol>
-<p>Each of these steps itself contains smaller steps, which we will figure out as we go along. Let’s begin with the first setp, to create a new object called <code class="docutils literal notranslate"><span class="pre">bill_cards</span></code>, which enables us to narrow down the parts of the website that we want to scrape.</p>
+<p>Each of these steps itself contains smaller steps, which we will figure out as we go along. Let’s begin with the first step</p>
+<section id="step-1-isolate-the-bill-cards-data-from-the-rest-of-the-page">
+<h2>step 1: isolate the bill cards data from the rest of the page<a class="headerlink" href="#step-1-isolate-the-bill-cards-data-from-the-rest-of-the-page" title="Permalink to this heading">#</a></h2>
+<p>First, create a new object called <code class="docutils literal notranslate"><span class="pre">bill_cards</span></code>, which enables us to narrow down the parts of the website that we want to scrape.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># to get the element and class for the cards, use the inspector</span>
@@ -470,7 +469,11 @@ document.write(`
 </div>
 </div>
 </div>
-<p>Now we use the inspector to get the elements and attributes for the items within <code class="docutils literal notranslate"><span class="pre">bill_cards</span></code>, like:</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="step-2-pick-out-information-from-each-bill-card">
+<h1>step 2: pick out information from each bill card<a class="headerlink" href="#step-2-pick-out-information-from-each-bill-card" title="Permalink to this heading">#</a></h1>
+<p>Everything that we need is contained within the object, <code class="docutils literal notranslate"><span class="pre">bill_cards</span></code>. Now, we use the inspector to get the elements and attributes for the items within <code class="docutils literal notranslate"><span class="pre">bill_cards</span></code>, like:</p>
 <ul class="simple">
 <li><p>bill title</p></li>
 <li><p>bill category</p></li>
@@ -547,11 +550,9 @@ document.write(`
 </div>
 </div>
 </div>
-<section id="looping-through-data">
-<h2>looping through data<a class="headerlink" href="#looping-through-data" title="Permalink to this heading">#</a></h2>
-<p>Now, we will write a loop. A loop will go through each item in a list, for example, a list of <code class="docutils literal notranslate"><span class="pre">bill_cards</span></code>
-and do something to each item from the list, like grab another piece of data inside of it. (Read more about <a class="reference internal" href="../intro/loops.html"><span class="doc std std-doc">loops in the intro workshop</span></a>). Our loop will goes through each bill card, one by one, and pull out the title, description, category, and link.</p>
-<p>Here, I will be using the process of writing “pseudo-code,” a kind of cross between normal language and coding language, in comments. This process will help me work out how to write the actual code in Python.</p>
+<p>Because we now have the code for the relevant HTML elements, we will now extract them and save them. To do that, we will write a loop that goes through each item in our <code class="docutils literal notranslate"><span class="pre">bill_cards</span></code>, gets the relevant HTML element, and saves it to a variable. Our loop will goes through each bill card, one by one, and pull out the title, description, category, and link.</p>
+<p><em>Note: loops are ways of programmatically going through a dataset and doing something to each item in the dataset, like extracting it. Read more about <a class="reference internal" href="../intro/loops.html"><span class="doc std std-doc">loops in the intro workshop</span></a></em></p>
+<p>Below, I will be explaining the code logic in by writing it out in “pseudo-code” in the comments. Pseudo-code is a cross between normal language and programming language, that is useful for explaining and working out how to write the actual programming code in Python.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for each card in bill_cards:</span>
@@ -566,9 +567,9 @@ and do something to each item from the list, like grab another piece of data ins
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># does this for just the first 10 items to check that it&#39;s working</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># runs the loop on the bill cards</span>
 
-<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">bill_cards</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">bill_cards</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span> <span class="c1"># only the first ten cards, just to check if it is working</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">h3</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="c1"># title</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">h2</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="c1"># caption</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="c1"># category</span>
@@ -632,12 +633,10 @@ OTHER
 </div>
 </div>
 </div>
+<p>It worked! Now, the next step is to assign a variable for each item. This allows us to save the data to the variable name, and later, to add it to a list.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># next steps: </span>
-<span class="c1"># assign a variable for each item. </span>
-
-<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">bill_cards</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">bill_cards</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>
     <span class="n">title</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">h3</span><span class="o">.</span><span class="n">text</span>
     <span class="n">caption</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">h2</span><span class="o">.</span><span class="n">text</span>
     <span class="n">category</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
@@ -662,11 +661,10 @@ AR SB43 To Add Certain Restrictions To An Adult-oriented Performance; And To Def
 </div>
 </div>
 </div>
+<p>It works! Now let’s save it to lists.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># it works! Now let&#39;s save it to lists (which we will later save as columns inside a csv)</span>
-
-<span class="c1"># a bunch of empty lists where we will dump our data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># a bunch of empty lists where we will dump our data</span>
 <span class="n">titles</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">captions</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">categories</span> <span class="o">=</span> <span class="p">[]</span>
@@ -688,21 +686,18 @@ AR SB43 To Add Certain Restrictions To An Adult-oriented Performance; And To Def
 </div>
 </div>
 </div>
-</section>
-<section id="split-ing-the-bill-title">
-<h2><code class="docutils literal notranslate"><span class="pre">split()</span></code>ing the bill title<a class="headerlink" href="#split-ing-the-bill-title" title="Permalink to this heading">#</a></h2>
+<section id="step-3-processing-information-about-the-bills">
+<h2>step 3: processing information about the bills<a class="headerlink" href="#step-3-processing-information-about-the-bills" title="Permalink to this heading">#</a></h2>
+<p>Before adding saving our dataset to a spreadsheet, we are going to do a bit more data processing and gathering. This will enable us to make a more robust dataset at the end. Here, we are going to do two things:</p>
+<ol class="arabic simple">
+<li><p>split the title column into state and title</p></li>
+<li><p>get the link directly to the bill page on LegiScan</p></li>
+</ol>
+<p>Like the previous sections, I’m going to use comments to write some pseudo-code that separates out the steps of the larger task. This is good practice for all programmers.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># now let&#39;s do more complicated things to our data. We will:</span>
-<span class="c1"># 1 - split the title column into state and title</span>
-<span class="c1"># 2 - get the link directly to the bill page on LegiScan</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># splitting the title cell into state, title </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># first, we will split the bill name into two variables, state and title </span>
+<span class="c1"># this will make things more clean when we add it to our spreadsheet</span>
 
 <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">bill_cards</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>
     <span class="n">state</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">h3</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
@@ -725,20 +720,15 @@ AR SB43
 </div>
 </div>
 </div>
-</section>
-<section id="getting-the-link-to-state-bill">
-<h2>getting the link to state bill<a class="headerlink" href="#getting-the-link-to-state-bill" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## make a list of URLs to go to</span>
-<span class="c1">## for each URL, make a soup.</span>
-<span class="c1">## for each soup, get the link to the state bill</span>
-<span class="c1">## add the link to the spreadsheet</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## now, we will get the link to state bill, in the following steps:</span>
 
-<span class="c1"># I want it to loop through each card item on this page, then</span>
-<span class="c1"># when it gets to the link part, I want it to go into that page</span>
-<span class="c1"># and grab the data from there. </span>
-<span class="c1"># I just need to append a column, don&#39;t I? </span>
+<span class="c1">## first, make a list of URLs:</span>
+<span class="c1">## then, for each URL, make a soup.</span>
+<span class="c1">## then, for each soup, get the link to the state bill, called &quot;extension&quot;</span>
+<span class="c1">## then, add the link extension to the root, saving it as &quot;urls&quot;</span>
+<span class="c1">## finally, add the urls to a new list, called &quot;legiscan links&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -811,193 +801,6 @@ https://translegislation.com//bills/2023/AR/SB43
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">20</span><span class="p">],</span> <span class="n">line</span> <span class="mi">6</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">soups</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">:</span>
-<span class="ne">----&gt; </span><span class="mi">6</span>     <span class="n">site</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">html_code</span> <span class="o">=</span> <span class="n">site</span><span class="o">.</span><span class="n">content</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html_code</span><span class="p">,</span> <span class="s1">&#39;lxml&#39;</span><span class="p">)</span>
-
-<span class="nn">File ~/anaconda3/lib/python3.11/site-packages/requests/api.py:73,</span> in <span class="ni">get</span><span class="nt">(url, params, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">62</span> <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="g g-Whitespace">     </span><span class="mi">63</span><span class="w">     </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Sends a GET request.</span>
-<span class="g g-Whitespace">     </span><span class="mi">64</span><span class="sd"> </span>
-<span class="g g-Whitespace">     </span><span class="mi">65</span><span class="sd">     :param url: URL for the new :class:`Request` object.</span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">     </span><span class="mi">70</span><span class="sd">     :rtype: requests.Response</span>
-<span class="g g-Whitespace">     </span><span class="mi">71</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">---&gt; </span><span class="mi">73</span>     <span class="k">return</span> <span class="n">request</span><span class="p">(</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File ~/anaconda3/lib/python3.11/site-packages/requests/api.py:59,</span> in <span class="ni">request</span><span class="nt">(method, url, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">55</span> <span class="c1"># By using the &#39;with&#39; statement we are sure the session is closed, thus we</span>
-<span class="g g-Whitespace">     </span><span class="mi">56</span> <span class="c1"># avoid leaving sockets open which can trigger a ResourceWarning in some</span>
-<span class="g g-Whitespace">     </span><span class="mi">57</span> <span class="c1"># cases, and look like a memory leak in others.</span>
-<span class="g g-Whitespace">     </span><span class="mi">58</span> <span class="k">with</span> <span class="n">sessions</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">59</span>     <span class="k">return</span> <span class="n">session</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File ~/anaconda3/lib/python3.11/site-packages/requests/sessions.py:589,</span> in <span class="ni">Session.request</span><span class="nt">(self, method, url, params, data, headers, cookies, files, auth, timeout, allow_redirects, proxies, hooks, stream, verify, cert, json)</span>
-<span class="g g-Whitespace">    </span><span class="mi">584</span> <span class="n">send_kwargs</span> <span class="o">=</span> <span class="p">{</span>
-<span class="g g-Whitespace">    </span><span class="mi">585</span>     <span class="s2">&quot;timeout&quot;</span><span class="p">:</span> <span class="n">timeout</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">586</span>     <span class="s2">&quot;allow_redirects&quot;</span><span class="p">:</span> <span class="n">allow_redirects</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">587</span> <span class="p">}</span>
-<span class="g g-Whitespace">    </span><span class="mi">588</span> <span class="n">send_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">589</span> <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">prep</span><span class="p">,</span> <span class="o">**</span><span class="n">send_kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">591</span> <span class="k">return</span> <span class="n">resp</span>
-
-<span class="nn">File ~/anaconda3/lib/python3.11/site-packages/requests/sessions.py:703,</span> in <span class="ni">Session.send</span><span class="nt">(self, request, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">700</span> <span class="n">start</span> <span class="o">=</span> <span class="n">preferred_clock</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">702</span> <span class="c1"># Send the request</span>
-<span class="ne">--&gt; </span><span class="mi">703</span> <span class="n">r</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">705</span> <span class="c1"># Total elapsed time of the request (approximately)</span>
-<span class="g g-Whitespace">    </span><span class="mi">706</span> <span class="n">elapsed</span> <span class="o">=</span> <span class="n">preferred_clock</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
-
-<span class="nn">File ~/anaconda3/lib/python3.11/site-packages/requests/adapters.py:486,</span> in <span class="ni">HTTPAdapter.send</span><span class="nt">(self, request, stream, timeout, verify, cert, proxies)</span>
-<span class="g g-Whitespace">    </span><span class="mi">483</span>     <span class="n">timeout</span> <span class="o">=</span> <span class="n">TimeoutSauce</span><span class="p">(</span><span class="n">connect</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">read</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">485</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">486</span>     <span class="n">resp</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">487</span>         <span class="n">method</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">488</span>         <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">489</span>         <span class="n">body</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">490</span>         <span class="n">headers</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">491</span>         <span class="n">redirect</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">492</span>         <span class="n">assert_same_host</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">493</span>         <span class="n">preload_content</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">494</span>         <span class="n">decode_content</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">495</span>         <span class="n">retries</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_retries</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">496</span>         <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">497</span>         <span class="n">chunked</span><span class="o">=</span><span class="n">chunked</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">498</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">500</span> <span class="k">except</span> <span class="p">(</span><span class="n">ProtocolError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">)</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">501</span>     <span class="k">raise</span> <span class="ne">ConnectionError</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">)</span>
-
-<span class="nn">File ~/anaconda3/lib/python3.11/site-packages/urllib3/connectionpool.py:714,</span> in <span class="ni">HTTPConnectionPool.urlopen</span><span class="nt">(self, method, url, body, headers, retries, redirect, assert_same_host, timeout, pool_timeout, release_conn, chunked, body_pos, **response_kw)</span>
-<span class="g g-Whitespace">    </span><span class="mi">711</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_proxy</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">713</span> <span class="c1"># Make the request on the httplib connection object.</span>
-<span class="ne">--&gt; </span><span class="mi">714</span> <span class="n">httplib_response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">715</span>     <span class="n">conn</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">716</span>     <span class="n">method</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">717</span>     <span class="n">url</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">718</span>     <span class="n">timeout</span><span class="o">=</span><span class="n">timeout_obj</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">719</span>     <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">720</span>     <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">721</span>     <span class="n">chunked</span><span class="o">=</span><span class="n">chunked</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">722</span> <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">724</span> <span class="c1"># If we&#39;re going to release the connection in ``finally:``, then</span>
-<span class="g g-Whitespace">    </span><span class="mi">725</span> <span class="c1"># the response doesn&#39;t need to know about the connection. Otherwise</span>
-<span class="g g-Whitespace">    </span><span class="mi">726</span> <span class="c1"># it will also try to release it and we&#39;ll have a double-release</span>
-<span class="g g-Whitespace">    </span><span class="mi">727</span> <span class="c1"># mess.</span>
-<span class="g g-Whitespace">    </span><span class="mi">728</span> <span class="n">response_conn</span> <span class="o">=</span> <span class="n">conn</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">release_conn</span> <span class="k">else</span> <span class="kc">None</span>
-
-<span class="nn">File ~/anaconda3/lib/python3.11/site-packages/urllib3/connectionpool.py:403,</span> in <span class="ni">HTTPConnectionPool._make_request</span><span class="nt">(self, conn, method, url, timeout, chunked, **httplib_request_kw)</span>
-<span class="g g-Whitespace">    </span><span class="mi">401</span> <span class="c1"># Trigger any extra validation we need to do.</span>
-<span class="g g-Whitespace">    </span><span class="mi">402</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">403</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_validate_conn</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">404</span> <span class="k">except</span> <span class="p">(</span><span class="n">SocketTimeout</span><span class="p">,</span> <span class="n">BaseSSLError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">405</span>     <span class="c1"># Py2 raises this as a BaseSSLError, Py3 raises it as socket timeout.</span>
-<span class="g g-Whitespace">    </span><span class="mi">406</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_raise_timeout</span><span class="p">(</span><span class="n">err</span><span class="o">=</span><span class="n">e</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">timeout_value</span><span class="o">=</span><span class="n">conn</span><span class="o">.</span><span class="n">timeout</span><span class="p">)</span>
-
-<span class="nn">File ~/anaconda3/lib/python3.11/site-packages/urllib3/connectionpool.py:1053,</span> in <span class="ni">HTTPSConnectionPool._validate_conn</span><span class="nt">(self, conn)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1051</span> <span class="c1"># Force connect early to allow us to validate the connection.</span>
-<span class="g g-Whitespace">   </span><span class="mi">1052</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="s2">&quot;sock&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>  <span class="c1"># AppEngine might not have  `.sock`</span>
-<span class="ne">-&gt; </span><span class="mi">1053</span>     <span class="n">conn</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1055</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">conn</span><span class="o">.</span><span class="n">is_verified</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1056</span>     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1057</span>         <span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1058</span>             <span class="s2">&quot;Unverified HTTPS request is being made to host &#39;</span><span class="si">%s</span><span class="s2">&#39;. &quot;</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1063</span>         <span class="n">InsecureRequestWarning</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1064</span>     <span class="p">)</span>
-
-<span class="nn">File ~/anaconda3/lib/python3.11/site-packages/urllib3/connection.py:419,</span> in <span class="ni">HTTPSConnection.connect</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">410</span> <span class="k">if</span> <span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">411</span>     <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ca_certs</span>
-<span class="g g-Whitespace">    </span><span class="mi">412</span>     <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ca_cert_dir</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">415</span>     <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s2">&quot;load_default_certs&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">416</span> <span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">417</span>     <span class="n">context</span><span class="o">.</span><span class="n">load_default_certs</span><span class="p">()</span>
-<span class="ne">--&gt; </span><span class="mi">419</span> <span class="bp">self</span><span class="o">.</span><span class="n">sock</span> <span class="o">=</span> <span class="n">ssl_wrap_socket</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">420</span>     <span class="n">sock</span><span class="o">=</span><span class="n">conn</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">421</span>     <span class="n">keyfile</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">key_file</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">422</span>     <span class="n">certfile</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cert_file</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">423</span>     <span class="n">key_password</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">key_password</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">424</span>     <span class="n">ca_certs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ca_certs</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">425</span>     <span class="n">ca_cert_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ca_cert_dir</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">426</span>     <span class="n">ca_cert_data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ca_cert_data</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">427</span>     <span class="n">server_hostname</span><span class="o">=</span><span class="n">server_hostname</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">428</span>     <span class="n">ssl_context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">429</span>     <span class="n">tls_in_tls</span><span class="o">=</span><span class="n">tls_in_tls</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">430</span> <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">432</span> <span class="c1"># If we&#39;re using all defaults and the connection</span>
-<span class="g g-Whitespace">    </span><span class="mi">433</span> <span class="c1"># is TLSv1 or TLSv1.1 we throw a DeprecationWarning</span>
-<span class="g g-Whitespace">    </span><span class="mi">434</span> <span class="c1"># for the host.</span>
-<span class="g g-Whitespace">    </span><span class="mi">435</span> <span class="k">if</span> <span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">436</span>     <span class="n">default_ssl_context</span>
-<span class="g g-Whitespace">    </span><span class="mi">437</span>     <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ssl_version</span> <span class="ow">is</span> <span class="kc">None</span>
-<span class="g g-Whitespace">    </span><span class="mi">438</span>     <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sock</span><span class="p">,</span> <span class="s2">&quot;version&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">439</span>     <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">sock</span><span class="o">.</span><span class="n">version</span><span class="p">()</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;TLSv1&quot;</span><span class="p">,</span> <span class="s2">&quot;TLSv1.1&quot;</span><span class="p">}</span>
-<span class="g g-Whitespace">    </span><span class="mi">440</span> <span class="p">):</span>
-
-<span class="nn">File ~/anaconda3/lib/python3.11/site-packages/urllib3/util/ssl_.py:449,</span> in <span class="ni">ssl_wrap_socket</span><span class="nt">(sock, keyfile, certfile, cert_reqs, ca_certs, server_hostname, ssl_version, ciphers, ssl_context, ca_cert_dir, key_password, ca_cert_data, tls_in_tls)</span>
-<span class="g g-Whitespace">    </span><span class="mi">437</span>     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">438</span>         <span class="s2">&quot;An HTTPS request has been made, but the SNI (Server Name &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">439</span>         <span class="s2">&quot;Indication) extension to TLS is not available on this platform. &quot;</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">445</span>         <span class="n">SNIMissingWarning</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">446</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">448</span> <span class="k">if</span> <span class="n">send_sni</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">449</span>     <span class="n">ssl_sock</span> <span class="o">=</span> <span class="n">_ssl_wrap_socket_impl</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">450</span>         <span class="n">sock</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">tls_in_tls</span><span class="p">,</span> <span class="n">server_hostname</span><span class="o">=</span><span class="n">server_hostname</span>
-<span class="g g-Whitespace">    </span><span class="mi">451</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">452</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">453</span>     <span class="n">ssl_sock</span> <span class="o">=</span> <span class="n">_ssl_wrap_socket_impl</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">tls_in_tls</span><span class="p">)</span>
-
-<span class="nn">File ~/anaconda3/lib/python3.11/site-packages/urllib3/util/ssl_.py:493,</span> in <span class="ni">_ssl_wrap_socket_impl</span><span class="nt">(sock, ssl_context, tls_in_tls, server_hostname)</span>
-<span class="g g-Whitespace">    </span><span class="mi">490</span>     <span class="k">return</span> <span class="n">SSLTransport</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">ssl_context</span><span class="p">,</span> <span class="n">server_hostname</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">492</span> <span class="k">if</span> <span class="n">server_hostname</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">493</span>     <span class="k">return</span> <span class="n">ssl_context</span><span class="o">.</span><span class="n">wrap_socket</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">server_hostname</span><span class="o">=</span><span class="n">server_hostname</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">494</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">495</span>     <span class="k">return</span> <span class="n">ssl_context</span><span class="o">.</span><span class="n">wrap_socket</span><span class="p">(</span><span class="n">sock</span><span class="p">)</span>
-
-<span class="nn">File ~/anaconda3/lib/python3.11/ssl.py:517,</span> in <span class="ni">SSLContext.wrap_socket</span><span class="nt">(self, sock, server_side, do_handshake_on_connect, suppress_ragged_eofs, server_hostname, session)</span>
-<span class="g g-Whitespace">    </span><span class="mi">511</span> <span class="k">def</span> <span class="nf">wrap_socket</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sock</span><span class="p">,</span> <span class="n">server_side</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">512</span>                 <span class="n">do_handshake_on_connect</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">513</span>                 <span class="n">suppress_ragged_eofs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">514</span>                 <span class="n">server_hostname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">515</span>     <span class="c1"># SSLSocket class handles server_hostname encoding before it calls</span>
-<span class="g g-Whitespace">    </span><span class="mi">516</span>     <span class="c1"># ctx._wrap_socket()</span>
-<span class="ne">--&gt; </span><span class="mi">517</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sslsocket_class</span><span class="o">.</span><span class="n">_create</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">518</span>         <span class="n">sock</span><span class="o">=</span><span class="n">sock</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">519</span>         <span class="n">server_side</span><span class="o">=</span><span class="n">server_side</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">520</span>         <span class="n">do_handshake_on_connect</span><span class="o">=</span><span class="n">do_handshake_on_connect</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">521</span>         <span class="n">suppress_ragged_eofs</span><span class="o">=</span><span class="n">suppress_ragged_eofs</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">522</span>         <span class="n">server_hostname</span><span class="o">=</span><span class="n">server_hostname</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">523</span>         <span class="n">context</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">524</span>         <span class="n">session</span><span class="o">=</span><span class="n">session</span>
-<span class="g g-Whitespace">    </span><span class="mi">525</span>     <span class="p">)</span>
-
-<span class="nn">File ~/anaconda3/lib/python3.11/ssl.py:1075,</span> in <span class="ni">SSLSocket._create</span><span class="nt">(cls, sock, server_side, do_handshake_on_connect, suppress_ragged_eofs, server_hostname, context, session)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1072</span>         <span class="k">if</span> <span class="n">timeout</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1073</span>             <span class="c1"># non-blocking</span>
-<span class="g g-Whitespace">   </span><span class="mi">1074</span>             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;do_handshake_on_connect should not be specified for non-blocking sockets&quot;</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1075</span>         <span class="bp">self</span><span class="o">.</span><span class="n">do_handshake</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1076</span> <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">1077</span>     <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-<span class="nn">File ~/anaconda3/lib/python3.11/ssl.py:1346,</span> in <span class="ni">SSLSocket.do_handshake</span><span class="nt">(self, block)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1344</span>     <span class="k">if</span> <span class="n">timeout</span> <span class="o">==</span> <span class="mf">0.0</span> <span class="ow">and</span> <span class="n">block</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1345</span>         <span class="bp">self</span><span class="o">.</span><span class="n">settimeout</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1346</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_sslobj</span><span class="o">.</span><span class="n">do_handshake</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1347</span> <span class="k">finally</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1348</span>     <span class="bp">self</span><span class="o">.</span><span class="n">settimeout</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span>
-
-<span class="ne">KeyboardInterrupt</span>: 
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1012,42 +815,52 @@ https://translegislation.com//bills/2023/AR/SB43
 </div>
 </div>
 </section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="pandas">
-<h1>pandas<a class="headerlink" href="#pandas" title="Permalink to this heading">#</a></h1>
+<section id="saving-our-data-to-a-csv">
+<h2>3. saving our data to a CSV<a class="headerlink" href="#saving-our-data-to-a-csv" title="Permalink to this heading">#</a></h2>
+<p>This is the final step. First, we will import two libraries for working with tabular data <code class="docutils literal notranslate"><span class="pre">pandas</span></code> and <code class="docutils literal notranslate"><span class="pre">csv</span></code>.</p>
+<p>Then, we will add each of our lists into the “DataFrame” (the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> term for a tabular type of object), where they will appear as separate columns. Finally, we will save our DataFrame as a .csv file.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># importing the necessary libraries</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">csv</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">states</span> <span class="o">=</span> <span class="p">[]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># creating empty lists to hold all of our data</span>
+
+<span class="n">states</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">titles</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">captions</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">categories</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">descriptions</span> <span class="o">=</span> <span class="p">[]</span>
 
+<span class="c1"># extracting the data from the bill cards</span>
 <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">bill_cards</span><span class="p">:</span>
-    <span class="n">state</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">h3</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+    <span class="n">state</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">h3</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="c1"># adding the extra step to split the bill name into state and title items</span>
     <span class="n">caption</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">h2</span><span class="o">.</span><span class="n">text</span>
     <span class="n">category</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
     <span class="n">description</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">text</span>
     
+    <span class="c1"># adding the items to the empty lists</span>
     <span class="n">states</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
     <span class="n">titles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
     <span class="n">captions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">caption</span><span class="p">)</span>
     <span class="n">categories</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">category</span><span class="p">)</span>
     <span class="n">descriptions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">description</span><span class="p">)</span>
+    <span class="c1"># remember that &quot;legiscan_links&quot; is already saved as a list, so we don&#39;t have to create it here</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># creating a dataframe, with separate columns to hold each of our lists</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
     <span class="p">{</span><span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="n">states</span><span class="p">,</span>
      <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="n">titles</span><span class="p">,</span>
      <span class="s1">&#39;caption&#39;</span><span class="p">:</span> <span class="n">captions</span><span class="p">,</span>
@@ -1061,7 +874,9 @@ https://translegislation.com//bills/2023/AR/SB43
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># checking the first 5 lines of the dataframe</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1144,11 +959,16 @@ https://translegislation.com//bills/2023/AR/SB43
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;bill_data.csv&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># saving the dataframe as a csv file</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;bill_data.csv&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>And that’s all! We now have a .csv file containing the data we’ve scraped from the <code class="docutils literal notranslate"><span class="pre">translegislation.com</span></code> website. Well done!</p>
+<p>In the next workshop, we will look at analyzing the plain text from some of these bills, which we will access through the <code class="docutils literal notranslate"><span class="pre">congress.gov</span></code> website.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1215,12 +1035,14 @@ https://translegislation.com//bills/2023/AR/SB43
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">scraping with <code class="docutils literal notranslate"><span class="pre">bs4</span></code></a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#looping-through-data">looping through data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#split-ing-the-bill-title"><code class="docutils literal notranslate"><span class="pre">split()</span></code>ing the bill title</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-the-link-to-state-bill">getting the link to state bill</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-isolate-the-bill-cards-data-from-the-rest-of-the-page">step 1: isolate the bill cards data from the rest of the page</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas">pandas</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-pick-out-information-from-each-bill-card">step 2: pick out information from each bill card</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-processing-information-about-the-bills">step 3: processing information about the bills</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-our-data-to-a-csv">3. saving our data to a CSV</a></li>
+</ul>
+</li>
 </ul>
 
   </nav></div>
