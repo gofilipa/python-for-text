@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'clean/dataframes';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="scraping our bill text" href="scrape.html" />
+    <link rel="next" title="scraping our text" href="scrape.html" />
     <link rel="prev" title="workshop overview" href="overview.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -196,7 +196,8 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">workshop overview</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">dataframes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scrape.html">scraping our bill text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scrape.html">scraping our text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cleaning.html">cleaning our text</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">analyzing text</span></p>
 <ul class="nav bd-sidenav">
@@ -406,6 +407,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-dataframe-object">What is a <code class="docutils literal notranslate"><span class="pre">dataframe</span></code> object?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#viewing-data-info-head-tail">viewing data: <code class="docutils literal notranslate"><span class="pre">info()</span></code> <code class="docutils literal notranslate"><span class="pre">head()</span></code> <code class="docutils literal notranslate"><span class="pre">tail()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleaning-rows-columns-dropna-notna-drop">cleaning rows &amp; columns: <code class="docutils literal notranslate"><span class="pre">dropna()</span></code> <code class="docutils literal notranslate"><span class="pre">.notna()</span></code> <code class="docutils literal notranslate"><span class="pre">drop()</span></code></a></li>
 </ul>
@@ -423,8 +425,9 @@ document.write(`
 <h1>dataframes<a class="headerlink" href="#dataframes" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> <span class="c1"># for working with tabular (spreadsheet) data</span>
-<span class="kn">import</span> <span class="nn">requests</span> <span class="c1"># for loading up the dataset from github</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import the pandas library for working with tabular (spreadsheet) data</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </pre></div>
 </div>
 </div>
@@ -437,7 +440,7 @@ document.write(`
 <span class="c1"># below, and upload it to your google colab space</span>
 <span class="c1"># https://bit.ly/congress_csv</span>
 
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://bit.ly/congress_dirty_csv&#39;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://bit.ly/transgender_raw_data&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -762,12 +765,104 @@ document.write(`
 <p>286 rows × 650 columns</p>
 </div></div></div>
 </div>
-<p>What is a <code class="docutils literal notranslate"><span class="pre">dataframe</span></code> object?</p>
+<section id="what-is-a-dataframe-object">
+<h2>What is a <code class="docutils literal notranslate"><span class="pre">dataframe</span></code> object?<a class="headerlink" href="#what-is-a-dataframe-object" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>tabular format</p></li>
-<li><p>dictionary structure</p></li>
-<li><p>key:value pairs</p></li>
+<li><p>dictionary structure, with a particular syntax for accessing elements</p>
+<ul>
+<li><p>key-value pairs</p></li>
+<li><p>df[‘column’]</p></li>
 </ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filipa</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;filipa&#39;</span><span class="p">,</span> <span class="s1">&#39;da gama&#39;</span><span class="p">,</span> <span class="s1">&#39;calado&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="mi">34</span><span class="p">,</span>
+    <span class="s1">&#39;degree&#39;</span><span class="p">:</span> <span class="s1">&#39;literature&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;job&#39;</span><span class="p">:</span> <span class="s1">&#39;digital scholarship specialist&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">filipa</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filipa</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;filipa&#39;, &#39;da gama&#39;, &#39;calado&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filipa</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>34
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filipa</span><span class="p">[</span><span class="s1">&#39;job&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;digital scholarship specialist&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># within a DF is a Series, a list type of object. Use list indexing to pull out items</span>
+
+<span class="n">filipa</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;filipa&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filipa</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;calado&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 <section id="viewing-data-info-head-tail">
 <h2>viewing data: <code class="docutils literal notranslate"><span class="pre">info()</span></code> <code class="docutils literal notranslate"><span class="pre">head()</span></code> <code class="docutils literal notranslate"><span class="pre">tail()</span></code><a class="headerlink" href="#viewing-data-info-head-tail" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
@@ -1134,6 +1229,30 @@ memory usage: 1.4+ MB
 <p>5 rows × 650 columns</p>
 </div></div></div>
 </div>
+<p>We can also explore columns using the dictionary syntax to access each column</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Date of Introduction&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0       2/21/23
+1       2/15/23
+2      11/21/23
+3      11/15/23
+4       3/30/23
+         ...   
+281         NaN
+282         NaN
+283         NaN
+284         NaN
+285         NaN
+Name: Date of Introduction, Length: 286, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="cleaning-rows-columns-dropna-notna-drop">
 <h2>cleaning rows &amp; columns: <code class="docutils literal notranslate"><span class="pre">dropna()</span></code> <code class="docutils literal notranslate"><span class="pre">.notna()</span></code> <code class="docutils literal notranslate"><span class="pre">drop()</span></code><a class="headerlink" href="#cleaning-rows-columns-dropna-notna-drop" title="Link to this heading">#</a></h2>
@@ -1196,7 +1315,184 @@ memory usage: 1.4+ MB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># we still have the same size</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># check the tail. There are still some values there.</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Legislation Number</th>
+      <th>URL</th>
+      <th>Congress</th>
+      <th>Title</th>
+      <th>Sponsor</th>
+      <th>Party of Sponsor</th>
+      <th>Date of Introduction</th>
+      <th>Committees</th>
+      <th>Latest Action</th>
+      <th>Latest Action Date</th>
+      <th>...</th>
+      <th>Related Bill.211</th>
+      <th>Related Bill.212</th>
+      <th>Related Bill.213</th>
+      <th>Latest Summary</th>
+      <th>Amends Bill</th>
+      <th>Date Offered</th>
+      <th>Date Submitted</th>
+      <th>Date Proposed</th>
+      <th>Amendment Text (Latest)</th>
+      <th>Amends Amendment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>281</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>I welcome that discussion.\n  Mr. Chair, I yie...</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>282</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>biotechnology equipment or service produced or...</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>283</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>United States assistance has \n     been provi...</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>284</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Director of National Intelligence, shall submi...</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>285</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>demanded.\n  A recorded vote was ordered.\n  T...</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 650 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># check df info. We still have the same number of entries (rows)</span>
+
 <span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1213,7 +1509,7 @@ memory usage: 1.4+ MB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># dropping by a specific column</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># try isolating a column, dropping a row if it has any NaN within</span>
 <span class="c1"># uses syntax for accessing columns from DF</span>
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Legislation Number&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()]</span>
@@ -1448,7 +1744,8 @@ memory usage: 752.7+ KB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># it worked! let&#39;s do the rest</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We are down to about 400. let&#39;s do the rest</span>
+
 <span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1465,7 +1762,9 @@ memory usage: 503.0+ KB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># see there is no ellipses anymore on the column headers</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1637,6 +1936,7 @@ memory usage: 503.0+ KB
 <p>5 rows × 434 columns</p>
 </div></div></div>
 </div>
+<p>How would we get rid of the rest of the columns that are mostly NaN?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
@@ -1661,180 +1961,6 @@ memory usage: 269.4+ KB
 </pre></div>
 </div>
 </div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Legislation Number</th>
-      <th>URL</th>
-      <th>Congress</th>
-      <th>Title</th>
-      <th>Sponsor</th>
-      <th>Party of Sponsor</th>
-      <th>Date of Introduction</th>
-      <th>Committees</th>
-      <th>Latest Action</th>
-      <th>Latest Action Date</th>
-      <th>...</th>
-      <th>Related Bill.211</th>
-      <th>Related Bill.212</th>
-      <th>Related Bill.213</th>
-      <th>Latest Summary</th>
-      <th>Amends Bill</th>
-      <th>Date Offered</th>
-      <th>Date Submitted</th>
-      <th>Date Proposed</th>
-      <th>Amendment Text (Latest)</th>
-      <th>Amends Amendment</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>H.R. 1112</td>
-      <td>https://www.congress.gov/bill/118th-congress/h...</td>
-      <td>118th Congress (2023-2024)</td>
-      <td>Ensuring Military Readiness Act of 2023</td>
-      <td>Banks, Jim [Rep.-R-IN-3]</td>
-      <td>Republican</td>
-      <td>2/21/23</td>
-      <td>House - Armed Services</td>
-      <td>Referred to the House Committee on Armed Servi...</td>
-      <td>2/21/23</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>&lt;p&gt;&lt;b&gt;Ensuring Military Readiness Act of 2023...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>S. 435</td>
-      <td>https://www.congress.gov/bill/118th-congress/s...</td>
-      <td>118th Congress (2023-2024)</td>
-      <td>Ensuring Military Readiness Act of 2023</td>
-      <td>Rubio, Marco [Sen.-R-FL]</td>
-      <td>Republican</td>
-      <td>2/15/23</td>
-      <td>Senate - Armed Services</td>
-      <td>Read twice and referred to the Committee on Ar...</td>
-      <td>2/15/23</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>&lt;p&gt;&lt;b&gt;Ensuring Military Readiness Act of 2023...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>H.Res. 886</td>
-      <td>https://www.congress.gov/bill/118th-congress/h...</td>
-      <td>118th Congress (2023-2024)</td>
-      <td>Supporting the goals and principles of Transge...</td>
-      <td>Jayapal, Pramila [Rep.-D-WA-7]</td>
-      <td>Democratic</td>
-      <td>11/21/23</td>
-      <td>House - Judiciary</td>
-      <td>Referred to the House Committee on the Judiciary.</td>
-      <td>11/21/23</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>&lt;p&gt;This resolution expresses support for the ...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>S.Res. 464</td>
-      <td>https://www.congress.gov/bill/118th-congress/s...</td>
-      <td>118th Congress (2023-2024)</td>
-      <td>A resolution supporting the goals and principl...</td>
-      <td>Hirono, Mazie K. [Sen.-D-HI]</td>
-      <td>Democratic</td>
-      <td>11/15/23</td>
-      <td>Senate - Judiciary</td>
-      <td>Star Print ordered on resolution.</td>
-      <td>12/4/23</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>&lt;p&gt;This resolution expresses support for the ...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>H.Res. 269</td>
-      <td>https://www.congress.gov/bill/118th-congress/h...</td>
-      <td>118th Congress (2023-2024)</td>
-      <td>Recognizing that it is the duty of the Federal...</td>
-      <td>Jayapal, Pramila [Rep.-D-WA-7]</td>
-      <td>Democratic</td>
-      <td>3/30/23</td>
-      <td>House - Judiciary, Education and the Workforce...</td>
-      <td>Sponsor introductory remarks on measure. (CR H...</td>
-      <td>4/19/23</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>&lt;p&gt;This resolution expresses support for impl...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 232 columns</p>
-</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1935,7 +2061,7 @@ memory usage: 20.8+ KB
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">scraping our bill text</p>
+        <p class="prev-next-title">scraping our text</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1954,6 +2080,7 @@ memory usage: 20.8+ KB
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-dataframe-object">What is a <code class="docutils literal notranslate"><span class="pre">dataframe</span></code> object?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#viewing-data-info-head-tail">viewing data: <code class="docutils literal notranslate"><span class="pre">info()</span></code> <code class="docutils literal notranslate"><span class="pre">head()</span></code> <code class="docutils literal notranslate"><span class="pre">tail()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleaning-rows-columns-dropna-notna-drop">cleaning rows &amp; columns: <code class="docutils literal notranslate"><span class="pre">dropna()</span></code> <code class="docutils literal notranslate"><span class="pre">.notna()</span></code> <code class="docutils literal notranslate"><span class="pre">drop()</span></code></a></li>
 </ul>
