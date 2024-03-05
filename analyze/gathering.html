@@ -1,0 +1,652 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>gathering data: web scraping &#8212; Python for Working with Text</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script src="../_static/documentation_options.js?v=c73c0f3e"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'analyze/gathering';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="the spaCy pipeline" href="processing.html" />
+    <link rel="prev" title="research questions: defining gender" href="questions.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    “Intro to Python for Working with Text” workshop series
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">intro to python</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../intro/overview.html">workshop overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/script.html">opening challenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/data-types.html">data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/variables.html">variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/lists.html">lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/loops.html">loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/logic.html">logic</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">scraping text</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../scrape/overview.html">workshop overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scrape/what.html">what is web scraping?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scrape/ethics.html">what is ethical? what is legal?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scrape/inspector.html">the HTML Inspector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scrape/explore.html">exploring <code class="docutils literal notranslate"><span class="pre">bs4</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scrape/scrape.html">scraping with <code class="docutils literal notranslate"><span class="pre">bs4</span></code></a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../scrape/legiscan_api.html">Legiscan API</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">cleaning text</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../clean/overview.html">workshop overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../clean/dataframes.html">dataframes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../clean/scrape.html">scraping our bill text</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">analyzing text</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">workshop overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="what.html">what is text analysis?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="questions.html">research questions: defining gender</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">gathering data: web scraping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing.html">the <code class="docutils literal notranslate"><span class="pre">spaCy</span></code> pipeline</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="phrases.html">the <code class="docutils literal notranslate"><span class="pre">PhraseMatcher</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="entities.html">the <code class="docutils literal notranslate"><span class="pre">Entity-Ruler</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="tokens.html">the token <code class="docutils literal notranslate"><span class="pre">Matcher</span></code></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">generating text</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../generate/soon.html">coming soon!</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fanalyze/gathering.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/analyze/gathering.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>gathering data: web scraping</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anti-trans-legislation">anti-trans legislation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#web-scraping">web scraping</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="gathering-data-web-scraping">
+<h1>gathering data: web scraping<a class="headerlink" href="#gathering-data-web-scraping" title="Link to this heading">#</a></h1>
+<p>Researchers generally only share the analysis they have done <em>after</em> they got the data, which makes it hard for beginners to replicate the process. For that reason, I’m showing the data gathering process, which involves complicated steps like using APIs (or, if APIs fail to work, web scraping) and cleaning the resulting data.</p>
+<p>This section outlines this often invisible and challenging data gathering process. It begins with an overview of the topic, the anti-trans legislation. Then, it explains the code I used to download bill data from <code class="docutils literal notranslate"><span class="pre">congress.gov</span></code> and scrape the text of the individual bills. Finally, it demonstrates how I cleaned extraneous information from the text, like formatting, some punctuation, and blank spaces.</p>
+<section id="anti-trans-legislation">
+<h2>anti-trans legislation<a class="headerlink" href="#anti-trans-legislation" title="Link to this heading">#</a></h2>
+<p>Over the past several years, there has been a dramatic increase in “anti-trans legislation,” that is, legislation that limits trans peoples’ rights. According to the <a class="reference external" href="https://translegislation.com/">Trans Legislation Tracker</a>, in just one month in 2023 (the year of this writing), “the U.S. doubled the number of anti-trans bills being considered across the country from the previous year.”</p>
+<p>Many of these bills block access to healthcare that is gender-affirming and to public places and activities, like the “bathroom bans,” the bans in sports, and the bans on expressing gender identity in school. The explosion of bills across the country not only codifies discrimination, but also reflects a worrying trend about how the general public views trans peoples’ existence and rights.</p>
+<p>I am interested in examining the language of the bills themselves for the assumptions they might make about sex and gender. <em>How are these terms being defined? Are they being defined as biological fact, cultural phenomena, or a mixture of both? What assumptions are being made in these definitions? How do certain perspectives exacerbate the current discrimination against trans people?</em></p>
+</section>
+<section id="web-scraping">
+<h2>web scraping<a class="headerlink" href="#web-scraping" title="Link to this heading">#</a></h2>
+<p>To ge my data, I got the bill numbers from <code class="docutils literal notranslate"><span class="pre">www.congress.gov</span></code>, then used those numbers to scrape the plain text from the <a class="reference external" href="http://congress.gov">congress.gov</a> servers. I’ll go through the whole process step-by-step.</p>
+<p>First, I got a list of the relevant bills using the regular search function on the <a class="reference external" href="http://congress.gov">congress.gov</a> website. I did a search for the term “gender,” and then downloaded the results to a spreadsheet. (Side note: the ability to download results from a search is super useful, and most websites won’t offer that functionality. I actually spent about an hour trying to figure out how to scrape the results before I even noticed the little “download” button that appears next to “save your search.” Interestingly, this button only appears after you’ve begun to put some filters on the search results. I guess that’s to discourage downloading all of the results at once. Either that, or its pretty wonky behavior!)</p>
+<p><img alt="image of congress.gov search interface" src="../_images/congress_gov.jpg" /></p>
+<p>Then, I opened up a Python notebook (like the one on this page), and used the <code class="docutils literal notranslate"><span class="pre">requests</span></code> library in Python to get the text of the bills. (FYI - I tried using the <a class="reference external" href="http://congress.gov">congress.gov</a> API first, which is always the right thing to do! But it doesn’t offer the full text of the bill. For future reference, you can request an API key here: <a class="reference external" href="https://api.congress.gov/">https://api.congress.gov/</a>)</p>
+<p>The code for grabbing bill text begins with loading the necessary libraries (like <code class="docutils literal notranslate"><span class="pre">requests</span></code>) and the spreadsheet with the search results from <a class="reference external" href="http://congress.gov">congress.gov</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># importing necessary libraries</span>
+<span class="kn">import</span> <span class="nn">requests</span> <span class="c1"># for making http (web) requests</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> <span class="c1"># for working with tabular (spreadsheet) data</span>
+<span class="kn">import</span> <span class="nn">csv</span> <span class="c1"># also for working with tabular data, in csv format</span>
+
+<span class="c1"># saving the search results from congress.gov </span>
+<span class="n">bills</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;bill_data.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># creating a &quot;dataframe&quot; in pandas (a python library for working</span>
+<span class="c1"># with spreadsheet like data</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">bills</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>At the end of the process, I have a DataFrame (that is, data in a tabular format) that looks like the following:</p>
+<p><img alt="image of csv file containing bill data" src="../_images/bills.png" /></p>
+<p>Then, I go through the spreadsheet to pull out the bill numbers, from the column all the way on the left. These numbers will be fed into a function that inserts them into the URL that will access <a class="reference external" href="http://congress.gov">congress.gov</a> servers.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">## go through each row in numbers column of our spreadsheet</span>
+<span class="c1">## extract the number and put into a separate list</span>
+<span class="n">numbers</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;number&#39;</span><span class="p">]:</span>
+    <span class="n">splitted</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">splitted</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">isnumeric</span><span class="p">():</span>
+            <span class="n">numbers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+<span class="c1"># function that contains a loop to insert bill numbers</span>
+<span class="c1"># into the URL, then to grab the content and add to a new list</span>
+<span class="k">def</span> <span class="nf">scrape_bill_text</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+    <span class="n">billz</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">:</span>
+        <span class="n">bill</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;hr</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;https://www.congress.gov/118/bills/</span><span class="si">{</span><span class="n">bill</span><span class="si">}</span><span class="s1">/BILLS-118</span><span class="si">{</span><span class="n">bill</span><span class="si">}</span><span class="s1">ih.htm&#39;</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span>
+        <span class="n">billz</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">billz</span>
+
+<span class="c1"># call the function, passing the list of numbers as parameter</span>
+<span class="n">full_text</span> <span class="o">=</span> <span class="n">scrape_bill_text</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Next, I turned the results, which is a <code class="docutils literal notranslate"><span class="pre">bytes</span></code> (or binary) object, into a <code class="docutils literal notranslate"><span class="pre">string</span></code> (or alphanumeric character) type of object, so that I could manipulate it. Then I saved the results, just so I could have a copy of them.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">strings</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">full_text</span><span class="p">:</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="n">strings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;bill_text.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">full_text</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Now, finally, I have the full text of the bills saved as a <code class="docutils literal notranslate"><span class="pre">txt</span></code> file. The text looks like the following:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&lt;html&gt;&lt;body&gt;&lt;pre&gt;\n[Congressional Bills 118th Congress]\n[From the U.S. Government </span>
+<span class="go">Publishing Office]\n[H.R. 3329 Introduced in House (IH)]\n\n&amp;lt;DOC&amp;gt;\n\n\n\n\n\n\n118th </span>
+<span class="go">CONGRESS\n  1st Session\n                                H. R. 3329\n\nTo prohibit </span>
+<span class="go">taxpayer-funded gender transition procedures, and for other \n                               </span>
+<span class="go">purposes.\n\n\n_______________________________________________________________________\n\n\n                    </span>
+<span class="go">IN THE HOUSE OF REPRESENTATIVES\n\n                              May 15, 2023\n\n  Mr. LaMalfa </span>
+<span class="go">(for himself, Mrs. Boebert, Mr. Lamborn, Mr. Gosar, Mr. \nBanks, Mr. Duncan, Mr. Babin, Mr. Rouzer, </span>
+<span class="go">Mr. Barr, Mr. Rosendale, Mr. \nWeber of Texas, Mr. Brecheen, Mr. Norman, Mrs. Miller of Illinois,</span>
+<span class="go">Mr. \n Grothman, Mr. Wilson of South Carolina, Mr. Mills, Mr. Burlison, Mr. \n   Smith of New </span>
+<span class="go">Jersey, Mr. Aderholt, Mrs. McClain, Mrs. Lesko, Mrs. \n   Harshbarger, Mr. Nehls, Mr. Kelly of </span>
+<span class="go">Mississippi, Mr. Ogles, Mr. \n Fallon, Mr. LaTurner, Mr. Davidson, Mr. Gaetz                             </span>
+</pre></div>
+</div>
+<p>The next step will be to clean the text of the html characters and other unwanted characters and whitespace.</p>
+<p>First, I load it back up. Then, I run a function to take out all of the = characters that we don’t want like <code class="docutils literal notranslate"><span class="pre">&lt;html&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">\n</span></code>, <code class="docutils literal notranslate"><span class="pre">__</span></code>, as well as any whitespaces. Finally, I save to a new text file, called <code class="docutils literal notranslate"><span class="pre">clean</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># loading up the texts that we just saved</span>
+<span class="n">load</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;bill_text.txt&#39;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">load</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">load</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="c1"># remove all the characters in the &quot;take out&quot; list by writing a</span>
+<span class="c1"># loop that replaces those characters with an empty character, &#39;&#39;</span>
+<span class="k">def</span> <span class="nf">clean_up</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="n">take_out</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;/n&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">n&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;[&#39;</span><span class="p">,</span> <span class="s1">&#39;]&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;html&gt;&lt;body&gt;&lt;pre&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;html&gt;&lt;body&gt;&lt;pre&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;  &#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">take_out</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">text</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">text</span>
+
+
+<span class="n">cleaned</span> <span class="o">=</span> <span class="n">clean_up</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># save plain to a separate text file</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;clean.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="c1"># using csv.writer method from CSV package</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">cleaned</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now the text is ready to be loaded into <code class="docutils literal notranslate"><span class="pre">spaCy</span></code>!</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./analyze"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="questions.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">research questions: defining gender</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="processing.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">the <code class="docutils literal notranslate"><span class="pre">spaCy</span></code> pipeline</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anti-trans-legislation">anti-trans legislation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#web-scraping">web scraping</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Filipa Calado
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
