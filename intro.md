@@ -1,7 +1,7 @@
 # "Intro to Python for Working with Text" workshop series
-By Filipa Calado, Princeton University
+By Filipa Calado
 
-filipa@princeton.edu 
+Pratt Institute School of Information
 
 ## Welcome to the series!
 As one of the most popular, versatile, and beginner-friendly

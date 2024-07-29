@@ -76,9 +76,17 @@ Pages](https://pages.github.com/).
 Making changes to the website is much like making changes to any
 Github repository, but with the added step of pushing the changes to a
 new Github Pages branch. Below are the steps necessary to make changes
-and update the website accordingly.
+and update the website accordingly. Please follow the steps below. 
 
-Before starting, you'll need to install jupyterbook
+Before starting, you'll need to install a few pieces of software:
+- Python (I use the [Anaconda](https://www.anaconda.com/download)
+  distribution, but any kind of Python works as long as it is a
+  version of Python 3+.
+- [Jupyter-Book](https://jupyterbook.org/en/stable/start/overview.html)
+  for building the website.
+- [Git](https://git-scm.com/downloads) versioning software for sending
+  files to a [Github](https://github.com/) server, where they will be
+  hosted. An account on Github will also be necessary.
 
 1. First, clone the repository onto your computer by typing the
    following into your command line. After that, you'll have your
@@ -124,21 +132,17 @@ Before starting, you'll need to install jupyterbook
    
 5. The final step will be another Github push, but this time to a new
    branch called `gh-pages`. Pushing to the `gh-pages` branch allows
-   us to upload the html files to a place that viewers can see them
-   rendered nicely on the browser. 
+   us to upload the html files so viewers can see them rendered nicely
+   on the browser.
    
-   To push to `gh-pages`, you will need to install ghp-import. You
-   will only need to do this once, the first time you push to
-   `gh-pages`.
+   To push to `gh-pages`, you will need to install a software package
+   called `ghp-import`. To install that package, run the code below.
+   (Note: you will only need to install the package once; every time
+   after that, you can simply push your changes.)
       
    ```console
    pip install ghp-import
    ```
-   
-   Then, you need to go to your Github repository's settings (under
-   `PULdischo/python-for-text`), and configure your repo to build from
-   the `gh-pages` branch. Select this option from the dropdown under
-   "Build and Deployment." 
    
    Finally, back on your command line, you can push your changes to
    `gh-pages` using the `ghp-import` command:
@@ -146,9 +150,19 @@ Before starting, you'll need to install jupyterbook
    ```console
    ghp-import -n -p -f _build/html
    ```
+
+6. Note: only follow this step if you are setting up a completely new
+   repository, such as on your own account. In this case, you need to
+   tell Github explicitly to create a Github pages based off the
+   `gh-pages` branch that you just pushed. Go to your Github
+   repository's settings (check the toolbar at the top of your repo),
+   select "Pages" from the tabs on the left, and configure your repo
+   to build from the `gh-pages` branch. Select this option from the
+   dropdown under "Build and Deployment."
    
 In a few minutes, your site should be visible at
-`https://PULdischo.github.io/bookname`. If you're experienceing
+`https://PULdischo.github.io/bookname`, for this repo, the link is
+https://PULdischo.github.io/python-for-text. If you're experienceing
 problems, read more about [pushing to Github
 pages](https://jupyterbook.org/en/stable/start/publish.html#publish-your-book-online-with-github-pages)
 
