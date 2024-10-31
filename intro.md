@@ -53,13 +53,6 @@ detailed description of each workshop below.
 - With the anti-trans bills data that they prepared in previous workshops, participants practice fine-tuning a small Text Generation model and learn about how to use Machine Learning for research.
 - libraries: `transformers`
 
-## Upcoming Digital Scholarship Workshops
-See more workshop offerings (including on Python) at the [Princeton University library](https://libcal.princeton.edu/calendar/). We have upcoming workshops on working with data, digital publishing, and more.
-
-Want to talk Python or another digital project or tool? Sign up for a [consultation with Digital Scholarship](https://bit.ly/ds-consults) at Princeton. 
-
-For other workshops and reference materials on computational methods at Princeton University, check out [Research Computing](https://researchcomputing.princeton.edu/).
-
 ## Sources
 This curriculum is inspired by the [Graduate Center Digital
 Initiatives](https://gcdi.commons.gc.cuny.edu/) Digital Humanities
@@ -72,6 +65,11 @@ For more instruction with Python, please see these books:
 Humanists](https://python-textbook.pythonhumanities.com/intro.html)
 - Melanie Walsh's [Introduction to Cultural Analytics &
 Python](https://melaniewalsh.github.io/Intro-Cultural-Analytics/welcome.html)
+
+All of the above workshops were first developed and piloted at the
+Princeton University Library in the 2023-2024 academic year. Thank you
+to Princeton students, faculty, and staff for their generous
+participation and suggestions.
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
 
